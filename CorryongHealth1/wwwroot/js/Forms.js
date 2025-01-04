@@ -16,10 +16,10 @@ function PopulatePage(rsltPassed)
     ctlWidths2[1] = 500;
 
 
-    var ctlHdr = [];
-    ctlHdr[0] = 'Item';
-    ctlHdr[1] = 'Question';
-    ctlHdr[2] = 'Notes';
+    //var ctlHdr = [];
+    //ctlHdr[0] = 'Item';
+    //ctlHdr[1] = 'Question';
+    //ctlHdr[2] = 'Notes';
 
 
     // var divHdr = document.getElementById('divMainContainerHdr');
