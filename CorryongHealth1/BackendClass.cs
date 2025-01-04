@@ -54,6 +54,7 @@
             public int CorryongId { get; set; } = -1;
             public string MedicareNo { get; set; } = "";
             public int FormId { get; set; } = -1;
+            public int ReportId { get; set; } = -1;
             public string FormName { get; set; } = "";
             public int SectionId { get; set; } = -1;
             public int SectionType { get; set; } = -1;
@@ -69,6 +70,7 @@
         {
             public int PatientId { get; set; } = -1;
             public int FormId { get; set; } = -1;
+            public int ReportId { get; set; } = -1;
             public int QuestionId { get; set; } = -1;
             public string FormDate { get; set; } = "";
             public double PatientResultScore { get; set; } = -1.0;
@@ -79,6 +81,13 @@
             public string PatientDataPoint3 { get; set; } = "";
             public string PatientDataPoint4 { get; set; } = "";
             public string PatientDataPoint5 { get; set; } = "";
+        }
+
+        public class QuestionSaveResultObject
+        {
+            public int iReportId { get; set; } = -1;
+            public int iQuestionId { get; set; } = -1;
+            public bool bReturn { get; set; } = false;
         }
 
         /*        private readonly IConfiguration _configuration;
@@ -642,6 +651,7 @@
                             for (int i = 0; i < iRecords; i++)
                             {
                                 objQuestion[i] = new QuestionObject();
+                                objQuestion[i].FormId = DB.GetDataSetValueInt(ds, "FormId", i);
                                 objQuestion[i].PatientId = DB.GetDataSetValueInt(ds, "PatientId", i);
                                 objQuestion[i].FirstName = DB.GetDataSetValueString(ds, "FirstName", i);
                                 objQuestion[i].MiddleName = DB.GetDataSetValueString(ds, "MiddleName", i);

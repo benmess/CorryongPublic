@@ -1,4 +1,4 @@
-﻿
+﻿var giFormRows = -1;
 
 function PopulatePage(rsltPassed)
 {
@@ -6,6 +6,8 @@ function PopulatePage(rsltPassed)
     var sPatient = rsltPassed[0].LastName + ', ' + rsltPassed[0].FirstName;
     SetObjectValue('lblPatient', sPatient);
     SetObjectValue('hfPatientId', rsltPassed[0].PatientId);
+    SetObjectValue('hfFormId', rsltPassed[0].FormId);
+    SetObjectValue('hfReportId', rsltPassed[0].ReportId);
 
     var ctlWidths1 = [];
     ctlWidths1[0] = 700;
@@ -33,6 +35,7 @@ function PopulatePage(rsltPassed)
     var div = document.getElementById('divMainContainerBody');
 
     var iPrevSectionId = -1;
+    giFormRows = rsltPassed.length;
 
     for (var i = 0; i < rsltPassed.length; i++)
     {
@@ -396,17 +399,24 @@ function SaveFormInfo()
 {
     var i = 0;
     var objOut = [];
+    var sDate = GetSCMSDateStamp();
 
-    for (var i = 0; i < giBedRows; i++)
+    for (var i = 0; i < giFormRows; i++)
     {
         var object2 = new Object;
-        object2.sLoggedInUser = GetObjectValue('lblUser');
-        object2.iResidentId = GetObjectValue('hfResidentId_' + i);
-        object2.iHandoverId = GetObjectValue('hfHandoverId_' + i);
-        object2.iBedNo = GetObjectValue('lblBedNo_' + i);
-        object2.sFirstNames = GetObjectValue('lblFirstNames_' + i);
-        object2.sLastName = GetObjectValue('lblSurname_' + i);
-        object2.sDiagnosis = GetObjectValue('txtDiagnosis_' + i);
+        object2.PatientId = GetObjectValue('hfPatientId');
+        object2.FormId = GetObjectValue('hfFormId');
+        object2.ReportId = GetObjectValue('hfReportId');
+        object2.FormDate = sDate;
+        object2.QuestionId = GetObjectValue('hfQuestionId_' + i);
+        object2.PatientResultScore = 10;
+        object2.PatientResultScale = 20;
+        object2.PatientNotes = "Get the notes from the form elements";
+        object2.PatientDataPoint1 = "Data point 1 usually empty";
+        object2.PatientDataPoint2 = "Data point 2 usually empty";
+        object2.PatientDataPoint3 = "Data point 3 usually empty";
+        object2.PatientDataPoint4 = "Data point 4 usually empty";
+        object2.PatientDataPoint5 = "Data point 5 usually empty";
         objOut[i] = object2;
     }
 
@@ -440,6 +450,6 @@ function ProcessSave(result)
         if(!result[i].bReturn)
             alert(result[i].sError);
         else
-            SetObjectValue('hfHandoverId_' + i, result[i].iHandoverId)
+            SetObjectValue('hfReportId_' + i, result[i].ReportId)
     }
 }
