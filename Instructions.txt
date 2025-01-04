@@ -1,0 +1,11 @@
+1. To deploy this app publish into deployment folder
+2. Copy across to server
+3. Download the .Net 6.0 hosting bundle from https://dotnet.microsoft.com/en-us/download/dotnet/6.0. Also provided here in this folder.
+4. Stop and restart the services using
+	net stop was /y
+	net start w3svc
+5. In IIS create a new site with port (say 8088)
+6. Under the site name choose IIS Authentication and disable Anonymous and enable Windows Authentication
+	If this is not available you must turn on the Windows Authority under 
+	Server Manager -> Dashboard -> Add Roles and Features -> Role Based or feature based installation -> Choose the server -> Web Server (IIS) -> Web Server -> Security -> Windows Authentication
+	CLose IIS, stop and restart as in step 4, reopen IIS and do this step to enable Windows Authentication

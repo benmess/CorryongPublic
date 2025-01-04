@@ -1,0 +1,52 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+@*@page "/"
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+*@
+<div class="text-center">
+    <h1 class="display-4">Corryong Health</h1>
+    <p>Managing the health and wellbeing throughout the greater Corryong region.</p>
+</div>
+
+@section scripts{
+    <script>
+
+
+//        document.addEventListener('DOMContentLoaded', () => { addButtonListeners(); });
+        //$(document).ready(function () {
+        //    addButtonListeners();
+        //});
+
+
+        $(document).ready(PreparePage());
+
+        function PreparePage()
+        {
+            //Put this back in when we have the Person page reactivated
+            /*
+            var anchorPerson = document.getElementById("pgPerson");
+            anchorPerson.style.pointerEvents="none";
+            anchorPerson.style.cursor="default";
+            anchorPerson.className += ' disabled';
+            */
+
+            setCookie('id', '12345');
+            setCookie('PatientId', '1');
+
+            //Redirect to the handover page
+            var sURL = window.location.href;
+//            sURL = sURL.replace("Index", "Bed");
+            sURL += 'FourM';
+            window.location = sURL;
+
+        }
+
+    </script>
+}

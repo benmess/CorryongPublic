@@ -1,0 +1,1756 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+@CHARSET "ISO-8859-1";
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+}
+
+a {
+    font-size: 1.25em;
+}
+
+#content {
+    padding: 25px;
+}
+
+#fade {
+    display: none;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: #ababab;
+    z-index: 1001;
+    -moz-opacity: 0.8;
+    opacity: .70;
+    filter: alpha(opacity = 80);
+}
+
+#modal {
+    display: none;
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    width: 64px;
+    height: 64px;
+    padding: 30px 15px 0px;
+    border: 3px solid #ababab;
+    box-shadow: 1px 1px 10px #ababab;
+    border-radius: 20px;
+    background-color: white;
+    z-index: 1002;
+    text-align: center;
+    overflow: auto;
+}
+
+#results {
+    font-size: 1.25em;
+    color: red
+}
+
+.ctrDropDown {
+    width: 80px;
+    font-size: 11px;
+    font-family: Monospace;
+}
+
+.ctrDropDownClick {
+    font-size: 11px;
+    width: 400px;
+    font-family: Monospace;
+}
+
+.ctrNPSADropDownClick {
+    font-size: 11px;
+    width: 600px;
+    font-family: Monospace;
+}
+
+.plainDropDown {
+    width: 145px;
+    font-size: 11px;
+    font-family: Monospace;
+}
+
+.plainGridColFont {
+    font-size: 11px;
+}
+
+.tooltiptype {
+    font: message-box;
+}
+
+.tooltiptypebold {
+    font: message-box;
+    font-weight: bold;
+}
+
+.ExtraplainGridColFont {
+    font-size: 15px;
+    color: Red;
+    font-weight: bold;
+}
+
+.blackText {
+    font-family: arial;
+    color: #000000;
+    font-size: 13;
+}
+
+.tblheader {
+    font-family: arial;
+    color: #000000;
+    font-size: 12;
+}
+
+.largeYellowText {
+    font-family: arial;
+    font-size: 12pt;
+    color: #ffff00;
+}
+
+.SmallYellowText {
+    font-family: arial;
+    font-size: 10pt;
+    line-height: 7pt;
+    color: #ffff00;
+}
+
+.SmallBlackText {
+    font-family: arial;
+    font-size: 10pt;
+    line-height: 7pt;
+    color: #000000;
+}
+
+.largeBlackText {
+    font-family: arial;
+    color: #000000;
+    font-size: 22;
+}
+
+.largeBoldRedText {
+    font-family: arial;
+    color: Red;
+    font-size: 22;
+    font-weight: bold;
+}
+
+.largeBoldBlackText {
+    font-family: arial;
+    color: Black;
+    font-size: 22;
+    font-weight: bold;
+}
+
+.verylargeBoldBlackText {
+    font-family: arial;
+    color: Black;
+    font-size: 28;
+    font-weight: bold;
+}
+
+.TreePopupOff {
+    display: none;
+}
+
+.TreePopupOn {
+    display: block;
+    position: fixed;
+    left: 500px;
+    top: 300px;
+    width: 266px;
+    height: 115px;
+    border-style: solid;
+    border-width: 2px;
+    z-index: 0;
+}
+
+.TreePopupFlexible {
+    display: block;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 266px;
+    height: 115px;
+    border-style: solid;
+    border-width: 2px;
+    z-index: 0;
+}
+
+.TreePopupFrame {
+    display: block;
+    position: absolute;
+    left: 310px;
+    top: 458px;
+    width: 466px;
+    height: 93px;
+    z-index: 100
+}
+
+.SearchPopupOn {
+    display: block;
+    position: absolute;
+    left: 500px;
+    top: 300px;
+    width: 266px;
+    height: 115px;
+    border-style: solid;
+    border-width: 2px;
+    z-index: 0;
+    background-color: #A9A9A9;
+}
+
+.FxdTable {
+    table-layout: fixed;
+}
+
+.AutoTable {
+    table-layout: auto;
+}
+
+.GridTableNoBorder {
+    table-layout: fixed;
+    background-color: #ADD8E6;
+}
+
+.GridTable {
+    table-layout: fixed;
+    background-color: #ADD8E6;
+    border: solid medium Black;
+}
+
+.NonFixedTable {
+    table-layout: fixed;
+    background-color: #ADD8E6;
+    border: none;
+}
+
+.GridFixedInlayTable {
+    table-layout: fixed;
+    background-color: #ADD8E6;
+}
+
+.GridTableRow {
+    table-layout: fixed;
+    background-color: #E6E6FA;
+    border: solid thin Black;
+}
+
+.GridTableRow2 {
+    table-layout: fixed;
+    background-color: #F0E68C;
+    border: solid thin Black;
+}
+
+.GridTableRowUncalced {
+    table-layout: fixed;
+    background-color: #FA8072;
+    border: solid thin Black;
+}
+
+.GridTableRowUnsaved {
+    table-layout: fixed;
+    background-color: #FA8072;
+    border: solid thin Black;
+}
+
+.GridCell {
+    background-color: White;
+    border: solid thin Black;
+}
+
+.TreeDrwPopupOn {
+    display: block;
+    position: fixed;
+    left: 500px;
+    top: 300px;
+    width: 266px;
+    height: 115px;
+    border-style: solid;
+    border-width: 2px;
+    z-index: 0;
+    background-color: Maroon;
+}
+
+.TreeDrwPopupOff {
+    display: none;
+}
+
+.TreeDrwDetailsPopupOn {
+    display: block;
+    position: fixed;
+    left: 500px;
+    top: 300px;
+    width: 266px;
+    height: 115px;
+    border-style: solid;
+    border-width: 2px;
+    z-index: 0;
+    background-color: Green;
+}
+
+.Xslt {
+    color: Maroon;
+    font-size: 25pt;
+    font-family: Arial;
+}
+
+.Xsltrptheader {
+    color: Maroon;
+    font-size: 25pt;
+    font-family: Arial;
+}
+
+.Xsltrptsubheader {
+    color: Maroon;
+    font-size: 20pt;
+    font-family: Arial;
+}
+
+.Xsltrpttblheader {
+    color: Blue;
+    font-size: 22pt;
+    font-family: Arial;
+}
+
+.PifTable {
+    border-top: solid medium black;
+    border-bottom: solid medium black;
+}
+
+.XsltrptGenRedheader {
+    color: Red;
+    font-size: 15pt;
+    font-family: Arial;
+}
+
+.XsltrptGenBlackheader {
+    color: Black;
+    font-size: 12pt;
+    font-family: Arial;
+}
+
+.ClearNode {
+    background-color: Transparent;
+}
+
+.DuplicateNode {
+    background-color: Yellow;
+}
+
+.RecoveryNode {
+    background-color: #ADD8E6;
+}
+
+.TransferNode {
+    background-color: #FF00FF;
+}
+
+.DecommissionedNode {
+    background-color: Lime;
+}
+
+.SBChangeNode {
+    background-color: #8FBC8F;
+}
+
+.PlainTableStyle {
+    border-width: 0;
+}
+
+.BackgroundBlank {
+    background-color: Green;
+}
+
+.customFocused {
+    background-color: Red;
+    border: 1px solid #002D96;
+    padding: 2px 4px;
+}
+
+.smallHeader {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.smallBody {
+    font-size: 12px;
+}
+
+.PIMSmenu1 {
+    background-color: #64b7ff !important;
+    height: 27px;
+}
+
+.PIMSmenu2:hover {
+    background-color: Gray;
+    height: 27px;
+}
+
+.PopupBackgroundYellowTable {
+    table-layout: fixed;
+    background-color: #F0E68C;
+    border: solid thin Black;
+}
+
+.lightbluebackground {
+    background-color: #ADD8E6;
+}
+
+.magentabackground {
+    background-color: #FF00FF;
+}
+
+.nobackground {
+    background-color: Transparent;
+}
+
+.rotateminus90 {
+    -moz-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+}
+
+.rotateplus90 {
+    -moz-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+}
+
+.orangebackground {
+    background-color: Orange;
+}
+
+.salmonbackground {
+    background-color: #FA8072;
+}
+
+/* ph - refers to Project Header */
+/* grd - refers to Grids */
+.InstallMatBack {
+    background-color: #a7a754;
+}
+
+.phMainBckGrdPanel {
+    background-color: #64b7ff;
+}
+
+.phSubBckGrdPanel {
+    background-color: #8ec0ff;
+}
+
+.phbtnRetrieve {
+    background-color: #FF8000;
+}
+
+.phSubBckGrdPanel {
+    border-color: #FF8000;
+}
+
+.grdfontItalic {
+    font-style: italic;
+}
+
+.grdfontGreen {
+    color: green;
+}
+
+.grdfontRegainBlue {
+    color: #002857; /* Dark Blue Fronesis*/
+}
+
+.grdfontLightGreen {
+    color: #90EE90;
+}
+
+.PIMSFontBold, .phbtnRetrieve, .grdfontBold {
+    font-weight: bold;
+}
+
+.PIMSFont24, .grdfont24 {
+    font-size: 24pt;
+}
+
+.PIMSFont20, .grdfont20 {
+    font-size: 20pt;
+}
+
+.PIMSFont18, .grdfont18 {
+    font-size: 18pt;
+}
+
+.PIMSFont14, .grdfont14 {
+    font-size: 14pt;
+}
+
+.PIMSFont8, .phbtnRetrieve, .grdfont8 {
+    font-size: 8pt;
+}
+
+.PIMSFont7, .phbtnRetrieve, .grdfont7 {
+    font-size: 7pt;
+}
+
+.PIMSFont6, .grdfont6 {
+    font-size: 6pt;
+}
+
+.PIMSFont10, .grdfont10 {
+    font-size: 10pt;
+}
+
+    .grdfont10:link {
+        /* color: red; */
+        font-size: 10pt;
+    }
+
+.PIMSFont12, .grdfont12 {
+    font-size: 12pt;
+}
+
+.PIMSFont14, .grdfont14 {
+    font-size: 14pt;
+}
+
+.PIMSFont18, .grdfont18 {
+    font-size: 18pt;
+}
+
+.PIMSFont, .phbtnRetrieve, .grdfont {
+    font-family: Arial;
+}
+
+.fontBlack {
+    color: black;
+}
+
+.fontRed {
+    color: red;
+}
+
+.fontGreen {
+    color: green;
+}
+
+.fontLightGreen {
+    color: #90EE90;
+}
+
+.fontAmber {
+    color: #ffbf00; /*Amber */
+}
+
+.fontOrange {
+    color: orange;
+}
+
+.fontMagenta {
+    color: fuchsia;
+}
+
+.fontWhite {
+    color: white;
+}
+
+.bgRed {
+    background-color: red;
+}
+
+.bgGreen {
+    background-color: green;
+}
+
+.bgLightGreen {
+    background-color: #90EE90;
+}
+
+.bgAmber {
+    background-color: #ffbf00; /*Amber */
+}
+
+.bgOrange {
+    background-color: orange;
+}
+
+.bgMagenta {
+    background-color: fuchsia;
+}
+
+.bgWhite {
+    background-color: white;
+}
+
+.bgGrey {
+    background-color: gray;
+}
+
+.bgLightGrey {
+    background-color: #D3D3D3;
+}
+
+.bgWhite {
+    background-color: #FFFFFF;
+}
+
+.bgOffWhite {
+    background-color: #F5F5F5;
+}
+
+.bgOffGold {
+    background-color: #FFF2CC;
+}
+
+.bgGold {
+    background-color: #FFD75B;
+}
+
+.phMainBckGrdPanel
+/* Main Backgournd panel of the Project Header Control */ {
+    z-index: 100;
+    left: 7px;
+    position: absolute;
+    top: 9px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: Black;
+    height: 75px;
+    Width: 1044px;
+}
+
+.phSubBckGrdPanel
+/* Main Backgournd panel of the Project Header Control */ {
+    border-style: solid;
+    border-width: 1px;
+}
+
+.blackBorder {
+    border-style: solid;
+    border-width: 1px;
+    border-color: Black;
+}
+
+.phbtnRetrieve {
+    border-style: Outset;
+}
+
+.phRowUnsavedMsg {
+    border-style: solid;
+    border-width: 1px;
+    border-color: Orange;
+    color: Orange;
+}
+
+/* Grids Skins */
+.fronClrDark {
+    /*      background-color: #5c5c5f;*/ /* Dark Gray */
+    background-color: #002857; /* Dark Blue Fronesis*/
+}
+
+.regainClrDark {
+    /*      background-color: #5c5c5f;*/ /* Dark Gray */
+    background-color: #2B1166; /* Dark Blue Regain*/
+}
+
+.bgBlack {
+    background-color: black;
+}
+
+.grdHeaderTopBorders {
+    border-top: black 1px solid;
+}
+
+.grdHeaderBottomBorders {
+    border-bottom: black 1px solid;
+}
+
+.grdBottomBordersDashed {
+    border-bottom: black 1px dashed;
+}
+
+.divMargins {
+    margin: 10px;
+}
+
+.divMarginsLeft {
+    margin-left: 10px;
+}
+
+.divMarginsRight {
+    margin-right: 10px;
+}
+
+.divMarginsTop {
+    margin-top: 10px;
+}
+
+.divMarginsBottom {
+    margin-bottom: 10px;
+}
+
+.divDoubleMargins {
+    margin: 20px;
+}
+
+.divMarginsSmall {
+    margin: 7px;
+}
+
+.divMargins15 {
+    margin: 15px;
+}
+
+.divMarginsLeft15 {
+    margin-left: 15px;
+}
+
+.divMarginsLeft5 {
+    margin-left: 5px;
+}
+
+.divMarginsLeftRight {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.rowPadding {
+    padding: 10px;
+}
+
+.deepleftpadding {
+    padding-left: 60px;
+}
+
+.firstcolpadding {
+    padding-left: 30px;
+}
+
+.shallowleftpadding {
+    padding-left: 5px !important;
+}
+
+.shallowrightpadding {
+    padding-right: 5px !important;
+}
+
+.grdMainDivBorders, .grdDataDivBorders {
+    border-right: black 1px solid;
+    border-top: black 1px solid;
+    border-left: black 1px solid;
+    border-bottom: black 1px solid;
+}
+
+.grdMLDisplayBorder {
+    border-right: black 1px solid;
+    border-top: black 1px solid;
+    border-left: black 1px solid;
+    border-bottom: black 1px solid;
+}
+
+.grdBorder2pt {
+    border-right: black 2px solid;
+    border-top: black 2px solid;
+    border-left: black 2px solid;
+    border-bottom: black 2px solid;
+}
+
+.grdUshapeDivBorders {
+    border-right: black 1px solid;
+    border-left: black 1px solid;
+    border-bottom: black 1px solid;
+}
+
+.grdNshapeDivBorders {
+    border-right: black 1px solid;
+    border-left: black 1px solid;
+    border-top: black 1px solid;
+}
+
+.grdCshapeDivBorders {
+    border-top: black 1px solid;
+    border-left: black 1px solid;
+    border-bottom: black 1px solid;
+}
+
+.grdReverseCshapeDivBorders {
+    border-top: black 1px solid;
+    border-right: black 1px solid;
+    border-bottom: black 1px solid;
+}
+
+.grdHdrDivBorders {
+    border-right: black 1px solid;
+    border-top: black 1px solid;
+    border-left: black 1px solid;
+}
+
+.grdTopBottomDivBorders {
+    border-top: black 1px solid;
+    border-bottom: black 1px solid;
+}
+
+.grdHeaderTextAligCenter, .grdRowTextAligCenter {
+    text-align: center;
+}
+
+.grdHeaderTextAligLeft, .grdRowTextAligLeft {
+    text-align: left;
+}
+
+.grdHeaderTextAligTop, .grdRowTextAligTop {
+    vertical-align: top;
+}
+
+.grdHeaderTextAligCenter, .grdRowTextAligCenter {
+    vertical-align: center;
+}
+
+.grdHeaderTextAligBottom, .grdRowTextAligBottom {
+    vertical-align: bottom;
+}
+
+.grdHeaderTextAligRight, .grdRowTextAligRight {
+    text-align: right;
+}
+
+.grdHeightInheritParent {
+    height: inherit;
+}
+
+.hdrTextColor {
+    color: white;
+}
+
+.grdHyperLinkColor {
+    color: yellow;
+}
+
+.grdDataDivBckGrdColor {
+    background-color: #d4d0c8; /* Buton Face Color*/
+}
+
+.grdRowHighLightColor {
+    /*  background-color:#9999cc;	  light Purple*/
+    background-color: transparent;
+}
+
+.gridHeaderBackground {
+    background-color: silver;
+}
+
+.grdRowAlterColor1 {
+    background-color: silver;
+}
+
+.grdRowAlterColor2 {
+    background-color: white;
+}
+
+.grdPrelimRowDefaultColor {
+    background-color: #E6E6FA; /* mauve */
+}
+
+.grdRowChangedColor {
+    background-color: #ffcccc; /* salmon pink*/
+}
+
+.grdRowPOATableBckGrdColor {
+    background-color: #F0E68C;
+}
+
+.grdRowRecoveryTableBckGrdColor {
+    background-color: #FFDAB9;
+}
+
+.grdRowLightCyanColor {
+    background-color: #E0FFFF; /*light cyan */
+}
+
+.grdSolarBottomBrd {
+    border-bottom: black 1px solid;
+    border-color: #F0E68C; /* Gold */
+}
+
+.grdSolarBottomBrd1 {
+    border-bottom: black 1px solid;
+    border-color: #33ffff;
+}
+
+.grdSolarExistingPanelsBrd {
+    border-top: black 1px solid;
+    border-left: black 1px solid;
+    /* border-right: black 1px solid; */
+    border-bottom: black 1px solid;
+    border-color: #F0E68C; /* Gold */
+}
+
+.grdSolarTypesLastCellBrd {
+    border-right: black 1px solid;
+    border-left: black 1px solid;
+    border-bottom: black 1px solid;
+    border-color: #F0E68C; /* Gold */
+}
+
+.grdSolarTypesCellBrd {
+    border-left: black 1px solid;
+    border-bottom: black 1px solid;
+    border-color: #F0E68C; /* Gold */
+}
+
+.grdSolarExistingPanelsBrd1 {
+    border-top: black 1px solid;
+    border-left: black 1px solid;
+    /* border-right: black 1px solid; */
+    border-bottom: black 1px solid;
+    border-color: #f9daa4;
+    ;
+}
+
+.grdSolarTypesLastCellBrd1 {
+    border-right: black 1px solid;
+    border-left: black 1px solid;
+    border-bottom: black 1px solid;
+    border-color: #f9daa4;
+    ;
+}
+
+.grdSolarTypesCellBrd1 {
+    border-left: black 1px solid;
+    border-bottom: black 1px solid;
+    border-color: #f9daa4;
+    ;
+}
+
+.fronRowColor {
+    /*      background-color:#F0E68C; */ /* Gold */
+    background-color: #00B0CA; /* Light blue/cyan */
+}
+
+.fronRowColor1 {
+    /*background-color:#33ffff; */ /* Light Cyan */
+    /*      background-color:#f9daa4; */ /* Light Beige */
+    background-color: #50C9B5; /* Teal */
+}
+
+.grdBorder1ReverseL {
+    border-right: black 1px solid;
+    border-bottom: black 1px solid;
+    border-color: #00B0CA; /* Fronesis Mid Blue */
+}
+
+.grdBorder1Bottom {
+    border-bottom: black 1px solid;
+    border-color: #00B0CA; /* Fronesis Mid Blue */
+}
+
+.grdBorder1Right {
+    border-right: black 1px solid;
+    border-color: #00B0CA; /* Fronesis Mid Blue */
+}
+
+.grdBorder1ReverseL1 {
+    border-right: black 1px solid;
+    border-bottom: black 1px solid;
+    border-color: #50C9B5; /* Fronesis Light Blue/Teal */
+}
+
+.grdBorder1Bottom1 {
+    border-bottom: black 1px solid;
+    border-color: #50C9B5; /* Fronesis Light Blue/Teal */
+}
+
+.grdBorder1Right1 {
+    border-right: black 1px solid;
+    border-color: #50C9B5; /* Fronesis Light Blue/Teal */
+}
+
+.grdBatteryRowAltColor {
+    background-color: #F0E68C;
+}
+
+.grdBatteryRowAltColor1 {
+    background-color: #33ffff;
+}
+
+.grdFontMonospace {
+    font-family: Monospace;
+}
+
+.txtReadonly {
+    color: Blue;
+    background-color: ButtonFace;
+}
+
+    .txtReadonly:disabled {
+        color: Blue;
+        background-color: ButtonFace;
+    }
+
+.txtReadWrite {
+    color: Black;
+    background-color: White;
+}
+
+.labHeaderPageTitle {
+    color: Black;
+    background-color: White;
+    font-weight: bolder;
+    font-size: xx-large;
+    text-align: center;
+    font-family: Arial;
+}
+
+.drag {
+    position: relative;
+}
+
+.menuPopup {
+    border-right: black 1px solid;
+    border-top: black 1px solid;
+    border-left: black 1px solid;
+    border-bottom: black 1px solid;
+    background-color: White;
+}
+
+.menuHighlightOn {
+    background-color: #ffcccc; /* samon pink*/
+}
+
+.menuHighlightOff {
+    background-color: White;
+}
+
+.grdfontssiprocess {
+    font-size: medium;
+    font-family: Monospace;
+}
+
+.StdPopupOn {
+    display: block;
+    position: absolute;
+    left: 500px;
+    top: 300px;
+    width: 266px;
+    height: 115px;
+    border-style: solid;
+    border-width: 2px;
+    z-index: 0;
+    background-color: #A9A9A9;
+}
+
+.topbord {
+    border-top: black 1px solid;
+}
+
+.leftbord {
+    border-left: black 1px solid;
+}
+
+.rightbord {
+    border-right: black 1px solid;
+}
+
+.bottombord {
+    border-bottom: black 1px solid;
+}
+
+.nospace {
+    border-spacing: 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+.leftpad {
+    padding-left: 10px;
+}
+
+.rightpad {
+    padding-right: 10px;
+}
+
+.bigrightpad {
+    padding-right: 25px;
+}
+
+.toppad {
+    padding-top: 10px;
+}
+
+.bottompad {
+    padding-bottom: 10px;
+}
+
+.bottompadbig {
+    padding-bottom: 30px;
+}
+
+.disabledbackground {
+    background-color: #D3D3D3;
+}
+
+.tinybutton {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    text-align: left;
+}
+
+.lightblue {
+    color: #ADD8E6;
+}
+
+.permiton {
+    color: Green;
+    background-color: Green;
+}
+
+.permitoff {
+    color: Purple;
+    background-color: Purple;
+}
+
+.maintenance {
+    color: Blue;
+    background-color: Blue;
+}
+
+.divPadding {
+    padding: 5px;
+}
+
+.PIMStask {
+    color: Blue;
+}
+
+.PIMSrisk {
+    color: Red;
+}
+
+.grdRowHighLightColorInvocing {
+    color: Blue;
+}
+
+.GridTableRowUnsavedInvoicing {
+    table-layout: fixed;
+    background-color: #FA8072;
+    border: solid thin Black;
+}
+
+.BackgroundRed {
+    background-color: Red;
+}
+
+.BackgroundTeal {
+    background-color: Teal;
+}
+
+.BackgroundLightOrange {
+    background-color: #DEB887;
+}
+
+.BackgroundWhite {
+    background-color: white;
+}
+
+.BackgroundPaleGreen {
+    background-color: #8FBC8F;
+}
+
+.BackgroundPaleGreen2 {
+    background-color: #B5E074;
+}
+
+
+.grdBottomDashedBorders {
+    border-right: black 1px solid;
+    border-top: black 1px solid;
+    border-left: black 1px solid;
+    border-bottom: black 1px dashed;
+}
+
+.grdTopNoBorders {
+    border-right: black 1px solid;
+    border-left: black 1px solid;
+    border-bottom: black 1px solid;
+}
+
+.grdRightNoBorders {
+    border-top: black 1px solid;
+    border-left: black 1px solid;
+    border-bottom: black 1px solid;
+}
+
+.grdLeftNoBorders {
+    border-top: black 1px solid;
+    border-right: black 1px solid;
+    border-bottom: black 1px solid;
+}
+
+.grdVerticalAlignTop {
+    vertical-align: top;
+}
+
+.riTextBox .grdVerticalAlignBottom {
+    font-size: 24pt;
+}
+
+.grdRowInstallMatTableBckGrdColor {
+    background-color: Olive; /*light cyan */
+}
+
+.grdRowQueueMonitorProcessedJobs {
+    background-color: #66cc66;
+}
+
+.grdRowQueueMonitorQueuedJobs {
+    background-color: #ffcc66;
+}
+
+.grdRowQueueMonitorQueuedProcessing {
+    background-color: #99ccff;
+}
+
+.grdRowQueueMonitorQueuedJobsFailedToProcess {
+    background-color: #ff6666;
+}
+
+.grdRowQueueMonitorQueuedJobsAwaitingInitiation {
+    background-color: #9370DB;
+}
+
+.grdRowDataQueue {
+    font: menu;
+    color: Black;
+    text-align: center;
+}
+
+.grdRowTopQueue {
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    font-size: 14pt;
+    font-family: Nina;
+}
+
+.grdTopDataQueue {
+    font: menu;
+    color: white;
+    font-weight: bold;
+}
+
+.grdRowDataQueue1 {
+    font: menu;
+    color: white;
+    font-weight: bold;
+    text-align: left;
+}
+
+.grdRowDataQueue2 {
+    font: menu;
+    color: white;
+    font-weight: bold;
+    text-align: center
+}
+
+.grdRowDataQueueleft {
+    font: menu;
+    color: Black;
+    text-align: left;
+}
+
+.grdRowcenter {
+    text-align: center
+}
+
+/* These next 2 handle the borders on a grid. Outer border of the table is 2px and the inner border is 1px */
+.grdInnerBorderBlack {
+    border-collapse: collapse;
+    border-color: #000000;
+    border-style: solid;
+    border-width: 2px;
+}
+
+    .grdInnerBorderBlack td {
+        border-color: #000000; /*black*/
+        border-style: solid;
+        border-width: 1px;
+    }
+
+​
+
+.grdTextAlignCellTop {
+    vertical-align: top;
+}
+
+.treeStatusUnaccepted {
+    font-size: 24pt;
+    font-weight: bold;
+    font-family: Arial;
+    color: Red;
+    background-color: transparent;
+}
+
+.treeStatusAccepted {
+    font-size: 24pt;
+    font-weight: bold;
+    font-family: Arial;
+    color: Blue;
+    background-color: transparent;
+}
+
+.treeStatusUnsubmitted {
+    font-size: 24pt;
+    font-weight: bold;
+    font-family: Arial;
+    color: #A52A2A;
+    background-color: transparent;
+}
+
+.treeStatusUnsubmitted {
+    font-size: 24pt;
+    font-weight: bold;
+    font-family: Arial;
+    color: #A52A2A;
+    background-color: transparent;
+}
+
+.treeStatusValid {
+    font-size: 24pt;
+    font-weight: bold;
+    font-family: Arial;
+    color: #008000;
+    background-color: transparent;
+}
+
+.permitscss0 {
+    position: absolute;
+}
+
+.permitscss1 {
+    z-index: -99;
+    position: absolute;
+}
+
+.permitscss2 {
+    z-index: -98;
+    position: absolute;
+}
+
+.permitscss3 {
+    z-index: -97;
+    position: absolute;
+}
+
+.permitscss4 {
+    z-index: -96;
+    position: absolute;
+}
+
+.permitscss5 {
+    z-index: -95;
+    position: absolute;
+}
+
+.permitscss6 {
+    z-index: -94;
+    position: absolute;
+}
+
+.permitscss7 {
+    z-index: -93;
+    position: absolute;
+}
+
+.permitscss8 {
+    z-index: -92;
+    position: absolute;
+}
+
+.permitscss9 {
+    z-index: -91;
+    position: absolute;
+}
+
+.permitscss10 {
+    z-index: -90;
+    position: absolute;
+}
+
+.permitscss11 {
+    z-index: 1;
+    position: absolute;
+}
+
+.permitscss12 {
+    z-index: 10;
+    position: absolute;
+}
+
+.permitscss13 {
+    z-index: 20;
+    position: absolute;
+}
+
+.permitscss14 {
+    position: absolute;
+}
+
+.messagebox {
+    color: Blue;
+    font-weight: bolder;
+    font-size: medium;
+    text-align: center;
+    font-family: Arial;
+}
+
+.ITPHeaderFont {
+    font-weight: bold;
+    font-size: 14px;
+    font-family: MS Reference Sans Serif;
+}
+
+.ITPHeaderStatusFont {
+    font-weight: bold;
+    font-size: 9px;
+    font-family: MS Reference Sans Serif;
+}
+
+.ITPHeader2Font {
+    font-weight: bold;
+    font-size: 10px;
+    font-family: MS Reference Sans Serif;
+    color: White;
+}
+
+.ITPQuestionFont {
+    font-size: 10px;
+    font-family: MS Reference Sans Serif;
+    color: Black;
+}
+
+.NoCellSpacing {
+    border-spacing: 0px;
+}
+
+.grdFontMauve {
+    color: #E6E6FA; /* mauve */
+}
+
+/* Table Layout stuff */
+table.fixed {
+    table-layout: fixed;
+}
+
+    table.fixed td {
+        overflow: hidden;
+    }
+
+.fontAdmin {
+    color: black;
+    font-weight: bold;
+    font-family: MS Reference Sans Serif;
+}
+
+.equipNode {
+    font-family: arial;
+    color: #000000;
+    font-size: 12px;
+    background-color: white;
+}
+
+.equipNodeException {
+    font-family: arial;
+    color: #000000;
+    font-size: 12px;
+    background-color: #FA8072 !important;
+}
+
+.equipNodeSelected {
+    font-family: arial;
+    color: #000000;
+    font-size: 12px;
+    background-color: white !important;
+}
+
+.equipNode2 {
+    font-family: arial;
+    color: #000000;
+    font-size: 12px;
+    background-color: white !important;
+}
+
+.equipNode2Exception {
+    font-family: arial;
+    color: #000000;
+    font-size: 12px;
+    background-color: #FA8072 !important;
+}
+
+.equipNode2ExceptionAndOverdrawn {
+    font-family: arial;
+    color: #000000;
+    font-size: 12px;
+    background-color: #e9a03f !important;
+}
+
+.equipNode2Overdrawn {
+    font-family: arial;
+    color: #000000;
+    font-size: 12px;
+    background-color: #AAFF80 !important;
+}
+
+.equipNode2Selected {
+    font-family: arial;
+    color: #000000;
+    font-size: 12px;
+    background-color: white;
+}
+
+.logonarial32pt {
+    font-family: arial;
+    color: #002857;
+    font-size: 32pt;
+    background-color: white;
+}
+
+.logonarial28pt {
+    font-family: arial;
+    color: #002857;
+    font-size: 28pt;
+    background-color: white;
+}
+
+.logonarial18pt {
+    font-family: arial;
+    color: #002857;
+    font-size: 18pt;
+    background-color: white;
+}
+
+.logonarial12pt {
+    font-family: arial;
+    color: #002857;
+    font-size: 12pt;
+    background-color: white;
+}
+
+.logonimgaefill {
+    display: block;
+    width: 100%;
+}
+
+.frontpage {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.ui-dialog {
+    z-index: 1000 !important;
+}
+
+.circle {
+    border-radius: 50%
+}
+
+.w3-black, .w3-hover-black:hover {
+    color: #fff !important;
+    background-color: #000 !important
+}
+
+.smallcellpaddingleftright {
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.smallcellpaddingleftrightonly {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.smallcellpaddingleftonly {
+    padding-left: 4px;
+}
+
+.gridRowHover1 {
+    background-color: silver;
+}
+
+    .gridRowHover1:hover {
+        background-color: yellow !important;
+    }
+
+        .gridRowHover1:hover td {
+            background-color: transparent;
+        }
+
+.gridRowHover2 {
+    background-color: #FA8072;
+}
+
+    .gridRowHover2:hover {
+        background-color: yellow !important;
+    }
+
+        .gridRowHover2:hover td {
+            background-color: transparent;
+        }
+
+.gridRowHover3 {
+    background-color: #AAFF80;
+}
+
+    .gridRowHover3:hover {
+        background-color: yellow !important;
+    }
+
+        .gridRowHover3:hover td {
+            background-color: transparent;
+        }
+
+.gridRowHover4 {
+    background-color: #e9a03f;
+}
+
+    .gridRowHover4:hover {
+        background-color: yellow !important;
+    }
+
+        .gridRowHover4:hover td {
+            background-color: transparent;
+        }
+
+.gradPopup {
+    background: linear-gradient(#33ffff, #00B0CA);
+}
+
+.treerolloveron {
+    background-color: #00B0CA; /* Light blue/cyan */
+}
+
+.gradClr1 {
+    background: linear-gradient(#00B0CA, #C0C0C0);
+}
+
+.gradClr2 {
+    background: linear-gradient(#808080, #D3D3D3);
+}
+
+.tableFillParent {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    overflow: auto;
+}
+
+.frame {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}
+
+.progress-bar {
+    height: 20px;
+    width: 100px;
+    display: none;
+    border: 2px solid green;
+}
+
+.progress {
+    background-color: blue;
+    height: 100%;
+    width: 0px;
+}
+
+.nobackground {
+    background: transparent;
+}
+
+
+.cellAlignCenter {
+    text-align: center;
+}
+
+/* Styles for option groups and options */
+optgroup {
+    font-style: italic;
+}
+
+    optgroup option {
+        font-style: normal;
+    }
+
+.rightmenu {
+    font-family: arial;
+    font-size: 10px;
+    /* 	background-color: #FA8072 !important; */
+}
+
+.labelright {
+    display: inline-block;
+    width: 95%;
+    text-align: right;
+}
+
+.buttoncenter {
+    display: block;
+    margin: 0 auto;
+}
+
+.div100percent {
+    height: 100%;
+}
+
+.hdrcellpad {
+    border-spacing: 5px;
+}
+
+.unsaved {
+    background-color: red;
+    font-weight: bold;
+    font-size: 14px;
+    font-family: arial;
+}
+
+.icon-up:before {
+    content: "\25B2";
+}
+
+.icon-down:before {
+    content: "\25BC";
+}
+
+.icon-dotpoint:before {
+    content: "\2022";
+}

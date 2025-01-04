@@ -1,0 +1,48 @@
+﻿@page
+@model CorryongHealth1.Pages.FourMModel
+@{
+    ViewData["Title"] = "4M Form";
+                            <h1>@ViewData["Title"]</h1>
+                            <div>
+                                     <table class="FxdTable">
+                                        <tr>
+                                            <td style="width:120px">
+                                                <label id="lblPatientLabel" class="grdfontBold grdfont12">Patient: </label>
+                                                <input type="hidden" id="hfPatientId" value="">
+                                            </td>
+                                            <td style="width:720px">
+                                                <label id="lblPatient" class="grdfont12">Patient Id</label>
+                                            </td>
+                                            <td style="width:160px" class="grdfont grdfont10 grdRowTextAligCenter">
+                                                <input type="button" id="btnSave" onclick="SaveFormInfo();" value="Save" class="grdfont grdfont10 grdRowTextAligCenter" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div id="divMainContainer">
+                                        <div id="divMainContainerHdr">
+                                        </div>
+                                        <div id="divMainContainerBody">
+                                        </div>
+                                    </div>
+                            </div>
+}
+
+@section scripts{
+    <script type="text/javascript" src="~/js/Forms.js"></script>
+
+    <script>
+
+
+        $(document).ready(PreparePage());
+
+        function PreparePage()
+        {
+            var sID = getCookie('PatientId');
+            SetObjectValue('lblPatient', sID);
+            fetch("api/getform/" + sID + "/1")
+                .then(response => response.json())
+                .then(result => { PopulatePage(result); });
+        }
+
+    </script>
+}

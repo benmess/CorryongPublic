@@ -1,0 +1,97 @@
+﻿@page
+@model CorryongHealth1.Pages.BedModel
+@{
+    ViewData["Title"] = "Handover Information";
+    var sHelp = ViewData["help"];
+    //<table>
+    //            <tr>
+    //                <td>
+    //                    @ViewData["Title"]
+    //                </td>
+    //                <td>
+    //                    <span class="grdfont grdfont10 grdRowTextAligLeft">Logged in user is <label id="lblUser"></label></span>
+    //                </td>
+    //                <td>
+    //                    <input type="button" id="btnSave" onclick="SaveBedInfo();" value="Save" class="grdfont grdfont10 grdRowTextAligLeft" />
+    //                </td>
+
+    //            </tr>
+    //</table>
+    <h1>@ViewData["Title"] <span class="grdfont grdfont10 grdRowTextAligLeft">Logged in user is <label id="lblUser"></label></span>
+                            <input type="button" id="btnSave" onclick="SaveBedInfo();" value="Save" class="grdfont grdfont10 grdRowTextAligLeft" />
+    </h1>
+
+    
+
+    <div id="divBedContainer">
+                                                                                                    <!--                                                                <label asp-for="testInfo.Id"></label>
+                                                                                                                                                                    <input asp-for="testInfo.Id" class="form-control">
+
+                                                                                                                                                                    <label asp-for="testInfo.TestText"></label>
+                                                                                                                                                                    <input asp-for="testInfo.TestText" class="form-control">
+
+                                                                                                                                                                    <label id="lblDD1">Bed</label>
+                                                                                                                                                                    <select id="cmbDD1" onchange="cmbDD1_onchange();"></select>
+                                                                                -->
+                                                                            </div>
+    <br>
+    <div>
+                                                                                <!--  
+                                                                                                            <button id="btnTest">Test</button>
+                                                                                                            <button id="btnSave">Save</button>
+                                                                                -->
+                                                                            </div>
+
+
+}
+
+
+@section scripts{
+    <script type="text/javascript" src="~/js/Handover.js"></script>
+    <script>
+
+
+//        document.addEventListener('DOMContentLoaded', () => { addButtonListeners(); });
+/*        $(document).ready(function () {
+            addButtonListeners();
+        });
+*/
+
+        $(document).ready(PreparePage());
+
+        function PreparePage()
+        {
+            fetch("api/getbeds")
+                .then(response => response.json())
+                .then(result => { PopulateBedInfo(result); });
+        }
+
+        function GetDropdown1(rsltPassed)
+        {
+            //alert(rsltPassed.value + ' first call');
+            SetObjectValue('lblUser', rsltPassed.value);
+            fetch("api/getbeds")
+                .then(response => response.json())
+                .then(result => { PopulateDropdown1(result); });
+        }
+
+        function PopulateDropdown1(rslt)
+        {
+            //alert(rslt.length);
+            var cmb = document.getElementById('cmbDD1');
+            CreateDropDownBoxOption(cmb, 0, '[select]', '[select]', -1);
+            for(var i=0;i<rslt.length;i++)
+            {
+                CreateDropDownBoxOption(cmb, i+1, rslt[i].BedNo + ' - ' + rslt[i].FirstName + ' ' + rslt[i].LastName, rslt[i].BedNo + ' - ' + rslt[i].FirstName + ' ' + rslt[i].LastName, rslt[i].BedNo);
+            }
+        }
+
+        function cmbDD1_onchange()
+        {
+            alert("cmb1 chnaged");
+            alert(gsMyName);
+        }
+
+
+    </script>
+}

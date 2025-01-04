@@ -1,0 +1,58 @@
+﻿@page
+@model CorryongHealth1.Pages.PersonPageModel
+@{
+    ViewData["Title"] = "Pateient Details";
+    ViewData["help"] = "";
+
+}
+<h1>Patient Details</h1>
+<div>
+    <table>
+        <tr>
+            <td style="width:100px">
+                <label id="lblName">First Name</label>
+            </td>
+            <td style="width:200px">
+                <input id="txtFirstName" type="text" style="width:190px"></input>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:100px">
+                <label id="lblName">Last Name</label>
+            </td>
+            <td style="width:200px">
+                <input id="txtLastName" type="text" style="width:190px"></input>
+            </td>
+        </tr>
+    </table>
+</div>
+
+@section scripts{
+    <script>
+
+
+        //$(document).ready(function ()
+        //{
+        //    addButtonListeners();
+        //});
+
+
+        $(document).ready(PreparePage());
+
+
+        function PreparePage()
+        {
+            //            OpenThisPage();
+            fetch("api/getpersondetails/4")
+                .then(response => response.json())
+                .then(result => { PopulatePage(result); });
+        }
+
+        function PopulatePage(rsltPassed)
+        {
+            //alert(rsltPassed.value + ' first call');
+            SetObjectValue('txtFirstName', rsltPassed.value);
+            gsName = rsltPassed.value;
+        }
+    </script>
+}

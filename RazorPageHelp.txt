@@ -1,0 +1,6 @@
+To Add a New Razor Page
+1. Right click Pages folder
+2. Add - > New Item
+3. Choose C#-> SP.NET Core
+4. Razor Page - Empty
+5. Ensure you put the name you want down the bottom
