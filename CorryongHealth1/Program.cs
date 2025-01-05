@@ -228,13 +228,13 @@ app.MapPost("api/saveform", (BackendClass.QuestionSaveObject[] jsonin) =>
 
     for (int i = 0; i < jsonin.Length; i++)
     {
-        //    BackendClass.BedObject bed = jsonin[i];
-        //    BackendClass.BedSaveObject bedsave = new BackendClass.BedSaveObject();
-        //    bedsave = dbTest.SetHandover(bed);
-        //    objSave[i] = bedsave;
-        objSave[i] = new BackendClass.QuestionSaveResultObject();
-        objSave[i].bReturn = true;
-        objSave[i].iReportId = jsonin[i].ReportId;
+        BackendClass.QuestionSaveObject question = jsonin[i];
+        BackendClass.QuestionSaveResultObject questionsave = new BackendClass.QuestionSaveResultObject();
+        questionsave = dbTest.SetFormQuestionHandover(sUser, question);
+        objSave[i] = questionsave;
+        //objSave[i] = new BackendClass.QuestionSaveResultObject();
+        //objSave[i].bReturn = true;
+        //objSave[i].iReportId = jsonin[i].ReportId;
     }
 
     string jsonString = JsonSerializer.Serialize(objSave);

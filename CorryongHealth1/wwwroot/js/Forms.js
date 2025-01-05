@@ -162,7 +162,7 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, iQuestionType, sNotes, c
 
             var cell = document.createElement("td");
             cell.className = 'grdfont grdfont12 grdfontBold cellAlignCenter blackBorder';
-            var radTable = BuildYesNoRadioBlock("QuestionScore_" + iRow, true, "radQuestionYN_" + iRow + '_', undefined, ctlWidths[1]);
+            var radTable = BuildYesNoRadioBlock("radQuestionYN_" + iRow, true, "QuestionScore_" + iRow, undefined, ctlWidths[1]);
             cell.appendChild(radTable);
             rRow.appendChild(cell);
             break;
@@ -314,7 +314,7 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, iQuestionType, sNotes, c
 
             var cell2 = document.createElement("td");
             cell2.className = 'grdfont grdfont12 grdfontBold cellAlignCenter';
-            var radTable = BuildYesNoRadioBlock("QuestionScore_" + iRow, true, "radQuestionYN_" + iRow + '_', undefined, ctlWidthsLocal[1]);
+            var radTable = BuildYesNoRadioBlock("QuestionScore_" + iRow, true, "radQuestionYN_" + iRow, undefined, ctlWidthsLocal[1]);
             cell2.appendChild(radTable);
             rRow2.appendChild(cell2);
             tableBodyLocal.appendChild(rRow2);
@@ -379,7 +379,7 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, iQuestionType, sNotes, c
 
             var cell2 = document.createElement("td");
             cell2.className = 'grdfont grdfont12 grdfontBold cellAlignCenter';
-            var radTable = BuildYesNoRadioBlock("QuestionScore_" + iRow, true, "radQuestionYN_" + iRow + '_', undefined, ctlWidthsLocal[1]);
+            var radTable = BuildYesNoRadioBlock("QuestionScore_" + iRow, true, "radQuestionYN_" + iRow, undefined, ctlWidthsLocal[1]);
             cell2.appendChild(radTable);
             rRow2.appendChild(cell2);
             tableBodyLocal.appendChild(rRow2);
@@ -397,11 +397,11 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, iQuestionType, sNotes, c
 
 function SaveFormInfo()
 {
-    var i = 0;
+    var i = 0, jj = 0;
     var objOut = [];
     var sDate = GetSCMSDateStamp();
 
-    for (var i = 0; i < giFormRows; i++)
+    for (var i = 2; i < 3; i++)
     {
         var object2 = new Object;
         object2.PatientId = GetObjectValue('hfPatientId');
@@ -409,7 +409,23 @@ function SaveFormInfo()
         object2.ReportId = GetObjectValue('hfReportId');
         object2.FormDate = sDate;
         object2.QuestionId = GetObjectValue('hfQuestionId_' + i);
-        object2.PatientResultScore = 10;
+
+        var objScore = document.getElementsByName('QuestionScore_' + i);
+
+        if (objScore.length > 1)
+        {
+            if (objScore[0].type == 'radio')
+                var dScore = Get_radio_selvalue('QuestionScore_' + i);
+            else
+                var dScore = GetObjectValue('QuestionScore_' + i);
+        }
+        else
+            var dScore = GetObjectValue('QuestionScore_' + i);
+
+        if (dScore == null || dScore == '')
+            dScore = -1;
+
+        object2.PatientResultScore = dScore; 
         object2.PatientResultScale = 20;
         object2.PatientNotes = "Get the notes from the form elements";
         object2.PatientDataPoint1 = "Data point 1 usually empty";
@@ -417,7 +433,8 @@ function SaveFormInfo()
         object2.PatientDataPoint3 = "Data point 3 usually empty";
         object2.PatientDataPoint4 = "Data point 4 usually empty";
         object2.PatientDataPoint5 = "Data point 5 usually empty";
-        objOut[i] = object2;
+        objOut[jj] = object2;
+        jj++;
     }
 
     //objOut[1] = object2;
@@ -447,9 +464,95 @@ function ProcessSave(result)
 {
     for (var i = 0; i < result.length; i++)
     {
-        if(!result[i].bReturn)
+        if (!result[i].bReturn)
             alert(result[i].sError);
         else
-            SetObjectValue('hfReportId_' + i, result[i].ReportId)
+        {
+            if (i == 0)
+                SetObjectValue('hfReportId', result[i].iReportId);
+        }
     }
+}
+
+function BuildYesNoRadioBlock(sTableName, bIsNumbered, sRadioName, bYes, iTotalWidth)
+{
+    var ctlWidth = [];
+    ctlWidth[0] = 10;
+    ctlWidth[1] = 25;
+    ctlWidth[2] = 10;
+    ctlWidth[3] = 25;
+
+    var iPaddWidth = (iTotalWidth - 75) / 2;
+    if (iPaddWidth > 0)
+    {
+        ctlWidth[0] = iPaddWidth;
+        ctlWidth[1] = 10;
+        ctlWidth[2] = 25;
+        ctlWidth[3] = 10;
+        ctlWidth[4] = 25;
+        ctlWidth[5] = iPaddWidth;
+    }
+    var arrTab = BuildTable(sTableName, ctlWidth, bIsNumbered);
+    var table1 = arrTab[0];
+    var tablebody1 = arrTab[1];
+
+    if (bYes == undefined)
+    {
+        bYes = false;
+        bNo = false;
+    }
+    else
+        bNo = !bYes;
+
+
+    currentrow2 = document.createElement("tr");
+
+    if (iPaddWidth > 0)
+    {
+        current_cell2 = document.createElement("td");
+        SetObjectWidth(current_cell2, iPaddWidth);
+        currentrow2.appendChild(current_cell2);
+    }
+
+    current_cell2 = document.createElement("td");
+    var label = CreateFormLabelField(sRadioName + "0", "Y");
+    current_cell2.appendChild(label);
+    current_cell2.className = "grdfont grdfont10";
+    current_cell2.align = "left";
+    SetObjectWidth(current_cell2, ctlWidth[0]);
+    currentrow2.appendChild(current_cell2);
+
+    current_cell2 = document.createElement("td");
+    var typeradio1 = CreateFormRadioButton(sRadioName, 0, bYes, sRadioName + "Yes")
+    typeradio1.onclick = function () { SetMaterialEditStatus(-1); };
+    current_cell2.appendChild(typeradio1);
+    SetObjectWidth(current_cell2, ctlWidth[1]);
+    currentrow2.appendChild(current_cell2);
+
+    current_cell2 = document.createElement("td");
+    var label = CreateFormLabelField(sRadioName + "1", "N");
+    current_cell2.appendChild(label);
+    current_cell2.className = "grdfont grdfont10";
+    current_cell2.align = "left";
+    SetObjectWidth(current_cell2, ctlWidth[2]);
+    currentrow2.appendChild(current_cell2);
+
+    current_cell2 = document.createElement("td");
+    var typeradio1 = CreateFormRadioButton(sRadioName, 1, bNo, sRadioName + "No")
+    typeradio1.onclick = function () { SetMaterialEditStatus(-1); };
+    current_cell2.appendChild(typeradio1);
+    SetObjectWidth(current_cell2, ctlWidth[3]);
+    currentrow2.appendChild(current_cell2);
+
+
+    if (iPaddWidth > 0)
+    {
+        current_cell2 = document.createElement("td");
+        SetObjectWidth(current_cell2, iPaddWidth);
+        currentrow2.appendChild(current_cell2);
+    }
+
+    tablebody1.appendChild(currentrow2);
+
+    return table1;
 }

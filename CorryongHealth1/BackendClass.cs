@@ -88,6 +88,7 @@
             public int iReportId { get; set; } = -1;
             public int iQuestionId { get; set; } = -1;
             public bool bReturn { get; set; } = false;
+            public string sError { get; set; } = "";
         }
 
         /*        private readonly IConfiguration _configuration;
@@ -651,6 +652,7 @@
                             for (int i = 0; i < iRecords; i++)
                             {
                                 objQuestion[i] = new QuestionObject();
+                                objQuestion[i].ReportId = DB.GetDataSetValueInt(ds, "ReportId", i);
                                 objQuestion[i].FormId = DB.GetDataSetValueInt(ds, "FormId", i);
                                 objQuestion[i].PatientId = DB.GetDataSetValueInt(ds, "PatientId", i);
                                 objQuestion[i].FirstName = DB.GetDataSetValueString(ds, "FirstName", i);
@@ -672,6 +674,67 @@
                 catch
                 {
                     return null;
+                }
+                finally
+                {
+                    DB.CloseSQLConnection();
+                }
+            }
+            public QuestionSaveResultObject SetFormQuestionHandover(String sUerId, QuestionSaveObject question)
+            {
+                DB DB = new DB();
+                DataSet ds = new DataSet();
+                int iRecords;
+                QuestionSaveResultObject rtnQuestion = new QuestionSaveResultObject();
+
+                try
+                {
+                    DB.SetConnectionString(gsConnectionString);
+                    DB.OpenSQLConnection();
+                    DB.SetStoredProcName("SP_SetPatientFormResults");
+                    DB.SetParam("@piFormId", question.FormId);
+                    DB.SetParam("@piPatientId", question.PatientId);
+                    DB.SetParam("@piQuestionId", question.QuestionId);
+                    DB.SetParam("@pdtFormDate", question.FormDate); //Change this to SQL format yyyymmdd
+                    DB.SetParam("@pfScore", question.PatientResultScore);
+                    DB.SetParam("@pfScale", question.PatientResultScale);
+                    DB.SetParam("@pvchNotes", question.PatientNotes);
+                    DB.SetParam("@pvchDataPoint1", question.PatientDataPoint1);
+                    DB.SetParam("@pvchDataPoint2", question.PatientDataPoint2);
+                    DB.SetParam("@pvchDataPoint3", question.PatientDataPoint3);
+                    DB.SetParam("@pvchDataPoint4", question.PatientDataPoint4);
+                    DB.SetParam("@pvchDataPoint5", question.PatientDataPoint5);
+                    DB.SetParam("@pvchUser", question.PatientDataPoint1);
+
+                    iRecords = DB.RunStoredProcDataSet();
+                    if (iRecords > 0)
+                    {
+                        ds = DB.GetDataSet();
+                        if ((ds.Tables.Count > 0))
+                        {
+                            rtnQuestion.iReportId = DB.GetDataSetValueInt(ds, "ReportId", 0);
+                            rtnQuestion.bReturn = true;
+                        }
+                        else
+                        {
+                            rtnQuestion.iReportId = -1;
+                            rtnQuestion.bReturn = true;
+                        }
+                    }
+                    else
+                    {
+                        rtnQuestion.iReportId = -1;
+                        rtnQuestion.bReturn = true;
+                        rtnQuestion.sError = "Could not save details for patient id " + question.PatientId + " and question id " + question.QuestionId;
+                    }
+                    return rtnQuestion;
+                }
+                catch (Exception ex)
+                {
+                    rtnQuestion.iReportId = -1;
+                    rtnQuestion.bReturn = true;
+                    rtnQuestion.sError = "Could not save details for patient id " + question.PatientId + " and question id " + question.QuestionId + " due to " + ex.Message;
+                    return rtnQuestion;
                 }
                 finally
                 {
