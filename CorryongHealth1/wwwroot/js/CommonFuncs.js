@@ -388,6 +388,16 @@ function GetSCMSDateStamp()
     return Day + '/' + Mnth + '/' + Year;
 }
 
+function GetDateStamp()
+{
+    var date = new Date();
+    var Year = date.getFullYear();
+    var Mnth = parseInt(date.getMonth(), 10) + 1;
+    var Day = parseInt(date.getDate(), 10);
+    //    PadStringWithZeros(Day, 2, true) + "/" + PadStringWithZeros(Mnth, 2, true) + "/" + Year;
+    return PadStringWithZeros(Day, 2, true) + "/" + PadStringWithZeros(Mnth, 2, true) + "/" + Year;
+}
+
 function GetSCMSTimeStamp()
 {
     var date = new Date();

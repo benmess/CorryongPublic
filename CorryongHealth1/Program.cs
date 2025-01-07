@@ -225,12 +225,31 @@ app.MapPost("api/saveform", (BackendClass.QuestionSaveObject[] jsonin) =>
     BackendClass.clsTest dbTest = new BackendClass.clsTest(gsConnectionString);
     BackendClass.QuestionSaveResultObject[] objSave = new BackendClass.QuestionSaveResultObject[jsonin.Length];
     bool bReturn;
+    bool bNewForm = false;
+    int iReportId = -1;
 
     for (int i = 0; i < jsonin.Length; i++)
     {
         BackendClass.QuestionSaveObject question = jsonin[i];
+
+        if(i==0)
+        {
+            if(question.ReportId < 0)
+            {
+                iReportId = dbTest.SetFormReport(question.FormId, question.PatientId, question.FormDate);
+                bNewForm = true;
+                question.ReportId = iReportId;
+            }
+            else
+            {
+                iReportId = question.ReportId;
+            }
+        }
+        else
+            question.ReportId = iReportId;
+
         BackendClass.QuestionSaveResultObject questionsave = new BackendClass.QuestionSaveResultObject();
-        questionsave = dbTest.SetFormQuestionHandover(sUser, question);
+        questionsave = dbTest.SetFormQuestion(sUser, bNewForm, question);
         objSave[i] = questionsave;
         //objSave[i] = new BackendClass.QuestionSaveResultObject();
         //objSave[i].bReturn = true;

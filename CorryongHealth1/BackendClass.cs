@@ -9,6 +9,7 @@
     using QuestPDF.Helpers;
     using QuestPDF.Infrastructure;
     using QuestPDF.Elements.Table;
+    using System.Globalization;
 
     public class BackendClass
     {
@@ -63,7 +64,13 @@
             public string Question { get; set; } = "";
             public int FormSortOrder { get; set; } = -1;
             public double PatientResultScore { get; set; } = -1.0;
+            public double PatientResultScale { get; set; } = -1.0;
             public string PatientNotes { get; set; } = "";
+            public string Datapoint1 { get; set; } = "";
+            public string Datapoint2 { get; set; } = "";
+            public string Datapoint3 { get; set; } = "";
+            public string Datapoint4 { get; set; } = "";
+            public string Datapoint5 { get; set; } = "";
         }
 
         public class QuestionSaveObject
@@ -108,13 +115,13 @@
             int m_ParamCount = 0;
             string m_ErrorMsg = "";
             string m_connstring = "";
-/*            private readonly IConfiguration _configuration;
+            /*            private readonly IConfiguration _configuration;
 
-            public DB(IConfiguration configuration)
-            {
-                _configuration = configuration;
-            }
-*/
+                        public DB(IConfiguration configuration)
+                        {
+                            _configuration = configuration;
+                        }
+            */
             public void SetConnectionString(string sConString)
             {
                 m_connstring = sConString;
@@ -124,9 +131,9 @@
             {
                 SqlConnection sqlcon = new SqlConnection();
 
-/*                var sConString = "Data Source=messracing.com;Initial Catalog=" + sDBFile + ";UID=benmessne;PWD=Mo9anaApr!";
-                sqlcon.ConnectionString = m_connstring;
-*///                sqlcon.ConnectionString = sConString;
+                /*                var sConString = "Data Source=messracing.com;Initial Catalog=" + sDBFile + ";UID=benmessne;PWD=Mo9anaApr!";
+                                sqlcon.ConnectionString = m_connstring;
+                *///                sqlcon.ConnectionString = sConString;
                 if ((sqlcon.State != ConnectionState.Open))
                 {
                     try
@@ -146,9 +153,9 @@
 
             public void OpenSQLConnection()
             {
-//                var sConString = "Data Source=messracing.com;Initial Catalog=" + sDBFile + ";UID=benmessne;PWD=Mo9anaApr!";
-//                consql.ConnectionString = m_connstring;
-//                consql.ConnectionString = sConString;
+                //                var sConString = "Data Source=messracing.com;Initial Catalog=" + sDBFile + ";UID=benmessne;PWD=Mo9anaApr!";
+                //                consql.ConnectionString = m_connstring;
+                //                consql.ConnectionString = sConString;
                 if ((consql.State != ConnectionState.Open))
                 {
                     try
@@ -500,7 +507,7 @@
                     iRecords = DB.RunStoredProcDataSet();
                     StateTrackObject[] objStateTrack = new StateTrackObject[iRecords];
                     if ((iRecords > 0))
-                    { 
+                    {
                         ds = DB.GetDataSet();
                         if ((ds.Tables.Count > 0))
                         {
@@ -537,7 +544,7 @@
                     DB.SetConnectionString(gsConnectionString);
                     DB.OpenSQLConnection();
                     DB.SetStoredProcName("SP_GetBeds");
-//                    DB.SetParam("@vchState", sState);
+                    //                    DB.SetParam("@vchState", sState);
                     iRecords = DB.RunStoredProcDataSet();
                     BedObject[] objBedInfo = new BedObject[iRecords];
                     if ((iRecords > 0))
@@ -614,12 +621,12 @@
                     }
                     return rtnBed;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     rtnBed.iHandoverId = bed.iHandoverId;
                     rtnBed.iBedNo = bed.iBedNo;
                     rtnBed.iResidentId = bed.iResidentId;
-                    rtnBed.sError =ex.Message;
+                    rtnBed.sError = ex.Message;
                     rtnBed.bReturn = false;
                     return rtnBed;
                 }
@@ -664,6 +671,14 @@
                                 objQuestion[i].QuestionType = DB.GetDataSetValueInt(ds, "QuestionType", i);
                                 objQuestion[i].SectionId = DB.GetDataSetValueInt(ds, "SectionId", i);
                                 objQuestion[i].SectionType = DB.GetDataSetValueInt(ds, "SectionTypeId", i);
+                                objQuestion[i].PatientNotes = DB.GetDataSetValueString(ds, "PatientNotes", i);
+                                objQuestion[i].PatientResultScore = DB.GetDataSetValueFloat(ds, "PatientResultScore", i);
+                                objQuestion[i].PatientResultScale = DB.GetDataSetValueFloat(ds, "PatientResultScale", i);
+                                objQuestion[i].Datapoint1 = DB.GetDataSetValueString(ds, "Datapoint1", i);
+                                objQuestion[i].Datapoint2 = DB.GetDataSetValueString(ds, "Datapoint2", i);
+                                objQuestion[i].Datapoint3 = DB.GetDataSetValueString(ds, "Datapoint3", i);
+                                objQuestion[i].Datapoint4 = DB.GetDataSetValueString(ds, "Datapoint4", i);
+                                objQuestion[i].Datapoint5 = DB.GetDataSetValueString(ds, "Datapoint5", i);
                             }
                         }
                         return objQuestion;
@@ -680,22 +695,77 @@
                     DB.CloseSQLConnection();
                 }
             }
-            public QuestionSaveResultObject SetFormQuestionHandover(String sUerId, QuestionSaveObject question)
+
+            public int SetFormReport(int iFormId, int iPateintId, String sFormDate)
             {
                 DB DB = new DB();
                 DataSet ds = new DataSet();
-                int iRecords;
-                QuestionSaveResultObject rtnQuestion = new QuestionSaveResultObject();
+                int iRecords, iReportId;
+                DateClass dte = new DateClass();
 
                 try
                 {
+                    string sDate = dte.ConvertDateTimeToSQLFormat(sFormDate, "dd/MM/yyyy");
+
+                    DB.SetConnectionString(gsConnectionString);
+                    DB.OpenSQLConnection();
+                    DB.SetStoredProcName("SP_SetPatientFormReport");
+                    DB.SetParam("@piFormId", iFormId);
+                    DB.SetParam("@piPatientId", iPateintId);
+                    DB.SetParam("@pdtFormDate", sDate); //Change this to SQL format yyyymmdd
+
+                    iRecords = DB.RunStoredProcDataSet();
+                    if (iRecords > 0)
+                    {
+                        ds = DB.GetDataSet();
+                        if ((ds.Tables.Count > 0))
+                        {
+                            iReportId = DB.GetDataSetValueInt(ds, "ReportId", 0);
+                        }
+                        else
+                        {
+                            iReportId = -1;
+                        }
+                    }
+                    else
+                    {
+                        iReportId = -1;
+                    }
+                    return iReportId;
+                }
+                catch (Exception ex)
+                {
+                    return -1;
+                }
+                finally
+                {
+                    DB.CloseSQLConnection();
+                }
+            }
+
+            public QuestionSaveResultObject SetFormQuestion(String sUerId, bool bNewReport, QuestionSaveObject question)
+            {
+                DB DB = new DB();
+                DataSet ds = new DataSet();
+                int iRecords, iNewReport;
+                QuestionSaveResultObject rtnQuestion = new QuestionSaveResultObject();
+                DateClass dte = new DateClass();
+
+                try
+                {
+                    iNewReport = 0;
+                    if (bNewReport)
+                        iNewReport = 1;
+
+                    string sDate = dte.ConvertDateTimeToSQLFormat(question.FormDate, "dd/MM/yyyy");
+
                     DB.SetConnectionString(gsConnectionString);
                     DB.OpenSQLConnection();
                     DB.SetStoredProcName("SP_SetPatientFormResults");
                     DB.SetParam("@piFormId", question.FormId);
                     DB.SetParam("@piPatientId", question.PatientId);
                     DB.SetParam("@piQuestionId", question.QuestionId);
-                    DB.SetParam("@pdtFormDate", question.FormDate); //Change this to SQL format yyyymmdd
+                    DB.SetParam("@pdtFormDate", sDate);
                     DB.SetParam("@pfScore", question.PatientResultScore);
                     DB.SetParam("@pfScale", question.PatientResultScale);
                     DB.SetParam("@pvchNotes", question.PatientNotes);
@@ -705,6 +775,8 @@
                     DB.SetParam("@pvchDataPoint4", question.PatientDataPoint4);
                     DB.SetParam("@pvchDataPoint5", question.PatientDataPoint5);
                     DB.SetParam("@pvchUser", question.PatientDataPoint1);
+                    DB.SetParam("@piReportId", question.ReportId);
+                    DB.SetParam("@piNewReport", iNewReport);
 
                     iRecords = DB.RunStoredProcDataSet();
                     if (iRecords > 0)
@@ -820,7 +892,7 @@
             }
 
             public QuestPDF.Elements.Table.ITableCellContainer GetCell(String sContents, uint iRow, ITableCellContainer cell)
-            {               
+            {
                 cell.Row(iRow).Column(3).Element(Block).Text(sContents);
 
                 return cell;
@@ -837,6 +909,29 @@
                     .MinHeight(50)
                     .AlignCenter()
                     .AlignMiddle();
+            }
+        }
+
+        public class DateClass
+        {
+            public DateTime GetDateFromString(string sDateString, string sFormat)
+            {
+                DateTime dtDate;
+                CultureInfo provider = CultureInfo.InvariantCulture;
+
+                dtDate = DateTime.ParseExact(sDateString, sFormat, provider);
+
+                return dtDate;
+            }
+
+            public string ConvertDateTimeToSQLFormat(string sDateString, string sFormat)
+            {
+                string sReturnDate = "";
+                DateTime dtDate = GetDateFromString(sDateString, sFormat);
+                sReturnDate = dtDate.ToString("yyyyMMdd HH:mm:ss.s");
+
+                return sReturnDate;
+
             }
         }
     }
