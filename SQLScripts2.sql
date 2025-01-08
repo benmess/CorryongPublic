@@ -213,12 +213,6 @@ GO
 USE [Corryong]
 GO
 
-drop table tblReport
-drop table tblReportType
-
-
-GO
-
 /****** Object:  Table [dbo].[tblReport]    Script Date: 5/01/2025 4:16:30 PM ******/
 SET ANSI_NULLS ON
 GO
@@ -298,11 +292,6 @@ GO
 
 USE [Corryong]
 GO
-
-drop table tblPatientResults
-
-GO
-
 
 /****** Object:  Table [dbo].[tblPatientResults]    Script Date: 5/01/2025 5:14:30 PM ******/
 SET ANSI_NULLS ON

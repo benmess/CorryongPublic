@@ -19,12 +19,6 @@
             public string value { get; set; } = "";
         }
 
-        public class StateTrackObject
-        {
-            public string Fullname { get; set; } = "";
-            public string TABMeetingAbbreviationCode { get; set; } = "";
-        }
-
         public class BedObject
         {
             public string sLoggedInUser { get; set; } = "";
@@ -115,13 +109,7 @@
             int m_ParamCount = 0;
             string m_ErrorMsg = "";
             string m_connstring = "";
-            /*            private readonly IConfiguration _configuration;
 
-                        public DB(IConfiguration configuration)
-                        {
-                            _configuration = configuration;
-                        }
-            */
             public void SetConnectionString(string sConString)
             {
                 m_connstring = sConString;
@@ -131,9 +119,6 @@
             {
                 SqlConnection sqlcon = new SqlConnection();
 
-                /*                var sConString = "Data Source=messracing.com;Initial Catalog=" + sDBFile + ";UID=benmessne;PWD=Mo9anaApr!";
-                                sqlcon.ConnectionString = m_connstring;
-                *///                sqlcon.ConnectionString = sConString;
                 if ((sqlcon.State != ConnectionState.Open))
                 {
                     try
@@ -153,9 +138,6 @@
 
             public void OpenSQLConnection()
             {
-                //                var sConString = "Data Source=messracing.com;Initial Catalog=" + sDBFile + ";UID=benmessne;PWD=Mo9anaApr!";
-                //                consql.ConnectionString = m_connstring;
-                //                consql.ConnectionString = sConString;
                 if ((consql.State != ConnectionState.Open))
                 {
                     try
@@ -444,93 +426,13 @@
             }
         }
 
-        public class clsTest
+        public class clsForm
         {
             private string gsConnectionString;
 
-            public clsTest(string sConnection)
+            public clsForm(string sConnection)
             {
                 gsConnectionString = sConnection;
-            }
-
-            public bool IsHorseExempt(string sHorseName)
-            {
-                DB DB = new DB();
-                DataSet ds = new DataSet();
-                string sSQL;
-                string sReturnMsg = "";
-
-                try
-                {
-                    DB.SetConnectionString(gsConnectionString);
-                    DB.OpenSQLConnection();
-                    sHorseName = sHorseName.Replace("'", "''");
-                    sSQL = "SELECT HorseName FROM tblHorseExempt WHERE HorseName = '" + sHorseName + "'";
-                    if ((DB.GetSQLDataSet(sSQL, ref sReturnMsg)))
-                    {
-                        ds = DB.GetDataSet();
-                        if ((ds.Tables.Count > 0))
-                        {
-                            if ((ds.Tables[0].Rows.Count > 0))
-                                return true;
-                            else
-                                return false;
-                        }
-                        else
-                            return false;
-                    }
-                    else
-                        return false;
-                }
-                catch
-                {
-                    return false;
-                }
-                finally
-                {
-                    DB.CloseSQLConnection();
-                }
-            }
-
-            public StateTrackObject[]? GetTracks(string sState)
-            {
-                DB DB = new DB();
-                DataSet ds = new DataSet();
-                int iRecords;
-
-                try
-                {
-                    DB.SetConnectionString(gsConnectionString);
-                    DB.OpenSQLConnection();
-                    DB.SetStoredProcName("SP_temp2");
-                    DB.SetParam("@vchState", sState);
-                    iRecords = DB.RunStoredProcDataSet();
-                    StateTrackObject[] objStateTrack = new StateTrackObject[iRecords];
-                    if ((iRecords > 0))
-                    {
-                        ds = DB.GetDataSet();
-                        if ((ds.Tables.Count > 0))
-                        {
-                            for (int i = 0; i < iRecords; i++)
-                            {
-                                objStateTrack[i] = new StateTrackObject();
-                                objStateTrack[i].Fullname = DB.GetDataSetValueString(ds, "Fullname", i);
-                                objStateTrack[i].TABMeetingAbbreviationCode = DB.GetDataSetValueString(ds, "TABMeetingAbbreviation", i);
-                            }
-                        }
-                        return objStateTrack;
-                    }
-                    else
-                        return null;
-                }
-                catch
-                {
-                    return null;
-                }
-                finally
-                {
-                    DB.CloseSQLConnection();
-                }
             }
 
             public BedObject[]? GetBeds()

@@ -1,7 +1,17 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Patient Search";
+    <div class="text-center">
+        <h1 class="display-4">Corryong Health</h1>
+        <p>Managing the health and wellbeing throughout the greater Corryong region.</p>
+    </div>
+    <div id="divMainContainer" class="text-center">
+        <div id="divMainContainerSearch">
+        </div>
+        <div id="divMainContainerResults">
+        </div>
+    </div>
 }
 
 @*@page "/"
@@ -10,12 +20,9 @@
     ViewData["Title"] = "Home page";
 }
 *@
-<div class="text-center">
-    <h1 class="display-4">Corryong Health</h1>
-    <p>Managing the health and wellbeing throughout the greater Corryong region.</p>
-</div>
 
 @section scripts{
+    <script type="text/javascript" src="~/js/Home.js"></script>
     <script>
 
 
@@ -37,16 +44,18 @@
             anchorPerson.className += ' disabled';
             */
 
-            setCookie('id', '12345');
-            setCookie('PatientId', '1');
+            var anchor4M = document.getElementById("pg4M");
+            anchor4M.style.pointerEvents = "none";
+            anchor4M.style.cursor = "default";
+            anchor4M.className += ' disabled';
 
-            //Redirect to the handover page
-            var sURL = window.location.href;
+            BuildSearchBlock();
+
 //            sURL = sURL.replace("Index", "Bed");
-            sURL += 'FourM';
-            window.location = sURL;
+            
 
         }
+
 
     </script>
 }

@@ -64,30 +64,6 @@ app.UseAuthentication();
 app.MapRazorPages();
 
 
-
-app.MapGet("api/testget/{id:int}", (int id) =>
-{
-
-    //string sUser = WindowsIdentity.GetCurrent().Name;
-    string? sUser = GetWindowsUser();
-    string sUser2 = (sUser ==null) ? string.Empty : sUser;
-
-    var jsonObj1 = new BackendClass.BaseJsonObject();
-        jsonObj1.name = "ouput";
-        jsonObj1.value = sUser2;
-    
-    string jsonString = JsonSerializer.Serialize(jsonObj1);
-
-    BackendClass.DB db = new BackendClass.DB();
-    BackendClass.clsTest dbTest = new BackendClass.clsTest(gsConnectionString);
-//    db.SetConnectionString(gsConnectionString);
-
-    dbTest.IsHorseExempt("Dear Demi");
-//    db.OpenSQLConnection("benmessne");
-
-    return jsonString;
-});
-
 app.MapGet("api/getpersondetails/{id:int}", (int id) =>
 {
 
@@ -102,30 +78,11 @@ app.MapGet("api/getpersondetails/{id:int}", (int id) =>
     string jsonString = JsonSerializer.Serialize(jsonObj1);
 
     BackendClass.DB db = new BackendClass.DB();
-    BackendClass.clsTest dbTest = new BackendClass.clsTest(gsConnectionString);
+    BackendClass.clsForm dbTest = new BackendClass.clsForm(gsConnectionString);
     //    db.SetConnectionString(gsConnectionString);
 
 //    dbTest.IsHorseExempt("Dear Demi");
     //    db.OpenSQLConnection("benmessne");
-
-    return jsonString;
-});
-
-app.MapGet("api/getstatetracks/{state}", (string state) =>
-{
-
-    //string sUser = WindowsIdentity.GetCurrent().Name;
-    string? sUser = GetWindowsUser();
-    string sUser2 = (sUser == null) ? string.Empty : sUser;
-
-    BackendClass.StateTrackObject[]? jsonObj1 = null;
-
-
-    BackendClass.DB db = new BackendClass.DB();
-    BackendClass.clsTest dbTest = new BackendClass.clsTest(gsConnectionString);
-    jsonObj1 = dbTest.GetTracks(state);
-
-    string jsonString = JsonSerializer.Serialize(jsonObj1);
 
     return jsonString;
 });
@@ -142,7 +99,7 @@ app.MapGet("api/getbeds", () =>
 
 
     BackendClass.DB db = new BackendClass.DB();
-    BackendClass.clsTest dbTest = new BackendClass.clsTest(gsConnectionString);
+    BackendClass.clsForm dbTest = new BackendClass.clsForm(gsConnectionString);
     jsonObj1 = dbTest.GetBeds();
 
     if(jsonObj1.Length > 0)
@@ -153,6 +110,25 @@ app.MapGet("api/getbeds", () =>
     string jsonString = JsonSerializer.Serialize(jsonObj1);
 
     //pdf.CreatePDFPage();
+
+    return jsonString;
+});
+
+app.MapGet("api/getpatientsearch/{patientid}/{surname}", (string patientid, string surname) =>
+{
+
+    //string sUser = WindowsIdentity.GetCurrent().Name;
+    string? sUser = GetWindowsUser();
+    string sUser2 = (sUser == null) ? string.Empty : sUser;
+
+    BackendClass.QuestionObject[]? jsonObj1 = null;
+
+
+    BackendClass.DB db = new BackendClass.DB();
+    BackendClass.clsForm dbTest = new BackendClass.clsForm(gsConnectionString);
+    jsonObj1 = dbTest.GetPatientForm(patientid, formid);
+
+    string jsonString = JsonSerializer.Serialize(jsonObj1);
 
     return jsonString;
 });
@@ -168,7 +144,7 @@ app.MapGet("api/getform/{patientid:int}/{formid:int}", (int patientid, int formi
 
 
     BackendClass.DB db = new BackendClass.DB();
-    BackendClass.clsTest dbTest = new BackendClass.clsTest(gsConnectionString);
+    BackendClass.clsForm dbTest = new BackendClass.clsForm(gsConnectionString);
     jsonObj1 = dbTest.GetPatientForm(patientid, formid);
 
     string jsonString = JsonSerializer.Serialize(jsonObj1);
@@ -199,7 +175,7 @@ app.MapPost("api/savehandover", (BackendClass.BedObject[] jsonin) =>
 {
     string? sUser = GetWindowsUser();
     BackendClass.DB db = new BackendClass.DB();
-    BackendClass.clsTest dbTest = new BackendClass.clsTest(gsConnectionString);
+    BackendClass.clsForm dbTest = new BackendClass.clsForm(gsConnectionString);
     BackendClass.BedSaveObject[] objSave = new BackendClass.BedSaveObject[jsonin.Length];
     bool bReturn;
 
@@ -222,7 +198,7 @@ app.MapPost("api/saveform", (BackendClass.QuestionSaveObject[] jsonin) =>
 {
     string? sUser = GetWindowsUser();
     BackendClass.DB db = new BackendClass.DB();
-    BackendClass.clsTest dbTest = new BackendClass.clsTest(gsConnectionString);
+    BackendClass.clsForm dbTest = new BackendClass.clsForm(gsConnectionString);
     BackendClass.QuestionSaveResultObject[] objSave = new BackendClass.QuestionSaveResultObject[jsonin.Length];
     bool bReturn;
     bool bNewForm = false;
