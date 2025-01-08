@@ -121,12 +121,17 @@ app.MapGet("api/getpatientsearch/{patientid}/{surname}", (string patientid, stri
     string? sUser = GetWindowsUser();
     string sUser2 = (sUser == null) ? string.Empty : sUser;
 
-    BackendClass.QuestionObject[]? jsonObj1 = null;
+    BackendClass.PatientObject[]? jsonObj1 = null;
 
+    if (patientid.Equals("^"))
+        patientid = "";
+
+    if (surname.Equals("^"))
+        surname = "";
 
     BackendClass.DB db = new BackendClass.DB();
-    BackendClass.clsForm dbTest = new BackendClass.clsForm(gsConnectionString);
-    jsonObj1 = dbTest.GetPatientForm(patientid, formid);
+    BackendClass.clsForm dbForm = new BackendClass.clsForm(gsConnectionString);
+    jsonObj1 = dbForm.GetPatientSearch(patientid, surname);
 
     string jsonString = JsonSerializer.Serialize(jsonObj1);
 

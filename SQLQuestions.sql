@@ -209,6 +209,54 @@ values ('Medical History (Active Items)', 1, 1, 6, 6, 1, 1)
 insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
 values ('', 1, 1, 6, 6, 2, 17)
 
+/***************** SECTION RELEVANT FAMILY HISTORY (7) ***********/
+insert tblSection (SectionName, SectionType) values ('Relevant Family History', 5)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Relevant Family History', 1, 1, 7, 7, 1, 1)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('', 1, 1, 7, 7, 2, 17)
+
+/***************** SECTION ALLERGIES (Includes Reactions) (8) ***********/
+insert tblSection (SectionName, SectionType) values ('Allergies (Includes Reactions)', 5)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Allergies (Includes Reactions)', 1, 1, 8, 8, 1, 1)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('', 1, 1, 8, 8, 2, 17)
+
+/***************** SECTION IMMUNISATION STATUS (9) ***********/
+insert tblSection (SectionName, SectionType) values ('Immunisation Status', 5)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Immunisation Status', 1, 1, 9, 9, 1, 1)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('', 1, 1, 9, 9, 2, 17)
+
+/***************** SECTION MEDICATIONS (10) ***********/
+insert tblSection (SectionName, SectionType) values ('Medications', 2)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Medications', 1, 1, 10, 10, 1, 1)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('^Comments', 1, 1, 10, 10, 2, 2)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('What medicines do you take and why?', 1, 1, 10, 10, 3, 5)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Are you reluctant to take any medicines?', 1, 1, 10, 10, 4, 5)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('When were your medicines last reviewed?', 1, 1, 10, 10, 5, 5)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Has there been any changes in your life since that review?', 1, 1, 10, 10, 6, 5)
+
 select * from [dbo].[tblSection]
 select * from tblSectionType
 

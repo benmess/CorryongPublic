@@ -40,6 +40,18 @@
             public string sError { get; set; } = "";
         }
 
+        public class PatientObject
+        {
+            public int iPatientId { get; set; } = 0;
+            public string sSurname { get; set; } = "";
+            public string sFirstName { get; set; } = "";
+            public string sAddress { get; set; } = "";
+            public string sCity { get; set; } = "";
+            public int iPostcode { get; set; } = 0;
+            public long lMedicare { get; set; } = 0;
+            public string sError { get; set; } = "";
+        }
+
         public class QuestionObject
         {
             public int PatientId { get; set; } = -1;
@@ -238,6 +250,35 @@
                                 return -1;
                             else
                                 return Convert.ToInt32(obj);
+                        }
+                    }
+                    else
+                        return -1;
+                }
+                else
+                    return -1;
+            }
+
+            public long GetDataSetValueLong(DataSet ds, string sColumnName, int iRow)
+            {
+                int iColNo;
+
+                iColNo = 0;
+
+                if ((ds.Tables.Count > 0))
+                {
+                    iColNo = ds.Tables[0].Columns.IndexOf(sColumnName);
+                    if ((ds.Tables[0].Rows.Count > 0))
+                    {
+                        if ((Convert.IsDBNull(ds.Tables[0].Rows[iRow].ItemArray.GetValue(iColNo))))
+                            return -1;
+                        else
+                        {
+                            object? obj = ds.Tables[0].Rows[iRow].ItemArray.GetValue(iColNo);
+                            if (obj == null)
+                                return -1;
+                            else
+                                return Convert.ToInt64(obj);
                         }
                     }
                     else
@@ -537,6 +578,57 @@
                     DB.CloseSQLConnection();
                 }
             }
+
+            public PatientObject[]? GetPatientSearch(string sPatientId, string sSurname)
+            {
+                DB DB = new DB();
+                DataSet ds = new DataSet();
+                int iRecords;
+
+                try
+                {
+                    DB.SetConnectionString(gsConnectionString);
+                    DB.OpenSQLConnection();
+                    DB.SetStoredProcName("SP_GetPatientSearch");
+                    DB.SetParam("@pvchPatientId", sPatientId);
+                    DB.SetParam("@pvchSurname", sSurname);
+                    iRecords = DB.RunStoredProcDataSet();
+                    PatientObject[] objPatient = new PatientObject[iRecords];
+                    if ((iRecords > 0))
+                    {
+                        ds = DB.GetDataSet();
+                        if ((ds.Tables.Count > 0))
+                        {
+                            for (int i = 0; i < iRecords; i++)
+                            {
+                                objPatient[i] = new PatientObject();
+                                objPatient[i].iPatientId = DB.GetDataSetValueInt(ds, "Id", i);
+                                objPatient[i].sSurname = DB.GetDataSetValueString(ds, "Surname", i);
+                                objPatient[i].sFirstName = DB.GetDataSetValueString(ds, "FirstName", i);
+                                objPatient[i].sAddress = DB.GetDataSetValueString(ds, "Address", i);
+                                objPatient[i].sCity = DB.GetDataSetValueString(ds, "City", i);
+                                objPatient[i].iPostcode = DB.GetDataSetValueInt(ds, "Postcode", i);
+                                objPatient[i].lMedicare = DB.GetDataSetValueLong(ds, "Medicare", i);
+                            }
+                        }
+                        return objPatient;
+                    }
+                    else
+                        return objPatient;
+                }
+                catch (Exception ex)
+                {
+                    PatientObject[] objPatient = new PatientObject[1];
+                    objPatient[0] = new PatientObject();
+                    objPatient[0].sError = ex.Message;
+                    return objPatient;
+                }
+                finally
+                {
+                    DB.CloseSQLConnection();
+                }
+            }
+
 
             public QuestionObject[]? GetPatientForm(int iPatientId, int iFormId)
             {

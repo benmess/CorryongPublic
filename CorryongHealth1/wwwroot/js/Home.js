@@ -3,6 +3,10 @@ ctlWidths1[0] = 200;
 ctlWidths1[1] = 300;
 ctlWidths1[2] = 100;
 
+var ctlWidths2 = [];
+ctlWidths2[0] = 100;
+ctlWidths2[1] = 200;
+ctlWidths2[2] = 200;
 
 function BuildSearchBlock()
 {
@@ -22,6 +26,7 @@ function BuildSearchBlock()
     cell = document.createElement("td");
     cell.className = 'grdfont grdfont12 grdRowTextAligLeft grdVerticalAlignCenter rowPadding';
     var txtbox = CreateFormTextField("txtPatientId", '');
+    txtbox.onkeydown = function (event) { SearchEnter(event); };
     cell.appendChild(txtbox);
     rRow.appendChild(cell);
 
@@ -44,6 +49,7 @@ function BuildSearchBlock()
     cell = document.createElement("td");
     cell.className = 'grdfont grdfont12 grdRowTextAligLeft grdVerticalAlignCenter rowPadding';
     var txtbox = CreateFormTextField("txtPatientSurname", '');
+    txtbox.onkeydown = function (event) { SearchEnter(event); };
     cell.appendChild(txtbox);
     rRow.appendChild(cell);
     tblBody.appendChild(rRow)
@@ -58,6 +64,7 @@ function BuildSearchBlock()
     cell = document.createElement("td");
     cell.className = 'grdfont grdfont12 grdRowTextAligLeft grdVerticalAlignCenter rowPadding';
     var txtbox = CreateFormTextField("txtPatientFirstName", '');
+    txtbox.onkeydown = function (event) { SearchEnter(event); };
     cell.appendChild(txtbox);
     rRow.appendChild(cell);
     tblBody.appendChild(rRow)
@@ -72,6 +79,7 @@ function BuildSearchBlock()
     cell = document.createElement("td");
     cell.className = 'grdfont grdfont12 grdRowTextAligLeft grdVerticalAlignCenter rowPadding';
     var txtbox = CreateFormTextField("txtPatientAddress", '');
+    txtbox.onkeydown = function (event) { SearchEnter(event); };
     cell.appendChild(txtbox);
     rRow.appendChild(cell);
     tblBody.appendChild(rRow)
@@ -86,6 +94,7 @@ function BuildSearchBlock()
     cell = document.createElement("td");
     cell.className = 'grdfont grdfont12 grdRowTextAligLeft grdVerticalAlignCenter rowPadding';
     var txtbox = CreateFormTextField("txtPatientCity", '');
+    txtbox.onkeydown = function (event) { SearchEnter(event); };
     cell.appendChild(txtbox);
     rRow.appendChild(cell);
     tblBody.appendChild(rRow)
@@ -100,6 +109,7 @@ function BuildSearchBlock()
     cell = document.createElement("td");
     cell.className = 'grdfont grdfont12 grdRowTextAligLeft grdVerticalAlignCenter rowPadding';
     var txtbox = CreateFormTextField("txtPatientPostcode", '');
+    txtbox.onkeydown = function (event) { SearchEnter(event); };
     cell.appendChild(txtbox);
     rRow.appendChild(cell);
     tblBody.appendChild(rRow)
@@ -114,6 +124,7 @@ function BuildSearchBlock()
     cell = document.createElement("td");
     cell.className = 'grdfont grdfont12 grdRowTextAligLeft grdVerticalAlignCenter rowPadding';
     var txtbox = CreateFormTextField("txtPatientMedicare", '');
+    txtbox.onkeydown = function (event) { SearchEnter(event); };
     cell.appendChild(txtbox);
     rRow.appendChild(cell);
     tblBody.appendChild(rRow)
@@ -128,6 +139,7 @@ function BuildSearchBlock()
     cell = document.createElement("td");
     cell.className = 'grdfont grdfont12 grdRowTextAligLeft grdVerticalAlignCenter rowPadding';
     var txtbox = CreateFormTextField("txtPatientPhone", '');
+    txtbox.onkeydown = function (event) { SearchEnter(event); };
     cell.appendChild(txtbox);
     rRow.appendChild(cell);
     tblBody.appendChild(rRow)
@@ -149,13 +161,101 @@ function PerformSearch()
 
     fetch("api/getpatientsearch/" + sPatientId + "/" + sSurname)
         .then(response => response.json())
-        .then(result => { PopulatePage(result); });
+        .then(result => { PopulatePatientSearchResults(result); });
 
 }
 
-function OpenForm(sPage)
+function PopulatePatientSearchResults(searchResults)
 {
-    setCookie('PatientId', '1');
+    ClearResultsDiv();
+    var div = document.getElementById('divMainContainerResults');
+    var arrTbl = BuildTable("tablePatientSearchResults", ctlWidths2);
+    var tbl = arrTbl[0];
+    var tblBody = arrTbl[1];
+    tbl.className = 'divCenter';
+
+    var rRow = document.createElement("tr");
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 grdfontBold grdRowTextAligLeft';
+    var label = CreateFormLabelField("lblPatientIdHdr", "Patient Id");
+    cell.appendChild(label);
+    rRow.appendChild(cell);
+
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 grdfontBold grdRowTextAligLeft';
+    var label = CreateFormLabelField("lblSurnameHdr", "Surname");
+    cell.appendChild(label);
+    rRow.appendChild(cell);
+    tblBody.appendChild(rRow)
+
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 grdfontBold grdRowTextAligLeft';
+    var label = CreateFormLabelField("lblFirstNameHdr", "First Name");
+    cell.appendChild(label);
+    rRow.appendChild(cell);
+    tblBody.appendChild(rRow)
+
+    var iResultLength = searchResults.length;
+
+    if (iResultLength == 0)
+    {
+        alert('No patients match the search criteria');
+        return;
+    }
+
+    for (var i = 0; i < searchResults.length; i++)
+    {
+        var rRow = document.createElement("tr");
+        rRow.id = "resultRow_" + i;
+        rRow.onclick = function () { OpenForm(this); };
+        if(i%2 == 0)
+            rRow.className = 'gridRowHover6';
+        else
+            rRow.className = 'gridRowHover5';
+        var cell = document.createElement("td");
+        cell.className = 'grdfont grdfont12 grdRowTextAligLeft';
+        var label = CreateFormLabelField("lblPatientIdResult_" + i, searchResults[i].iPatientId);
+        cell.appendChild(label);
+        rRow.appendChild(cell);
+
+        var cell = document.createElement("td");
+        cell.className = 'grdfont grdfont12 grdRowTextAligLeft';
+        var label = CreateFormLabelField("lblSurnameResult_" + i, searchResults[i].sSurname);
+        cell.appendChild(label);
+        rRow.appendChild(cell);
+        tblBody.appendChild(rRow)
+
+        var cell = document.createElement("td");
+        cell.className = 'grdfont grdfont12 grdRowTextAligLeft';
+        var label = CreateFormLabelField("lblFirtNameResult_" + i, searchResults[i].sFirstName);
+        cell.appendChild(label);
+        rRow.appendChild(cell);
+        tblBody.appendChild(rRow)
+    }
+
+    div.appendChild(tbl);
+
+}
+
+function ClearResultsDiv()
+{
+    var div = document.getElementById('divMainContainerResults');
+    var tab = document.getElementById('tablePatientSearchResults');
+
+    if (div != null)
+    {
+        if (tab != null)
+        {
+            div.removeChild(tab);
+        }
+    }
+
+}
+function OpenForm(sender)
+{
+    var iRow = Get_RowNo_From_ControlName(sender.id);
+    var iPatientId = GetObjectValue('lblPatientIdResult_' + iRow);
+    setCookie('PatientId', iPatientId);
 
     //Redirect to the selected page
     var sURL = window.location.href;
@@ -167,4 +267,14 @@ function OpenForm(sPage)
 function GetSelectedPatient()
 {
     OpenForm("FourM");
+}
+
+function SearchEnter(e)
+{
+    if (e.keyCode == 13)
+    {
+/*		e.preventDefault();
+		e.stopPropagation();
+*/		PerformSearch();
+    }
 }

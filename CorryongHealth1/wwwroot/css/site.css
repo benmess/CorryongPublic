@@ -1667,6 +1667,30 @@ table.fixed {
             background-color: transparent;
         }
 
+.gridRowHover5 {
+    background-color: #fbfbfb;
+}
+
+    .gridRowHover5:hover {
+        background-color: yellow !important;
+    }
+
+        .gridRowHover5:hover td {
+            background-color: transparent;
+        }
+
+.gridRowHover6 {
+    background-color: #e6e6e6;
+}
+
+    .gridRowHover6:hover {
+        background-color: yellow !important;
+    }
+
+        .gridRowHover6:hover td {
+            background-color: transparent;
+        }
+
 .gradPopup {
     background: linear-gradient(#33ffff, #00B0CA);
 }

@@ -783,3 +783,31 @@ begin
 END
 
 GO
+
+USE [Corryong]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_GetPatientSearch]    Script Date: 9/01/2025 8:45:49 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+CREATE proc [dbo].[SP_GetPatientSearch] 
+
+	@pvchPatientId nvarchar(20),
+	@pvchSurname nvarchar(50)
+as
+
+begin
+
+	SET NOCOUNT ON
+
+	select *
+	from tblAllPatients
+	where cast(Id as nvarchar(20)) like '%' + @pvchPatientId + '%'
+	and Surname like '%' + @pvchSurname + '%'
+END
+
+GO
