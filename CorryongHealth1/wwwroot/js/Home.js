@@ -7,6 +7,10 @@ var ctlWidths2 = [];
 ctlWidths2[0] = 100;
 ctlWidths2[1] = 200;
 ctlWidths2[2] = 200;
+ctlWidths2[3] = 300;
+ctlWidths2[4] = 150;
+ctlWidths2[5] = 100;
+ctlWidths2[6] = 120;
 
 function BuildSearchBlock()
 {
@@ -193,6 +197,31 @@ function PopulatePatientSearchResults(searchResults)
     var label = CreateFormLabelField("lblFirstNameHdr", "First Name");
     cell.appendChild(label);
     rRow.appendChild(cell);
+
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 grdfontBold grdRowTextAligLeft';
+    var label = CreateFormLabelField("lblAddressHdr", "Address");
+    cell.appendChild(label);
+    rRow.appendChild(cell);
+
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 grdfontBold grdRowTextAligLeft';
+    var label = CreateFormLabelField("lblCityHdr", "City");
+    cell.appendChild(label);
+    rRow.appendChild(cell);
+
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 grdfontBold grdRowTextAligLeft';
+    var label = CreateFormLabelField("lblPostcodeHdr", "Postcode");
+    cell.appendChild(label);
+    rRow.appendChild(cell);
+
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 grdfontBold grdRowTextAligLeft';
+    var label = CreateFormLabelField("lblMedicareHdr", "Medicare");
+    cell.appendChild(label);
+    rRow.appendChild(cell);
+
     tblBody.appendChild(rRow)
 
     var iResultLength = searchResults.length;
@@ -230,6 +259,31 @@ function PopulatePatientSearchResults(searchResults)
         var label = CreateFormLabelField("lblFirtNameResult_" + i, searchResults[i].sFirstName);
         cell.appendChild(label);
         rRow.appendChild(cell);
+
+        var cell = document.createElement("td");
+        cell.className = 'grdfont grdfont12 grdRowTextAligLeft';
+        var label = CreateFormLabelField("lblAddressResult_" + i, searchResults[i].sAddress);
+        cell.appendChild(label);
+        rRow.appendChild(cell);
+
+        var cell = document.createElement("td");
+        cell.className = 'grdfont grdfont12 grdRowTextAligLeft';
+        var label = CreateFormLabelField("lblCityResult_" + i, searchResults[i].sCity);
+        cell.appendChild(label);
+        rRow.appendChild(cell);
+
+        var cell = document.createElement("td");
+        cell.className = 'grdfont grdfont12 grdRowTextAligLeft';
+        var label = CreateFormLabelField("lblPostcodeResult_" + i, searchResults[i].iPostcode);
+        cell.appendChild(label);
+        rRow.appendChild(cell);
+
+        var cell = document.createElement("td");
+        cell.className = 'grdfont grdfont12 grdRowTextAligLeft';
+        var label = CreateFormLabelField("lblMedicareResult_" + i, searchResults[i].lMedicare);
+        cell.appendChild(label);
+        rRow.appendChild(cell);
+
         tblBody.appendChild(rRow)
     }
 

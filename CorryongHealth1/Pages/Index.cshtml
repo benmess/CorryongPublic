@@ -2,16 +2,16 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Patient Search";
-    <div class="text-center">
-        <h1 class="display-4">Corryong Health</h1>
-        <p>Managing the health and wellbeing throughout the greater Corryong region.</p>
-    </div>
-    <div id="divMainContainer" class="text-center">
-        <div id="divMainContainerSearch">
-        </div>
-        <div id="divMainContainerResults">
-        </div>
-    </div>
+            <div class="text-center">
+                <h1 class="display-4">Corryong Health</h1>
+                <p>Managing the health and wellbeing throughout the greater Corryong region.</p>
+            </div>
+            <div id="divMainContainer" class="text-center">
+                <div id="divMainContainerSearch">
+                </div>
+                <div id="divMainContainerResults">
+                </div>
+            </div>
 }
 
 @*@page "/"
@@ -49,11 +49,26 @@
             anchor4M.style.cursor = "default";
             anchor4M.className += ' disabled';
 
-            BuildSearchBlock();
+            GetLoggedInUser();
 
 //            sURL = sURL.replace("Index", "Bed");
             
 
+        }
+
+        function GetLoggedInUser()
+        {
+            fetch("api/getloggedinuser")
+                .then(response => response.json())
+                .then(result => { SetUserAtTop(result); });
+
+        }
+
+        function SetUserAtTop(result)
+        {
+            setCookie('LoggedInUser', result.sLoggedInUser);
+            SetObjectValue('lblLoggedInUser', 'Logged in user: ' + result.sLoggedInUser);
+            BuildSearchBlock();
         }
 
 

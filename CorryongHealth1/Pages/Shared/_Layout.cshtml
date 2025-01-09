@@ -12,7 +12,16 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="divMargins">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Home</a>
+                <table>
+                    <tr>
+                        <td style="width:120px">
+                            <a class="navbar-brand" asp-area="" asp-page="/Index">Home</a>
+                        </td>
+                        <td style="width:520px">
+                            <label id="lblLoggedInUser" class="grdfont12">Logged In User: </label>
+                        </td>
+                    </tr>
+                </table>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

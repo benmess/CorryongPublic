@@ -87,6 +87,26 @@ app.MapGet("api/getpersondetails/{id:int}", (int id) =>
     return jsonString;
 });
 
+app.MapGet("api/getloggedinuser", () =>
+{
+
+    //string sUser = WindowsIdentity.GetCurrent().Name;
+    string? sUser = GetWindowsUser();
+    string sUser2 = (sUser == null) ? string.Empty : sUser;
+    BackendClass.clsPDF pdf = new BackendClass.clsPDF();
+
+    BackendClass.BedObject? jsonObj1 = new BackendClass.BedObject();
+
+
+    jsonObj1.sLoggedInUser = sUser2;
+
+    string jsonString = JsonSerializer.Serialize(jsonObj1);
+
+    //pdf.CreatePDFPage();
+
+    return jsonString;
+});
+
 app.MapGet("api/getbeds", () =>
 {
 
@@ -102,7 +122,7 @@ app.MapGet("api/getbeds", () =>
     BackendClass.clsForm dbTest = new BackendClass.clsForm(gsConnectionString);
     jsonObj1 = dbTest.GetBeds();
 
-    if(jsonObj1.Length > 0)
+    if (jsonObj1.Length > 0)
     {
         jsonObj1[0].sLoggedInUser = sUser2;
     }

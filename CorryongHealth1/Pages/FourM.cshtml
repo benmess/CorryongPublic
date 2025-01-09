@@ -40,8 +40,12 @@
 
         function PreparePage()
         {
+            var sUser = getCookie('LoggedInUser');
+            SetObjectValue('lblLoggedInUser', 'Logged in user: ' + sUser);
+
             var sID = getCookie('PatientId');
             SetObjectValue('lblPatient', sID);
+
             fetch("api/getform/" + sID + "/1")
                 .then(response => response.json())
                 .then(result => { PopulatePage(result); });
