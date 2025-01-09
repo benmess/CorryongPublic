@@ -6,11 +6,12 @@ var gsName;
 
 function addButtonListeners()
 {
-    const getTest = document.getElementById('btnTest');
-    getTest.addEventListener('click', () => { ShowTest(); });
+    //These buttons are removed from the bed page
+//    const getTest = document.getElementById('btnTest');
+//    getTest.addEventListener('click', () => { ShowTest(); });
 
-    const getSave = document.getElementById('btnSave');
-    getSave.addEventListener('click', () => { SaveTest(); });
+//    const getSave = document.getElementById('btnSave');
+//    getSave.addEventListener('click', () => { SaveTest(); });
 }
 
 const ShowTest = () =>

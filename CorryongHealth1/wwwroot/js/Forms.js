@@ -226,7 +226,7 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, iQuestionType, sNotes, d
             cell.className = 'blackBorder';
             cell.colSpan = ctlWidths.length;
             //Now build a table to take the label and textarea
-            var arrTblLocal = BuildTable("tableInnerPatientQuestions" + iQuestionId, ctlWidthsLocal);
+            var arrTblLocal = BuildTable("tableInnerPatientQuestions_" + iQuestionId, ctlWidthsLocal, true);
             var tblLocal = arrTblLocal[0];
             var tblBodyLocal = arrTblLocal[1];
 
@@ -321,7 +321,7 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, iQuestionType, sNotes, d
             cell.className = 'grdLeftRightDivBorders';
             cell.colSpan = ctlWidths.length;
             //Now build a table to take the label and textarea
-            var arrTblLocal = BuildTable("tableInnerPatientQuestions" + iQuestionId, ctlWidthsLocal);
+            var arrTblLocal = BuildTable("tableInnerPatientQuestions_" + iQuestionId, ctlWidthsLocal, true);
             var tblLocal = arrTblLocal[0];
             var tblBodyLocal = arrTblLocal[1];
 
@@ -370,7 +370,7 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, iQuestionType, sNotes, d
             cell.className = 'grdUshapeDivBorders';
             cell.colSpan = ctlWidths.length;
             //Now build a table to take the label and textarea
-            var arrTblLocal = BuildTable("tableInnerPatientQuestions" + iQuestionId, ctlWidthsLocal);
+            var arrTblLocal = BuildTable("tableInnerPatientQuestions_" + iQuestionId, ctlWidthsLocal, true);
             var tblLocal = arrTblLocal[0];
             var tblBodyLocal = arrTblLocal[1];
 
@@ -468,7 +468,7 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, iQuestionType, sNotes, d
             cell.className = 'grdUshapeDivBorders';
             cell.colSpan = ctlWidths.length;
             //Now build a table to take the label and textarea
-            var arrTblLocal = BuildTable("tableInnerPatientQuestions" + iQuestionId, ctlWidthsLocal);
+            var arrTblLocal = BuildTable("tableInnerPatientQuestions_" + iQuestionId, ctlWidthsLocal, true);
             var tblLocal = arrTblLocal[0];
             var tblBodyLocal = arrTblLocal[1];
 
@@ -604,7 +604,7 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, iQuestionType, sNotes, d
             cell.className = 'blackBorder';
             cell.colSpan = ctlWidths.length;
             //Now build a table to take the label and textarea
-            var arrTblLocal = BuildTable("tableInnerPatientQuestions" + iQuestionId, ctlWidthsLocal);
+            var arrTblLocal = BuildTable("tableInnerPatientQuestions_" + iQuestionId, ctlWidthsLocal, true);
             var tblLocal = arrTblLocal[0];
             var tblBodyLocal = arrTblLocal[1];
 
@@ -755,6 +755,92 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, iQuestionType, sNotes, d
             var txtbox = CreateFormTextAreaField("QuestionNotes_" + iRow, sNotes, 0, ctlWidths[0] / 8.5, 4, 1, 1);
             txtbox.onchange = function () { SetFormEditStatus(-1); };
             cell.appendChild(txtbox);
+            rRow.appendChild(cell);
+            break;
+        case 18:
+            var ctlWidthsLocal = [];
+            ctlWidthsLocal[0] = 400;
+            ctlWidthsLocal[1] = 80;
+            ctlWidthsLocal[2] = 160;
+            ctlWidthsLocal[3] = 80;
+            ctlWidthsLocal[4] = 160;
+            ctlWidthsLocal[5] = 80;
+
+            var arrQuestionParts = BreakDatapointQuestionIntoArray(sQuestion);
+
+            var rRow = document.createElement("tr");
+            var cell = document.createElement("td");
+            cell.className = 'blackBorder';
+            cell.colSpan = ctlWidths.length;
+            //Now build a table to take the label and textarea
+            var arrTblLocal = BuildTable("tableInnerPatientQuestions_" + iQuestionId, ctlWidthsLocal, true);
+            var tblLocal = arrTblLocal[0];
+            var tblBodyLocal = arrTblLocal[1];
+
+            var rRow2 = document.createElement("tr");
+            var cell2 = document.createElement("td");
+            cell2.className = 'grdfont grdfont12 grdRowTextAligLeft grdVerticalAlignCenter';
+            var label = CreateFormLabelField("Question_" + iRow, arrQuestionParts[0]);
+            cell2.appendChild(label);
+            rRow2.appendChild(cell2);
+
+            cell2 = document.createElement("td");
+            cell2.className = 'grdfont grdfont12 grdRowTextAligLeft grdVerticalAlignCenter rowPadding';
+            var txtbox = CreateFormTextField("Datapoint1_" + iRow, sDataPoint1);
+            txtbox.onchange = function () { SetFormEditStatus(-1); };
+            SetObjectWidth(txtbox, ctlWidthsLocal[1] - 5);
+            cell2.appendChild(txtbox);
+            rRow2.appendChild(cell2);
+
+            var cell2 = document.createElement("td");
+            cell2.className = 'grdfont grdfont12 grdRowTextAligRight grdVerticalAlignCenter';
+            var label = CreateFormLabelField("QuestionElement2_" + iRow, arrQuestionParts[1]);
+            cell2.appendChild(label);
+            rRow2.appendChild(cell2);
+
+            cell2 = document.createElement("td");
+            cell2.className = 'grdfont grdfont12 grdRowTextAligLeft grdVerticalAlignCenter rowPadding';
+            var txtbox = CreateFormTextField("Datapoint2_" + iRow, sDataPoint2);
+            txtbox.onchange = function () { SetFormEditStatus(-1); };
+            SetObjectWidth(txtbox, ctlWidthsLocal[3] - 5);
+            cell2.appendChild(txtbox);
+            rRow2.appendChild(cell2);
+
+            var cell2 = document.createElement("td");
+            cell2.className = 'grdfont grdfont12 grdRowTextAligRight grdVerticalAlignCenter';
+            var label = CreateFormLabelField("QuestionElement3_" + iRow, arrQuestionParts[2]);
+            cell2.appendChild(label);
+            rRow2.appendChild(cell2);
+
+            cell2 = document.createElement("td");
+            cell2.className = 'grdfont grdfont12 grdRowTextAligLeft grdVerticalAlignCenter rowPadding';
+            var txtbox = CreateFormTextField("Datapoint3_" + iRow, sDataPoint3);
+            txtbox.onchange = function () { SetFormEditStatus(-1); };
+            SetObjectWidth(txtbox, ctlWidthsLocal[5] - 5);
+            cell2.appendChild(txtbox);
+            rRow2.appendChild(cell2);
+
+            tblBodyLocal.appendChild(rRow2);
+
+            cell.appendChild(tblLocal);
+            var hiddenid = CreateFormHiddenField("hfQuestionId_" + iRow, iQuestionId);
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("hfQuestionType_" + iRow, iQuestionType);
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionScore_" + iRow, -1);
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionScale_" + iRow, -1);
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint1_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint2_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint3_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint4_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint5_" + iRow, '');
+            cell.appendChild(hiddenid);
             rRow.appendChild(cell);
             break;
     }
@@ -975,4 +1061,46 @@ function SetFormEditStatus(iStatus)
         document.getElementById('btnSave').className = '';
     else
         document.getElementById('btnSave').className = 'grdRowChangedColor';
+}
+
+function BreakDatapointQuestionIntoArray(sQuestion)
+{
+    var arr = sQuestion.split("<Datapoint>");
+    return arr;
+}
+
+function BreakDatapointQuestionIntoArrayLong(sQuestion)
+{
+    var arrReturn = [];
+    var sRestOfQuestion = sQuestion;
+    var sString = sRestOfQuestion.substring(0, sRestOfQuestion.indexOf('<'));
+
+    arrReturn[0] = sString;
+    sRestOfQuestion = sRestOfQuestion.substring(sRestOfQuestion.indexOf('>') + 1);
+    var j = 1;
+    //Can have up to 5 data points
+    for (var i = 0; i < 10; i++)
+    {
+        iStart = sRestOfQuestion.indexOf('<');
+
+        if (sRestOfQuestion.length > 0)
+        {
+            if (iStart < 0)
+                sString = sRestOfQuestion;
+            else
+                sString = sRestOfQuestion.substring(0, sRestOfQuestion.indexOf('<'));
+
+            arrReturn[j] = sString;
+            j++;
+        }
+
+        if (iStart < 0)
+            break;
+
+        iEnd = sRestOfQuestion.indexOf('>');
+        sString = sRestOfQuestion.substring(iStart, iEnd - iStart - 1);
+        arrReturn[j] = sString;
+        j++;
+        sRestOfQuestion = sRestOfQuestion.substring(iEnd + 1);
+    }
 }

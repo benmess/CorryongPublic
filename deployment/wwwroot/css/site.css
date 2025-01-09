@@ -77,7 +77,10 @@ a {
     font-size: 1.25em;
     color: red
 }
-
+.divCenter {
+    margin-left: auto;
+    margin-right: auto;
+}
 .ctrDropDown {
     width: 80px;
     font-size: 11px;
@@ -815,6 +818,19 @@ a {
 .grdTopBottomDivBorders {
     border-top: black 1px solid;
     border-bottom: black 1px solid;
+}
+
+.grdLeftRightDivBorders {
+    border-left: black 1px solid;
+    border-right: black 1px solid;
+}
+
+.grdLeftDivBorders {
+    border-left: black 1px solid;
+}
+
+.grdRightDivBorders {
+    border-right: black 1px solid;
 }
 
 .grdHeaderTextAligCenter, .grdRowTextAligCenter {
@@ -1648,6 +1664,30 @@ table.fixed {
     }
 
         .gridRowHover4:hover td {
+            background-color: transparent;
+        }
+
+.gridRowHover5 {
+    background-color: #fbfbfb;
+}
+
+    .gridRowHover5:hover {
+        background-color: yellow !important;
+    }
+
+        .gridRowHover5:hover td {
+            background-color: transparent;
+        }
+
+.gridRowHover6 {
+    background-color: #e6e6e6;
+}
+
+    .gridRowHover6:hover {
+        background-color: yellow !important;
+    }
+
+        .gridRowHover6:hover td {
             background-color: transparent;
         }
 

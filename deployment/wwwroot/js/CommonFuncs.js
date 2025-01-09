@@ -388,6 +388,16 @@ function GetSCMSDateStamp()
     return Day + '/' + Mnth + '/' + Year;
 }
 
+function GetDateStamp()
+{
+    var date = new Date();
+    var Year = date.getFullYear();
+    var Mnth = parseInt(date.getMonth(), 10) + 1;
+    var Day = parseInt(date.getDate(), 10);
+    //    PadStringWithZeros(Day, 2, true) + "/" + PadStringWithZeros(Mnth, 2, true) + "/" + Year;
+    return PadStringWithZeros(Day, 2, true) + "/" + PadStringWithZeros(Mnth, 2, true) + "/" + Year;
+}
+
 function GetSCMSTimeStamp()
 {
     var date = new Date();
@@ -1470,14 +1480,14 @@ function CreateFormHyperlinkField(name, defValue, iReadOnly, iVisibility, sTitle
 
 //The wrap type can take 1 of 3 values
 // 0 = virtual which means you can wrap in the box but it sends one long string with the line feeds removed to the server
-// 1 = hard which means you can wrap oin the box and the line feeds are sent to the server intact
+// 1 = hard which means you can wrap in the box and the line feeds are sent to the server intact
 // 2 = off whcih means the text in the box is not wrapped and it is sent as one string to the server
-function CreateFormTextAreaField (name, defValue, iWrapType, iCols, iRows, iReadOnly, iVisibility) 
+function CreateFormTextAreaField(name, defValue, iWrapType, iCols, iRows, iReadOnly, iVisibility, iMaxLength)
 {
     var formFld = document.createElement('textarea');
     formFld.setAttribute('id', name);
     formFld.value = defValue;
-    formFld.onmouseover = function(){formFld.title = this.value;};
+    formFld.onmouseover = function () { formFld.title = this.value; };
 
     if (GetBrowserType() == 1)//Ensure that differences of IE <= 8 and 9 are addressed for correct line feed - AE
     {
@@ -1499,7 +1509,7 @@ function CreateFormTextAreaField (name, defValue, iWrapType, iCols, iRows, iRead
         switch (iWrapType)
         {
             case 0:
-                formFld.wrap = "virtual";
+                formFld.wrap = "soft";
                 break;
             case 1:
                 formFld.wrap = "hard";
@@ -1509,29 +1519,34 @@ function CreateFormTextAreaField (name, defValue, iWrapType, iCols, iRows, iRead
                 break;
         }
     }
-      
-      formFld.rows = iRows;
-      formFld.cols = iCols;
-      formFld.name = name;
-      if(iVisibility == -1)
-      {
+
+    formFld.rows = iRows;
+    formFld.cols = iCols;
+    formFld.name = name;
+    if (iVisibility == -1)
+    {
         //formFld.disabled = true;
         formFld.readOnly = true;
         formFld.className = "txtReadonly";
-        
-      }
-      if(iVisibility == 0)
-      {
-          formFld.style.visibility = 'hidden';
-      }
-      if(iReadOnly == -1)
-      {
+
+    }
+    if (typeof iMaxLength != 'undefined')
+    {
+        formFld.maxLength = iMaxLength;
+    }
+
+    if (iVisibility == 0)
+    {
+        formFld.style.visibility = 'hidden';
+    }
+    if (iReadOnly == -1)
+    {
         //formFld.disabled = true;
         formFld.readOnly = true;
         formFld.className = "txtReadonly";
-        
-      }
-      return formFld;
+
+    }
+    return formFld;
 }
 
 function CreateFormDiv(name, iVisibility)
@@ -6504,14 +6519,28 @@ function setCookie(szName, szValue, szExpires, szPath, szDomain, bSecure)
 }
 
 
-function BuildTable(sTableName, ctrlWidths)
+function BuildTable(sTableName, ctrlWidths, bIsNumbered)
 {
+
+    if (bIsNumbered == undefined)
+    {
+        bIsNumbered = false;
+    }
+
+    var sTableNameBody = sTableName + "Body";
+    if (bIsNumbered)
+    {
+        var iRow = Get_RowNo_From_ControlName(sTableName);
+        sTableNameBody = replaceAll(sTableName, '_' + iRow, '') + 'Body' + '_' + iRow;
+    }
+
     var table1 = document.createElement("table");
     table1.setAttribute('cellspacing', '0');
     table1.setAttribute('cellpadding', '1');
     table1.setAttribute('id', sTableName);
+    table1.style.tableLayout = "fixed";
     var tablebody1 = document.createElement("tbody");
-    tablebody1.setAttribute('id', sTableName + "Body");
+    tablebody1.setAttribute('id', sTableNameBody);
 
 
     var iTotalWidth = 0; //Take off one lot of padding because between cells is one less than total number of cells
@@ -6523,7 +6552,7 @@ function BuildTable(sTableName, ctrlWidths)
         table1.appendChild(coltag);
     }
 
-    SetObjectWidth(table1, iTotalWidth); 
+    SetObjectWidth(table1, iTotalWidth);
 
     table1.appendChild(tablebody1);
 

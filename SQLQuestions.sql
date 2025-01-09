@@ -257,6 +257,164 @@ values ('When were your medicines last reviewed?', 1, 1, 10, 10, 5, 5)
 insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
 values ('Has there been any changes in your life since that review?', 1, 1, 10, 10, 6, 5)
 
+/***************** ALCOHOL (11) ***********/
+insert tblSection (SectionName, SectionType) values ('Alcohol', 6)
+insert tblSectionType (SectionType) values ('A single column with data points')
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Alcohol', 1, 1, 11, 11, 1, 1)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Do you drink Alcohol? How many drinks per Day: <Datapoint> Week: <Datapoint> Social Drinker: <Datapoint>', 1, 1, 11, 11, 2, 18)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Comments: Referral?', 1, 1, 11, 11, 3, 4)
+
+/***************** SMOKING (12) ***********/
+insert tblSection (SectionName, SectionType) values ('Smoking', 6)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Smoking', 1, 1, 12, 12, 1, 1)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Do you smoke? How many cigarettes per Day: <Datapoint> Week: <Datapoint> Social Smoker: <Datapoint>', 1, 1, 12, 12, 2, 18)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Comments: Referral?', 1, 1, 12, 12, 3, 4)
+
+/***************** SECTION SOCIAL HISTORY (13) ***********/
+insert tblSection (SectionName, SectionType) values ('Social History', 2)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Social History', 1, 1, 13, 13, 1, 1)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('^Comments', 1, 1, 13, 13, 2, 2)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Do you speak with people regularly?', 1, 1, 13, 13, 3, 5)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Do you care for someone else? If yes, how many hours per day?', 1, 1, 13, 13, 4, 5)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Are you cared for by someone else?Concerns?', 1, 1, 13, 13, 5, 5)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('What is the current housing situation? Concerns?', 1, 1, 13, 13, 6, 5)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Is there anything or anyone that gets in your way of being who you want to be?', 1, 1, 13, 13, 7, 5)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Do you volunteer for any organisation?', 1, 1, 13, 13, 8, 5)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Have you had any recent stressful events?', 1, 1, 13, 13, 9, 5)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Do you have any issues or concerns regarding transport?If yes, please identify.', 1, 1, 13, 13, 10, 5)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('During the last 4 weeks, was someone available to help if needed / wanted help (For example if you: felt very nervous, lonely or sad, became sick and had to stay in bed, needed someone to talk to, needed help with daily chores, needed help just taking care of yourself)?', 1, 1, 13, 13, 11, 5)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Are there any clubs or activities I am interested in being part of', 1, 1, 13, 13, 12, 5)
+
+/***************** SECTION VISION (14) ***********/
+insert tblSection (SectionName, SectionType) values ('Vision', 2)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Vision', 1, 1, 14, 14, 1, 1)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('^Comments', 1, 1, 14, 14, 2, 2)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Do you have problems with your eyesight?', 1, 1, 14, 14, 3, 5)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Have you had an eye test this year?', 1, 1, 14, 14, 4, 5)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Are you able to read newspapers and books, and watch TV?', 1, 1, 14, 14, 4, 5)
+
+/***************** SECTION HOME SAFETY & RISK FOR FALLS / INJURIES (15) ***********/
+insert tblSection (SectionName, SectionType) values ('Home Safety & Risk for Falls/ Injuries', 3)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Home Safety & Risk for Falls/ Injuries', 1, 1, 15, 15, 1, 1)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('^Comments^Yes=Y, No=N', 1, 1, 15, 15, 2, 2)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Have you had a fall in the past 3 months? If yes, how many?', 1, 1, 15, 15, 3, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Were you hurt as a result of any of these falls?', 1, 1, 15, 15, 4, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('What were you doing when you fell?', 1, 1, 15, 15, 5, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Did you need assistance to get up from the floor?', 1, 1, 15, 15, 6, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Have you had any unsteadiness or ''near-miss falls'' in the past 3 months?', 1, 1, 15, 15, 7, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Do you have people or aids to support you?', 1, 1, 15, 15, 8, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Do you need any safety equipment (eg: walking aid, home modifications, grab rails fitted)?', 1, 1, 15, 15, 9, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Is the house free of obvious slipping and/or tripping hazards (e.g. floor mats that slip)?', 1, 1, 15, 15, 10, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Do you have smoke detectors fitted to your home? (If so, when was the battery last changed ?)', 1, 1, 15, 15, 11, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('REFERRALS or ACTIONS REQUIRED', 1, 1, 15, 15, 12, 4)
+
+/***************** SECTIONSKIN AND FEET (16) ***********/
+insert tblSection (SectionName, SectionType) values ('Skin and Feet', 3)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Skin and Feet', 1, 1, 16, 16, 1, 1)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('^Comments^Yes=Y, No=N', 1, 1, 16, 16, 2, 2)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Do you have problems with one or both feet?', 1, 1, 16, 16, 3, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Are you able to manage your foot and toenail care?', 1, 1, 16, 16, 4, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Do you have any areas where your skin is itchy, red, sore, flaky?', 1, 1, 16, 16, 5, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Last Overall Skin Check? (Looking for skin cancers)', 1, 1, 16, 16, 6, 12)
+
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('REFERRALS or ACTIONS REQUIRED', 1, 1, 16, 16, 7, 4)
+
+/***************** SECTION NUTRITION (17) ***********/
+insert tblSection (SectionName, SectionType) values ('Nutrition', 2)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Nutrition', 1, 1, 17, 17, 1, 1)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('^Comments', 1, 1, 17, 17, 2, 2)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Have you lost weight or not felt like eating?', 1, 1, 17, 17, 3, 5)
+
 select * from [dbo].[tblSection]
 select * from tblSectionType
 
@@ -264,7 +422,8 @@ select * from tblSectionType
 --values ('Comments', 1, 1, 1, 1, 5, 4)
 
 
---update tblQuestions set QUestion = 'Goals for health and wellbeing are:' where ID = 16
---update tblQuestions set QuestionType = 11 where ID = 22
+--update tblQuestions set QUestion = 'Do you drink Alcohol? How many drinks per Day: <Datapoint> Week: <Datapoint> Social Drinker: <Datapoint>' where ID = 74
+--update tblQuestions set QuestionType = 4 where ID = 78
 --update tblQuestions set QuestionType = 13 where ID = 28
 --update tblQuestions set QUestion = 'Legal Issues' where ID = 23
+--update tblQuestions set QUestionInSectionSortOrder = 10 where ID = 105

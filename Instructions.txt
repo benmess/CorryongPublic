@@ -9,3 +9,8 @@
 	If this is not available you must turn on the Windows Authority under 
 	Server Manager -> Dashboard -> Add Roles and Features -> Role Based or feature based installation -> Choose the server -> Web Server (IIS) -> Web Server -> Security -> Windows Authentication
 	CLose IIS, stop and restart as in step 4, reopen IIS and do this step to enable Windows Authentication
+	
+	
+To get Windows AUthentication to work in Visual Studio when deguggin
+
+1. Ensure that the degugger is using IISExpress. At the top of the project under the debugger (grenn triangle) open the drop down menu and slect IIS Express as the debugger.
