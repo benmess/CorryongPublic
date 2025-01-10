@@ -1217,8 +1217,22 @@ function CreateFormLabelField (name, defValue, iVisibility)
       }
       else
       {
-          var labeltext = document.createTextNode(defValue);
-          formFld.appendChild(labeltext);
+          if (defValue.indexOf('\\n') >= 0)
+          {
+              var a = defValue.split('\\n')
+              for (var i = 0; i < a.length; i++)
+              {
+                  var labeltext = document.createTextNode(a[i]);
+                  formFld.appendChild(labeltext);
+                  var brlab = document.createElement('br');
+                  formFld.appendChild(brlab);
+              }
+          }
+          else
+          {
+              var labeltext = document.createTextNode(defValue);
+              formFld.appendChild(labeltext);
+          }
       }
       formFld.name = name;
 

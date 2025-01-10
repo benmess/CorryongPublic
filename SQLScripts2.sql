@@ -880,3 +880,77 @@ END
 GO
 
 
+Use Corryong
+
+GO
+
+alter table tblQuestions add QuestionDetails nvarchar(500) NULL
+
+GO
+
+
+USE [Corryong]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_GetPatientFormResults]    Script Date: 10/01/2025 8:24:23 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+ALTER proc [dbo].[SP_GetPatientFormResults] 
+
+	@piFormId int,
+	@piPatientId int
+as
+
+begin
+
+	SET NOCOUNT ON
+
+	--declare @piFormId int
+	--declare @piPatientId int
+
+	--set @piFormId= 1
+	--set @piPatientId = 2
+
+	declare @tblOutput table (ReportId int, PatientId int, FirstName nvarchar(60), MiddleName nvarchar(60), LastName nvarchar(60), CorryongId int, MedicareNo nvarchar(40), 
+							  FormId int, FormName nvarchar(200), SectionId int, SectionSortOrder int, SectionTypeId int, 
+							  QuestionId int, Question nvarchar(1000), QuestionDetails nvarchar(1000), QuestionInSectionSortOrder int,QuestionType int,
+							  PatientResultScore float,  PatientResultScale float, PatientNotes nvarchar(4000), 
+							  Datapoint1 nvarchar(1000), Datapoint2 nvarchar(1000), Datapoint3 nvarchar(1000), Datapoint4 nvarchar(1000), Datapoint5 nvarchar(1000))
+	declare @iReportId int
+
+	set @iReportId = -1
+
+	select @iReportId = ID from tblReport where PatientId = @piPatientId and FormId = @piFormId and FormDate = cast(GetDate() as date)
+
+	insert @tblOutput 
+	select @iReportId, P.Id, P.FirstName, '', P.Surname, P.Id, '',
+		   F.ID, F.FormName, Q.SectionId, Q.SectionSortOrder, S.SectionType,
+		   Q.ID, Q.Question, isnull(Q.QuestionDetails,'') as QuestionDetails,Q.QuestionInSectionSortOrder, Q.QuestionType,
+		   -1, -1, '', '', '', '', '', ''
+	from tblAllPatients P, tblFormType F, tblQuestions Q, tblSection S
+	where P.Id = @piPatientId
+	and F.ID = @piFormId
+	and F.Active = 1
+	and Q.FormTypeId = F.ID
+	and Q.Active = 1
+	and Q.SectionId = S.Id
+
+	update O set PatientResultScore = PR.Score, PatientResultScale = PR.Scale,PatientNotes = PR.Notes, 
+				 Datapoint1 = PR.DataPoint1, Datapoint2 = PR.DataPoint2, Datapoint3 = PR.DataPoint3,
+				 Datapoint4 = PR.DataPoint4, Datapoint5 = PR.DataPoint5
+	from @tblOutput O, tblPatientResults PR
+	where PR.PatientId = O.PatientId
+	and PR.QuestionId = O.QuestionId
+	and PR.LatestIteration = 1
+
+
+	select * from @tblOutput
+	order by FormId, SectionId, QuestionInSectionSortOrder
+
+END
+
+GO

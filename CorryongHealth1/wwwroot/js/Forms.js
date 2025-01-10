@@ -21,6 +21,17 @@ ctlWidths4[2] = 425;
 var ctlWidths5 = [];
 ctlWidths5[0] = 1000;
 
+var ctlWidths7 = [];
+ctlWidths7[0] = 300;
+ctlWidths7[1] = 300;
+ctlWidths7[2] = 200;
+ctlWidths7[3] = 200;
+
+var ctlWidths8 = [];
+ctlWidths8[0] = 600;
+ctlWidths8[1] = 200;
+ctlWidths8[2] = 200;
+
 function PopulatePage(rsltPassed)
 {
     //            alert("Question length = " + rsltPassed.length);
@@ -72,6 +83,12 @@ function PopulatePage(rsltPassed)
             case 5:
                 ctrlWidthThis = ctlWidths5;
                 break;
+            case 7:
+                ctrlWidthThis = ctlWidths7;
+                break;
+            case 8:
+                ctrlWidthThis = ctlWidths8;
+                break;
         }
 
         if (iSectionId != iPrevSectionId)
@@ -85,7 +102,7 @@ function PopulatePage(rsltPassed)
         var rRow2 = BuildQuestionRow(i, rsltPassed[i].QuestionId, rsltPassed[i].Question, rsltPassed[i].QuestionType,
                                      rsltPassed[i].PatientNotes, rsltPassed[i].PatientResultScore, rsltPassed[i].PatientResultScale,
                                      rsltPassed[i].Datapoint1, rsltPassed[i].Datapoint2, rsltPassed[i].Datapoint3, rsltPassed[i].Datapoint4,
-                                     rsltPassed[i].Datapoint5, ctrlWidthThis);
+                                     rsltPassed[i].Datapoint5, rsltPassed[i].QuestionDetails, ctrlWidthThis);
         tblBody.appendChild(rRow2);
     }
 
@@ -118,7 +135,7 @@ function BuildRowHdr(ctlHdr)
 
 }
 
-function BuildQuestionRow(iRow, iQuestionId, sQuestion, iQuestionType, sNotes, dScore, dScale, sDataPoint1, sDataPoint2, sDataPoint3, sDataPoint4, sDataPoint5, ctlWidths)
+function BuildQuestionRow(iRow, iQuestionId, sQuestion, iQuestionType, sNotes, dScore, dScale, sDataPoint1, sDataPoint2, sDataPoint3, sDataPoint4, sDataPoint5, sQuestionDetails, ctlWidths)
 {
     switch (iQuestionType)
     {
@@ -162,6 +179,11 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, iQuestionType, sNotes, d
             break;
         case 2:
             var arrHeaders = sQuestion.split('^');
+
+            for (var ii = 0; ii < arrHeaders.length; ii++)
+            {
+                arrHeaders[ii] = replaceAll(arrHeaders[ii],'\\\\','\\');
+            }
 
             var rRow = document.createElement("tr");
             var cell = document.createElement("td");
@@ -843,6 +865,142 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, iQuestionType, sNotes, d
             cell.appendChild(hiddenid);
             rRow.appendChild(cell);
             break;
+        case 19:
+            var rRow = document.createElement("tr");
+            var cell = document.createElement("td");
+            cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorder grdRightDivBorders grdVerticalAlignTop';
+            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            cell.appendChild(label);
+            var hiddenid = CreateFormHiddenField("hfQuestionId_" + iRow, iQuestionId);
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("hfQuestionType_" + iRow, iQuestionType);
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionNotes_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint1_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint2_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint3_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint4_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint5_" + iRow, '');
+            cell.appendChild(hiddenid);
+            rRow.appendChild(cell);
+
+            var cell = document.createElement("td");
+            cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorder grdRightDivBorders grdVerticalAlignTop rowPadding';
+            var label = CreateFormLabelField("QuestionDetails_" + iRow, sQuestionDetails);
+            cell.appendChild(label);
+            rRow.appendChild(cell);
+
+            var cell = document.createElement("td");
+            cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorder grdRightDivBorders rowPadding';
+            var txtbox = CreateFormTextField("QuestionScale_" + iRow, dScale < 0 ? '': dScale);
+            txtbox.onchange = function () { SetFormEditStatus(-1); };
+            SetObjectWidth(txtbox, ctlWidths[2] - 30)
+            cell.appendChild(txtbox);
+            rRow.appendChild(cell);
+
+            var cell = document.createElement("td");
+            cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorder grdRightDivBorders rowPadding';
+            var txtbox = CreateFormTextField("QuestionScore_" + iRow, dScore < 0 ? '' : dScore);
+            txtbox.onchange = function () { SetFormEditStatus(-1); };
+            SetObjectWidth(txtbox, ctlWidths[3] - 30)
+            cell.appendChild(txtbox);
+            rRow.appendChild(cell);
+
+            break;
+        case 20:
+            var rRow = document.createElement("tr");
+            var cell = document.createElement("td");
+            cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorder shallowleftpadding grdVerticalAlignTop';
+            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            cell.appendChild(label);
+            var hiddenid = CreateFormHiddenField("hfQuestionId_" + iRow, iQuestionId);
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("hfQuestionType_" + iRow, iQuestionType);
+            cell.appendChild(hiddenid);
+            cell.colSpan = ctlWidths.length;
+            rRow.appendChild(cell);
+
+            break;
+        case 21:
+            var rRow = document.createElement("tr");
+            var cell = document.createElement("td");
+            cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorder grdRightDivBorders grdVerticalAlignTop';
+            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            cell.appendChild(label);
+            var hiddenid = CreateFormHiddenField("hfQuestionId_" + iRow, iQuestionId);
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("hfQuestionType_" + iRow, iQuestionType);
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionNotes_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint1_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint2_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint3_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint4_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint5_" + iRow, '');
+            cell.appendChild(hiddenid);
+            rRow.appendChild(cell);
+
+            var cell = document.createElement("td");
+            cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorder grdRightDivBorders rowPadding';
+            var txtbox = CreateFormTextField("QuestionScale_" + iRow, dScale < 0 ? '' : dScale);
+            txtbox.onchange = function () { SetFormEditStatus(-1); };
+            SetObjectWidth(txtbox, ctlWidths[1] - 30)
+            cell.appendChild(txtbox);
+            rRow.appendChild(cell);
+
+            var cell = document.createElement("td");
+            cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorder grdRightDivBorders rowPadding';
+            var txtbox = CreateFormTextField("QuestionScore_" + iRow, dScore < 0 ? '' : dScore);
+            txtbox.onchange = function () { SetFormEditStatus(-1); };
+            SetObjectWidth(txtbox, ctlWidths[2] - 30)
+            cell.appendChild(txtbox);
+            rRow.appendChild(cell);
+
+            break;
+        case 22:
+            var rRow = document.createElement("tr");
+            var cell = document.createElement("td");
+            cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorder grdVerticalAlignTop';
+            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            cell.appendChild(label);
+            var hiddenid = CreateFormHiddenField("hfQuestionId_" + iRow, iQuestionId);
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("hfQuestionType_" + iRow, iQuestionType);
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionScore_" + iRow, -1);
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionScale_" + iRow, -1);
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint1_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint2_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint3_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint4_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint5_" + iRow, '');
+            cell.appendChild(hiddenid);
+            rRow.appendChild(cell);
+
+            var cell = document.createElement("td");
+            cell.className = 'grdfont grdfont12 grdfontBold grdRowTextAligLeft blackBorder rowPadding';
+            var txtbox = CreateFormTextAreaField("QuestionNotes_" + iRow, sNotes, 0, (ctlWidths[1] + ctlWidths[2]) / 9, 4, 1, 1);
+            txtbox.onchange = function () { SetFormEditStatus(-1); };
+            cell.appendChild(txtbox);
+            cell.colSpan = 2;
+            rRow.appendChild(cell);
+            break;
     }
 
 
@@ -959,7 +1117,7 @@ function SaveFormInfo()
     {
         var iQuestionType = GetObjectValue('hfQuestionType_' + i);
 
-        if (iQuestionType != 1 && iQuestionType != 2 && iQuestionType != 6 && iQuestionType != 14) //These are headers and will never contain any data
+        if (iQuestionType != 1 && iQuestionType != 2 && iQuestionType != 6 && iQuestionType != 14 && iQuestionType != 20) //These are headers and will never contain any data
         {
             var object2 = new Object;
             object2.PatientId = GetObjectValue('hfPatientId');

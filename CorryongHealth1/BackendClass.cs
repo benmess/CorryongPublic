@@ -68,6 +68,7 @@
             public int QuestionId { get; set; } = -1;
             public int QuestionType { get; set; } = -1;
             public string Question { get; set; } = "";
+            public string QuestionDetails { get; set; } = "";
             public int FormSortOrder { get; set; } = -1;
             public double PatientResultScore { get; set; } = -1.0;
             public double PatientResultScale { get; set; } = -1.0;
@@ -662,6 +663,7 @@
                                 objQuestion[i].CorryongId = DB.GetDataSetValueInt(ds, "CorryongId", i);
                                 objQuestion[i].QuestionId = DB.GetDataSetValueInt(ds, "QuestionId", i);
                                 objQuestion[i].Question = DB.GetDataSetValueString(ds, "Question", i);
+                                objQuestion[i].QuestionDetails = DB.GetDataSetValueString(ds, "QuestionDetails", i);
                                 objQuestion[i].QuestionType = DB.GetDataSetValueInt(ds, "QuestionType", i);
                                 objQuestion[i].SectionId = DB.GetDataSetValueInt(ds, "SectionId", i);
                                 objQuestion[i].SectionType = DB.GetDataSetValueInt(ds, "SectionTypeId", i);
