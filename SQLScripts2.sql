@@ -954,3 +954,145 @@ begin
 END
 
 GO
+
+
+Use Corryong
+
+GO
+
+alter table tblQuestions add QuestionHTML nvarchar(500) NULL, IsHTML int NULL
+
+GO
+
+
+update tblQuestions set QuestionHTML = '', IsHTML = 0
+
+GO
+
+
+USE [Corryong]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_GetPatientFormResults]    Script Date: 11/01/2025 9:29:38 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+ALTER proc [dbo].[SP_GetPatientFormResults] 
+
+	@piFormId int,
+	@piPatientId int
+as
+
+begin
+
+	SET NOCOUNT ON
+
+	--declare @piFormId int
+	--declare @piPatientId int
+
+	--set @piFormId= 1
+	--set @piPatientId = 2
+
+	declare @tblOutput table (ReportId int, PatientId int, FirstName nvarchar(60), MiddleName nvarchar(60), LastName nvarchar(60), CorryongId int, MedicareNo nvarchar(40), 
+							  FormId int, FormName nvarchar(200), SectionId int, SectionSortOrder int, SectionTypeId int, 
+							  QuestionId int, Question nvarchar(1000), QuestionHTML nvarchar(1000), IsHTML int, QuestionDetails nvarchar(1000), QuestionInSectionSortOrder int,QuestionType int,
+							  PatientResultScore float,  PatientResultScale float, PatientNotes nvarchar(4000), 
+							  Datapoint1 nvarchar(1000), Datapoint2 nvarchar(1000), Datapoint3 nvarchar(1000), Datapoint4 nvarchar(1000), Datapoint5 nvarchar(1000))
+	declare @iReportId int
+
+	set @iReportId = -1
+
+	select @iReportId = ID from tblReport where PatientId = @piPatientId and FormId = @piFormId and FormDate = cast(GetDate() as date)
+
+	insert @tblOutput 
+	select @iReportId, P.Id, P.FirstName, '', P.Surname, P.Id, '',
+		   F.ID, F.FormName, Q.SectionId, Q.SectionSortOrder, S.SectionType,
+		   Q.ID, Q.Question, isnull(Q.QuestionHTML,''), isnull(Q.IsHTML,0), isnull(Q.QuestionDetails,'') as QuestionDetails,Q.QuestionInSectionSortOrder, Q.QuestionType,
+		   -1, -1, '', '', '', '', '', ''
+	from tblAllPatients P, tblFormType F, tblQuestions Q, tblSection S
+	where P.Id = @piPatientId
+	and F.ID = @piFormId
+	and F.Active = 1
+	and Q.FormTypeId = F.ID
+	and Q.Active = 1
+	and Q.SectionId = S.Id
+
+	update O set PatientResultScore = PR.Score, PatientResultScale = PR.Scale,PatientNotes = PR.Notes, 
+				 Datapoint1 = PR.DataPoint1, Datapoint2 = PR.DataPoint2, Datapoint3 = PR.DataPoint3,
+				 Datapoint4 = PR.DataPoint4, Datapoint5 = PR.DataPoint5
+	from @tblOutput O, tblPatientResults PR
+	where PR.PatientId = O.PatientId
+	and PR.QuestionId = O.QuestionId
+	and PR.LatestIteration = 1
+
+
+	select * from @tblOutput
+	order by FormId, SectionId, QuestionInSectionSortOrder
+
+END
+
+GO
+
+
+Use Corryong
+
+GO
+
+/* To prevent any potential data loss issues, you should review this script in detail before running it outside the context of the database designer.*/
+BEGIN TRANSACTION
+SET QUOTED_IDENTIFIER ON
+SET ARITHABORT ON
+SET NUMERIC_ROUNDABORT OFF
+SET CONCAT_NULL_YIELDS_NULL ON
+SET ANSI_NULLS ON
+SET ANSI_PADDING ON
+SET ANSI_WARNINGS ON
+COMMIT
+BEGIN TRANSACTION
+GO
+CREATE TABLE dbo.Tmp_tblQuestions
+	(
+	ID int NOT NULL IDENTITY (1, 1),
+	Question nvarchar(1000) NULL,
+	Active int NULL,
+	FormTypeId int NULL,
+	SectionId int NULL,
+	SectionSortOrder int NULL,
+	QuestionInSectionSortOrder int NULL,
+	QuestionType int NULL,
+	QuestionDetails nvarchar(500) NULL,
+	QuestionHTML nvarchar(1000) NULL,
+	IsHTML int NULL
+	)  ON [PRIMARY]
+GO
+ALTER TABLE dbo.Tmp_tblQuestions SET (LOCK_ESCALATION = TABLE)
+GO
+ALTER TABLE dbo.Tmp_tblQuestions ADD CONSTRAINT
+	DF_tblQuestions_QuestionHTML DEFAULT '' FOR QuestionHTML
+GO
+ALTER TABLE dbo.Tmp_tblQuestions ADD CONSTRAINT
+	DF_tblQuestions_IsHTML DEFAULT 0 FOR IsHTML
+GO
+SET IDENTITY_INSERT dbo.Tmp_tblQuestions ON
+GO
+IF EXISTS(SELECT * FROM dbo.tblQuestions)
+	 EXEC('INSERT INTO dbo.Tmp_tblQuestions (ID, Question, Active, FormTypeId, SectionId, SectionSortOrder, QuestionInSectionSortOrder, QuestionType, QuestionDetails, QuestionHTML, IsHTML)
+		SELECT ID, Question, Active, FormTypeId, SectionId, SectionSortOrder, QuestionInSectionSortOrder, QuestionType, QuestionDetails, QuestionHTML, IsHTML FROM dbo.tblQuestions WITH (HOLDLOCK TABLOCKX)')
+GO
+SET IDENTITY_INSERT dbo.Tmp_tblQuestions OFF
+GO
+DROP TABLE dbo.tblQuestions
+GO
+EXECUTE sp_rename N'dbo.Tmp_tblQuestions', N'tblQuestions', 'OBJECT' 
+GO
+ALTER TABLE dbo.tblQuestions ADD CONSTRAINT
+	PK_tblQuestions PRIMARY KEY CLUSTERED 
+	(
+	ID
+	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+GO
+COMMIT

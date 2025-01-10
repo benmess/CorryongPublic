@@ -99,7 +99,7 @@ function PopulatePage(rsltPassed)
             var tblBody = arrTbl[1];
             iPrevSectionId = iSectionId;
         }
-        var rRow2 = BuildQuestionRow(i, rsltPassed[i].QuestionId, rsltPassed[i].Question, rsltPassed[i].QuestionType,
+        var rRow2 = BuildQuestionRow(i, rsltPassed[i].QuestionId, rsltPassed[i].Question, rsltPassed[i].QuestionHTML, rsltPassed[i].IsHTML, rsltPassed[i].QuestionType,
                                      rsltPassed[i].PatientNotes, rsltPassed[i].PatientResultScore, rsltPassed[i].PatientResultScale,
                                      rsltPassed[i].Datapoint1, rsltPassed[i].Datapoint2, rsltPassed[i].Datapoint3, rsltPassed[i].Datapoint4,
                                      rsltPassed[i].Datapoint5, rsltPassed[i].QuestionDetails, ctrlWidthThis);
@@ -135,7 +135,9 @@ function BuildRowHdr(ctlHdr)
 
 }
 
-function BuildQuestionRow(iRow, iQuestionId, sQuestion, iQuestionType, sNotes, dScore, dScale, sDataPoint1, sDataPoint2, sDataPoint3, sDataPoint4, sDataPoint5, sQuestionDetails, ctlWidths)
+function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, iQuestionType, sNotes,
+                        dScore, dScale, sDataPoint1, sDataPoint2, sDataPoint3, sDataPoint4, sDataPoint5,
+                        sQuestionDetails, ctlWidths)
 {
     switch (iQuestionType)
     {
@@ -175,6 +177,7 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, iQuestionType, sNotes, d
             cell.appendChild(hiddenid);
             var hiddenid = CreateFormHiddenField("hfQuestionType_" + iRow, iQuestionType);
             cell.appendChild(hiddenid);
+            cell.colSpan = ctlWidths.length;
             rRow.appendChild(cell);
             break;
         case 2:
@@ -325,7 +328,10 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, iQuestionType, sNotes, d
             var rRow = document.createElement("tr");
             var cell = document.createElement("td");
             cell.className = 'grdfont grdfont12 grdfontBold grdRowTextAligLeft grdNshapeDivBorders shallowleftpadding grdVerticalAlignTop';
-            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion);
             cell.appendChild(label);
             var hiddenid = CreateFormHiddenField("hfQuestionId_" + iRow, iQuestionId);
             cell.appendChild(hiddenid);

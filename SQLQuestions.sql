@@ -544,10 +544,16 @@ insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSo
 values ('^Scale\n(Correct / Incorrect)^Score\n(1 point for each correct answer)', 1, 1, 22, 22, 3, 2)
 
 insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
-values ('Name and Address for subsequent recall test', 1, 1, 22, 22, 2, 22)
+values ('Name and Address for subsequent recall test', 1, 1, 22, 22, 4, 6)
 
 insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
 values ('1. “I am going to give you a name and address. After I have said it, I want you to repeat it. Remember this name and address because I am going to ask you to tell it to me again in a few minutes: John Brown, 42 West Street, Kensington.” (Allow a maximum of 4 attempts).', 1, 1, 22, 22, 5, 21)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Time Orientation', 1, 1, 22, 22, 6, 6)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('2. What is the date? (exact only)', 1, 1, 22, 22, 7, 21)
 
 select * from [dbo].[tblSection]
 select * from tblSectionType
@@ -559,8 +565,9 @@ select * from tblSectionType
 
 --update tblQuestions set QUestion = 'Do you drink Alcohol? How many drinks per Day: <Datapoint> Week: <Datapoint> Social Drinker: <Datapoint>' where ID = 74
 --update tblQuestions set QuestionType = 4 where ID = 78
---update tblQuestions set QuestionType = 22 where ID = 151
+--update tblQuestions set QuestionType = 6 where ID = 151
 --update tblQuestions set QUestion = 'Legal Issues' where ID = 23
---update tblQuestions set QUestionInSectionSortOrder = 10 where ID = 105
+--update tblQuestions set QUestionInSectionSortOrder = 4 where ID = 151
 --update tblQuestions set QuestionDetails = '0= severe decrease in food intake\n1= moderate in food intake\n2= no decrease in food intake' where ID = 120
 --update tblQuestions set QuestionInSectionSortOrder = QuestionInSectionSortOrder + 1 where ID in (118, 119, 120)
+--update tblQuestions set ISHTML = 1, QuestionHTML = 'Perform GPCOG Screening Test <a href="http://gpcog.com.au/" target="_blank">http://gpcog.com.au/</a> template <a href="https://www.alz.org/documents_custom/gpcog(english).pdf" target="_blank">https://www.alz.org/documents_custom/gpcog(english).pdf</a>' where ID = 149

@@ -1199,8 +1199,11 @@ function Round(dNumber, iPlaces)
     return newnumber ;
 }
 
-function CreateFormLabelField (name, defValue, iVisibility) 
+function CreateFormLabelField (name, defValue, iVisibility, bIsHTML) 
 {
+    if (bIsHTML == undefined)
+        bIsHTML = false;
+
       var formFld = document.createElement('label');
       formFld.setAttribute('id', name);
       defValue += '';
@@ -1230,8 +1233,13 @@ function CreateFormLabelField (name, defValue, iVisibility)
           }
           else
           {
-              var labeltext = document.createTextNode(defValue);
-              formFld.appendChild(labeltext);
+              if (bIsHTML)
+                  formFld.innerHTML = defValue;
+              else
+              {
+                  var labeltext = document.createTextNode(defValue);
+                  formFld.appendChild(labeltext);
+              }
           }
       }
       formFld.name = name;
