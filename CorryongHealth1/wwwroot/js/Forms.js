@@ -155,7 +155,10 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
 
             var cell = document.createElement("td");
             cell.className = 'grdfont grdfont12 grdRowTextAligLeft';
-            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion);
             cell.appendChild(label);
             rRow.appendChild(cell);
 
@@ -171,7 +174,10 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
             var rRow = document.createElement("tr");
             var cell = document.createElement("td");
             cell.className = 'grdfont grdfont18 grdfontBold grdRowTextAligLeft grdVerticalAlignTop';
-            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion);
             cell.appendChild(label);
             var hiddenid = CreateFormHiddenField("hfQuestionId_" + iRow, iQuestionId);
             cell.appendChild(hiddenid);
@@ -182,16 +188,15 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
             break;
         case 2:
             var arrHeaders = sQuestion.split('^');
-
-            for (var ii = 0; ii < arrHeaders.length; ii++)
-            {
-                arrHeaders[ii] = replaceAll(arrHeaders[ii],'\\\\','\\');
-            }
+            var arrHeadersHTML = sQuestionHTML.split('^');
 
             var rRow = document.createElement("tr");
             var cell = document.createElement("td");
             cell.className = 'grdfont grdfont12 grdfontBold grdRowTextAligLeft blackBorder shallowleftpadding grdVerticalAlignTop';
-            var label = CreateFormLabelField("Question_" + iRow, arrHeaders[0]);
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, arrHeadersHTML[0], 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, arrHeaders[0]);
             cell.appendChild(label);
             var hiddenid = CreateFormHiddenField("hfQuestionId_" + iRow, iQuestionId);
             cell.appendChild(hiddenid);
@@ -203,7 +208,10 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
             {
                 var cell = document.createElement("td");
                 cell.className = 'grdfont grdfont12 grdfontBold grdRowTextAligCenter blackBorder shallowleftpadding';
-                var label = CreateFormLabelField("QuestionScore_" + iRow, arrHeaders[ii]);
+                if (iIsHTML == 1)
+                    var label = CreateFormLabelField("QuestionScore_" + ii + '_' + iRow, arrHeadersHTML[ii],1, true);
+                else
+                    var label = CreateFormLabelField("QuestionScore_" + ii + '_' + iRow, arrHeaders[ii]);
                 cell.appendChild(label);
                 rRow.appendChild(cell);
             }
@@ -213,8 +221,10 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
             var rRow = document.createElement("tr");
             var cell = document.createElement("td");
             cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorder grdVerticalAlignTop';
-            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
-            cell.appendChild(label);
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion);
             var hiddenid = CreateFormHiddenField("hfQuestionId_" + iRow, iQuestionId);
             cell.appendChild(hiddenid);
             var hiddenid = CreateFormHiddenField("hfQuestionType_" + iRow, iQuestionType);
@@ -258,7 +268,10 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
             var rRow2 = document.createElement("tr");
             var cell2 = document.createElement("td");
             cell2.className = 'grdfont grdfont12 grdRowTextAligLeft grdVerticalAlignTop';
-            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion);
             cell2.appendChild(label);
             rRow2.appendChild(cell2);
 
@@ -295,7 +308,10 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
             var rRow = document.createElement("tr");
             var cell = document.createElement("td");
             cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorder grdVerticalAlignTop';
-            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion);
             cell.appendChild(label);
             var hiddenid = CreateFormHiddenField("hfQuestionId_" + iRow, iQuestionId);
             cell.appendChild(hiddenid);
@@ -356,7 +372,10 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
             var rRow2 = document.createElement("tr");
             var cell2 = document.createElement("td");
             cell2.className = 'grdfont grdfont12 grdfontBold grdRowTextAligLeft grdNshapeDivBorders shallowleftpadding grdVerticalAlignTop';
-            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion);
             cell2.appendChild(label);
             rRow2.appendChild(cell2);
 
@@ -405,7 +424,10 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
             var rRow2 = document.createElement("tr");
             var cell2 = document.createElement("td");
             cell2.className = 'grdfont grdfont12 grdfontBold grdRowTextAligLeft grdNshapeDivBorders shallowleftpadding grdVerticalAlignTop';
-            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion);
             cell2.appendChild(label);
             rRow2.appendChild(cell2);
 
@@ -454,7 +476,10 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
             var rRow2 = document.createElement("tr");
             var cell2 = document.createElement("td");
             cell2.className = 'grdfont grdfont12 grdRowTextAligLeft grdVerticalAlignTop';
-            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion);
             cell2.appendChild(label);
             rRow2.appendChild(cell2);
 
@@ -502,8 +527,10 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
 
             var rRow2 = document.createElement("tr");
             var cell2 = document.createElement("td");
-
-            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion);
             cell2.appendChild(label);
             rRow2.appendChild(cell2);
 
@@ -552,7 +579,10 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
             var rRow2 = document.createElement("tr");
             var cell2 = document.createElement("td");
             cell2.className = 'grdfont grdfont12 grdRowTextAligLeft grdRightDivBorders grdVerticalAlignTop';
-            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion);
             cell2.appendChild(label);
             rRow2.appendChild(cell2);
 
@@ -589,7 +619,10 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
             var rRow = document.createElement("tr");
             var cell = document.createElement("td");
             cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorder grdRightDivBorders grdVerticalAlignTop';
-            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion);
             cell.appendChild(label);
             var hiddenid = CreateFormHiddenField("hfQuestionId_" + iRow, iQuestionId);
             cell.appendChild(hiddenid);
@@ -639,7 +672,10 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
             var rRow2 = document.createElement("tr");
             var cell2 = document.createElement("td");
             cell2.className = 'grdfont grdfont12 grdRowTextAligLeft grdVerticalAlignTop';
-            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion);
             cell2.appendChild(label);
             rRow2.appendChild(cell2);
 
@@ -676,7 +712,10 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
             var rRow = document.createElement("tr");
             var cell = document.createElement("td");
             cell.className = 'grdfont grdfont12 grdfontBold grdRowTextAligLeft blackBorder shallowleftpadding grdVerticalAlignTop';
-            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion);
             cell.appendChild(label);
             var hiddenid = CreateFormHiddenField("hfQuestionId_" + iRow, iQuestionId);
             cell.appendChild(hiddenid);
@@ -689,7 +728,10 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
             var rRow = document.createElement("tr");
             var cell = document.createElement("td");
             cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorder grdRightDivBorders grdVerticalAlignTop';
-            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion);
             cell.appendChild(label);
             var hiddenid = CreateFormHiddenField("hfQuestionId_" + iRow, iQuestionId);
             cell.appendChild(hiddenid);
@@ -726,7 +768,10 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
             var rRow = document.createElement("tr");
             var cell = document.createElement("td");
             cell.className = 'grdfont grdfont12 grdfontBold grdRowTextAligLeft blackBorder grdRightDivBorders grdVerticalAlignTop';
-            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion);
             cell.appendChild(label);
             var hiddenid = CreateFormHiddenField("hfQuestionId_" + iRow, iQuestionId);
             cell.appendChild(hiddenid);
@@ -808,7 +853,10 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
             var rRow2 = document.createElement("tr");
             var cell2 = document.createElement("td");
             cell2.className = 'grdfont grdfont12 grdRowTextAligLeft grdVerticalAlignCenter';
-            var label = CreateFormLabelField("Question_" + iRow, arrQuestionParts[0]);
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, arrQuestionParts[0], 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, arrQuestionParts[0]);
             cell2.appendChild(label);
             rRow2.appendChild(cell2);
 
@@ -875,7 +923,10 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
             var rRow = document.createElement("tr");
             var cell = document.createElement("td");
             cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorder grdRightDivBorders grdVerticalAlignTop';
-            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion);
             cell.appendChild(label);
             var hiddenid = CreateFormHiddenField("hfQuestionId_" + iRow, iQuestionId);
             cell.appendChild(hiddenid);
@@ -922,7 +973,10 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
             var rRow = document.createElement("tr");
             var cell = document.createElement("td");
             cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorder shallowleftpadding grdVerticalAlignTop';
-            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion);
             cell.appendChild(label);
             var hiddenid = CreateFormHiddenField("hfQuestionId_" + iRow, iQuestionId);
             cell.appendChild(hiddenid);
@@ -936,7 +990,10 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
             var rRow = document.createElement("tr");
             var cell = document.createElement("td");
             cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorder grdRightDivBorders grdVerticalAlignTop';
-            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion);
             cell.appendChild(label);
             var hiddenid = CreateFormHiddenField("hfQuestionId_" + iRow, iQuestionId);
             cell.appendChild(hiddenid);
@@ -977,7 +1034,10 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
             var rRow = document.createElement("tr");
             var cell = document.createElement("td");
             cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorder grdVerticalAlignTop';
-            var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion);
             cell.appendChild(label);
             var hiddenid = CreateFormHiddenField("hfQuestionId_" + iRow, iQuestionId);
             cell.appendChild(hiddenid);
@@ -1006,6 +1066,107 @@ function BuildQuestionRow(iRow, iQuestionId, sQuestion, sQuestionHTML, iIsHTML, 
             cell.appendChild(txtbox);
             cell.colSpan = 2;
             rRow.appendChild(cell);
+            break;
+
+            break;
+        case 23:
+            var sDateNow = GetSCMSDateStamp();
+
+            var rRow = document.createElement("tr");
+            var cell = document.createElement("td");
+            cell.className = 'grdfont grdfont12 grdfontBold grdRowTextAligRight blackBorder shallowrightpadding grdVerticalAlignTop';
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML + sDateNow, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion + sDateNow);
+            cell.appendChild(label);
+            var hiddenid = CreateFormHiddenField("hfQuestionId_" + iRow, iQuestionId);
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("hfQuestionType_" + iRow, iQuestionType);
+            cell.appendChild(hiddenid);
+            cell.colSpan = ctlWidths.length;
+            rRow.appendChild(cell);
+
+            break;
+
+        case 24:
+            var rRow = document.createElement("tr");
+            var cell = document.createElement("td");
+            cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorder grdRightDivBorders grdVerticalAlignTop';
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            cell.appendChild(label);
+            var hiddenid = CreateFormHiddenField("hfQuestionId_" + iRow, iQuestionId);
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("hfQuestionType_" + iRow, iQuestionType);
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionNotes_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint1_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint2_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint3_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint4_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint5_" + iRow, '');
+            cell.appendChild(hiddenid);
+            rRow.appendChild(cell);
+
+            var cell = document.createElement("td");
+            cell.className = 'grdfont grdfont12 grdfontBold cellAlignCenter blackBorder';
+            var radTable = BuildYesNoDKNARadioBlock("radQuestionYNDKNA_" + iRow, true, "QuestionScale_" + iRow, parseInt(dScale, 10), ctlWidths[1]);
+            cell.appendChild(radTable);
+            rRow.appendChild(cell);
+
+            var cell = document.createElement("td");
+            cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorder grdRightDivBorders rowPadding';
+            var txtbox = CreateFormTextField("QuestionScore_" + iRow, dScore < 0 ? '' : dScore);
+            txtbox.onchange = function () { SetFormEditStatus(-1); };
+            SetObjectWidth(txtbox, ctlWidths[2] - 30)
+            cell.appendChild(txtbox);
+            rRow.appendChild(cell);
+
+            break;
+        case 25:
+            var rRow = document.createElement("tr");
+            var cell = document.createElement("td");
+            cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorder grdRightDivBorders grdVerticalAlignTop';
+            if (iIsHTML == 1)
+                var label = CreateFormLabelField("Question_" + iRow, sQuestionHTML, 1, true);
+            else
+                var label = CreateFormLabelField("Question_" + iRow, sQuestion);
+            cell.appendChild(label);
+            var hiddenid = CreateFormHiddenField("hfQuestionId_" + iRow, iQuestionId);
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("hfQuestionType_" + iRow, iQuestionType);
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionNotes_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint1_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint2_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint3_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint4_" + iRow, '');
+            cell.appendChild(hiddenid);
+            var hiddenid = CreateFormHiddenField("QuestionDatPoint5_" + iRow, '');
+            cell.appendChild(hiddenid);
+            cell.colSpan = 2;
+            rRow.appendChild(cell);
+
+            var cell = document.createElement("td");
+            cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorder grdRightDivBorders rowPadding';
+            var txtbox = CreateFormTextField("QuestionScore_" + iRow, dScore < 0 ? '' : dScore);
+            txtbox.onchange = function () { SetFormEditStatus(-1); };
+            SetObjectWidth(txtbox, ctlWidths[2] - 30)
+            cell.appendChild(txtbox);
+            rRow.appendChild(cell);
+
             break;
     }
 
@@ -1098,6 +1259,168 @@ function BuildYesNoRadioBlock(sTableName, bIsNumbered, sRadioName, iValue, iTota
     typeradio1.onclick = function () { SetFormEditStatus(-1); };
     current_cell2.appendChild(typeradio1);
     SetObjectWidth(current_cell2, ctlWidth[3]);
+    currentrow2.appendChild(current_cell2);
+
+
+    if (iPaddWidth > 0)
+    {
+        current_cell2 = document.createElement("td");
+        SetObjectWidth(current_cell2, iPaddWidth);
+        currentrow2.appendChild(current_cell2);
+    }
+
+    tablebody1.appendChild(currentrow2);
+
+    return table1;
+}
+
+function BuildYesNoDKNARadioBlock(sTableName, bIsNumbered, sRadioName, iValue, iTotalWidth)
+{
+    var ctlWidth = [];
+    ctlWidth[0] = 10;
+    ctlWidth[1] = 25;
+    ctlWidth[2] = 10;
+    ctlWidth[3] = 25;
+    ctlWidth[4] = 20;
+    ctlWidth[5] = 15;
+    ctlWidth[6] = 20;
+    ctlWidth[7] = 15;
+
+    var iPaddWidth = (iTotalWidth - 145) / 2;
+    if (iPaddWidth > 0)
+    {
+        ctlWidth[0] = iPaddWidth;
+        ctlWidth[1] = 10;
+        ctlWidth[2] = 25;
+        ctlWidth[3] = 10;
+        ctlWidth[4] = 25;
+        ctlWidth[5] = 20;
+        ctlWidth[6] = 15;
+        ctlWidth[7] = 20;
+        ctlWidth[8] = 15;
+        ctlWidth[9] = iPaddWidth;
+    }
+    var arrTab = BuildTable(sTableName, ctlWidth, bIsNumbered);
+    var table1 = arrTab[0];
+    var tablebody1 = arrTab[1];
+    var bYes = false;
+    var bNo = false;
+    var bDK = false;
+    var bNA = false;
+
+    if (iValue == undefined)
+    {
+        bYes = false;
+        bNo = false;
+        bDK = false;
+        bNA = false;
+    }
+    else
+    {
+        switch (iValue)
+        {
+            default:
+                bYes = false;
+                bNo = false;
+                bDK = false;
+                bNA = false;
+                break;
+            case 0:
+                bYes = false;
+                bNo = true;
+                bDK = false;
+                bNA = false;
+                break;
+            case 1:
+                bYes = true;
+                bNo = false;
+                bDK = false;
+                bNA = false;
+                break;
+            case 0:
+                bYes = false;
+                bNo = false;
+                bDK = true;
+                bNA = false;
+                break;
+            case 0:
+                bYes = false;
+                bNo = false;
+                bDK = false;
+                bNA = true;
+                break;
+        }
+    }
+
+
+
+    currentrow2 = document.createElement("tr");
+
+    if (iPaddWidth > 0)
+    {
+        current_cell2 = document.createElement("td");
+        SetObjectWidth(current_cell2, iPaddWidth);
+        currentrow2.appendChild(current_cell2);
+    }
+
+    current_cell2 = document.createElement("td");
+    var label = CreateFormLabelField(sRadioName + "_0", "Y");
+    current_cell2.appendChild(label);
+    current_cell2.className = "grdfont grdfont10";
+    current_cell2.align = "left";
+    SetObjectWidth(current_cell2, ctlWidth[0]);
+    currentrow2.appendChild(current_cell2);
+
+    current_cell2 = document.createElement("td");
+    var typeradio1 = CreateFormRadioButton(sRadioName, 1, bYes, sRadioName + "Yes")
+    typeradio1.onclick = function () { SetFormEditStatus(-1); };
+    current_cell2.appendChild(typeradio1);
+    SetObjectWidth(current_cell2, ctlWidth[1]);
+    currentrow2.appendChild(current_cell2);
+
+    current_cell2 = document.createElement("td");
+    var label = CreateFormLabelField(sRadioName + "_1", "N");
+    current_cell2.appendChild(label);
+    current_cell2.className = "grdfont grdfont10";
+    current_cell2.align = "left";
+    SetObjectWidth(current_cell2, ctlWidth[2]);
+    currentrow2.appendChild(current_cell2);
+
+    current_cell2 = document.createElement("td");
+    var typeradio1 = CreateFormRadioButton(sRadioName, 0, bNo, sRadioName + "No")
+    typeradio1.onclick = function () { SetFormEditStatus(-1); };
+    current_cell2.appendChild(typeradio1);
+    SetObjectWidth(current_cell2, ctlWidth[3]);
+    currentrow2.appendChild(current_cell2);
+
+    current_cell2 = document.createElement("td");
+    var label = CreateFormLabelField(sRadioName + "_2", "DK");
+    current_cell2.appendChild(label);
+    current_cell2.className = "grdfont grdfont10";
+    current_cell2.align = "left";
+    SetObjectWidth(current_cell2, ctlWidth[4]);
+    currentrow2.appendChild(current_cell2);
+
+    current_cell2 = document.createElement("td");
+    var typeradio1 = CreateFormRadioButton(sRadioName, 2, bDK, sRadioName + "DK")
+    typeradio1.onclick = function () { SetFormEditStatus(-1); };
+    current_cell2.appendChild(typeradio1);
+    SetObjectWidth(current_cell2, ctlWidth[5]);
+    currentrow2.appendChild(current_cell2);
+
+    current_cell2 = document.createElement("td");
+    var label = CreateFormLabelField(sRadioName + "_3", "NA");
+    current_cell2.appendChild(label);
+    current_cell2.className = "grdfont grdfont10";
+    current_cell2.align = "left";
+    SetObjectWidth(current_cell2, ctlWidth[6]);
+    currentrow2.appendChild(current_cell2);
+
+    current_cell2 = document.createElement("td");
+    var typeradio1 = CreateFormRadioButton(sRadioName, 3, bNA, sRadioName + "NA")
+    typeradio1.onclick = function () { SetFormEditStatus(-1); };
+    current_cell2.appendChild(typeradio1);
+    SetObjectWidth(current_cell2, ctlWidth[7]);
     currentrow2.appendChild(current_cell2);
 
 
@@ -1267,4 +1590,18 @@ function BreakDatapointQuestionIntoArrayLong(sQuestion)
         j++;
         sRestOfQuestion = sRestOfQuestion.substring(iEnd + 1);
     }
+}
+
+
+function GetFormPdf()
+{
+
+    fetch("api/getformdpf")
+        .then(response => response.json())
+        .then(result => { OpenPdf(result); });
+}
+
+function OpenPdf(result)
+{
+    alert(result);
 }

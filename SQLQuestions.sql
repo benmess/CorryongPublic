@@ -16,14 +16,13 @@ insert tblSection (SectionName, SectionType) values ('Patient Consent', 1)
 insert tblSectionType (SectionType) values ('2 columns, question and yes/no')
 
 insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
-values ('Patient Details', 1, 1, 1, 1, 1, 1)
+values ('Patient Consent', 1, 1, 1, 1, 1, 1)
 
 insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
 values ('^Yes=Y, No=N', 1, 1, 1, 1, 2, 2)
 
 insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
 values ('Explanation of health check given', 1, 1, 1, 1, 3, 3)
-
 insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
 values ('Patient consent for health check was given', 1, 1, 1, 1, 4, 3)
 
@@ -555,19 +554,208 @@ values ('Time Orientation', 1, 1, 22, 22, 6, 6)
 insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
 values ('2. What is the date? (exact only)', 1, 1, 22, 22, 7, 21)
 
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Clock Drawing – use blank page', 1, 1, 22, 22, 8, 6)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('3. Please mark in all the numbers to indicate the hours of a clock (correct spacing required)', 1, 1, 22, 22, 9, 21)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('4. Please mark in hands to show 10 minutes past eleven o’clock (11.10)', 1, 1, 22, 22, 10, 21)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Information', 1, 1, 22, 22, 11, 6)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('5. Can you tell me something that happened in the news recently? (Recently = in the last week. If a general answer is given, eg “war”, “lot of rain”, ask for details. Only specific answer scores)', 1, 1, 22, 22, 12, 21)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Recall ', 1, 1, 22, 22, 13, 6)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType], [QuestionHTML], [IsHTML]) 
+values ('6. What was the name and address I asked you to remember. John Brown, 42 West St, Kensington', 1, 1, 22, 22, 14, 21,
+'6. What was the name and address I asked you to remember<ul><li>John</li><li>Brown</li><li>42</li><li>West St</li><li>Kensington</li></ul>', 1)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Total Score (score out of 9)', 1, 1, 22, 22, 15, 21)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('To get a total score, add the number of items answered correctly', 1, 1, 22, 22, 16, 20)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('If patient scores 9, no significant cognitive impairment and further testing not necessary.', 1, 1, 22, 22, 17, 20)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('If patient scores 5-8, more information required. Proceed with Step 2, informant section.', 1, 1, 22, 22, 18, 20)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('If patient scores 0-4, cognitive impairment is indicated. Conduct standard investigations.', 1, 1, 22, 22, 19, 20)
+
+/***************** SECTION GPCOG INFORMANT INTERVIEW (23) ***********/
+insert tblSection (SectionName, SectionType) values ('GPCOG Informant Interview (if patient scores 5-8)', 8)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('GPCOG Informant Interview (if patient scores 5-8)', 1, 1, 23, 23, 1, 1)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Date: ', 1, 1, 23, 23, 2, 23)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Informant''s name:', 1, 1, 23, 23, 3, 4)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Informant''s relationship to patient: (i.e. Informant is the patient''s)', 1, 1, 23, 23, 4, 4)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType], [QuestionHTML], [IsHTML]) 
+values ('These 6 questions ask how the patient is compared to when s/he was well, say 5-10 years ago. Compared to a few years ago:', 1, 1, 23, 23, 5, 21,
+'These 6 questions ask how the patient is compared to when s/he was well, say 5-10 years ago.<br>Compared to a few years ago:', 1)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('^Scale\n(Yes, No, Don''t know or N/A)^Score\n(Add all No, Don''t know, N/A answers)', 1, 1, 23, 23, 6, 2)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Does the patient have more trouble remembering things that have happened recently than s/he used to?', 1, 1, 23, 23, 7, 24)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Does he or she have more trouble recalling conversations a few days later?', 1, 1, 23, 23, 8, 24)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('When speaking, does the patient have more difficulty in finding the right word or tend to use the wrong words more often?', 1, 1, 23, 23, 9, 24)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Is the patient less able to manage money and financial affairs (e.g. paying bills, budgeting)? ', 1, 1, 23, 23, 10, 24)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Is the patient less able to manage his or her medication independently?', 1, 1, 23, 23, 11, 24)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Does the patient need more assistance with transport (either private or public)?(If the patient has difficulties due only to physical problems, e.g bad leg, answer is ‘NO’)', 1, 1, 23, 23, 12, 24)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType],[QuestionHTML], [IsHTML]) 
+values ('Total score (out of 6). To get a total score, add the number of items answered ''no'', ''don''t know'' or ''N/A''', 1, 1, 23, 23, 13, 25,
+'Total score (out of 6)<br>To get a total score, add the number of items answered ''no'', ''don''t know'' or ''N/A''',1)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('If patient scores 0-3, cognitive impairment is indicated. Conduct standard investigations', 1, 1, 23, 23, 14, 20)
+
+/***************** SECTION CONTINENCE (24) ***********/
+insert tblSection (SectionName, SectionType) values ('Continence', 3)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Continence', 1, 1, 24, 24, 1, 1)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('^Comments', 1, 1, 24, 24, 2, 2)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Have you had any problems with your bladder or bowel (wee or Poo)', 1, 1, 24, 24, 3, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Do you ever wet yourself? If yes, is this related to coughing and sneezing?', 1, 1, 24, 24, 4, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Do you have any trouble passing urine? If yes please describe:', 1, 1, 24, 24, 5, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Do you ever lose control of your bowels?', 1, 1, 24, 24, 6, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Have you had a recent change of habit or blood in your stool?', 1, 1, 24, 24, 7, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('How often do you go to the toilet at night?', 1, 1, 24, 24, 8, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('REFERRALS or ACTIONS REQUIRED', 1, 1, 24, 24, 9, 4)
+
+/***************** SECTION PERSONAL WELLBEING ASSESSMENT & SAFETY (25) ***********/
+insert tblSection (SectionName, SectionType) values ('Personal Wellbeing Assessment & Safety', 3)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Personal Wellbeing Assessment & Safety', 1, 1, 25, 25, 1, 1)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('^Comments', 1, 1, 25, 25, 2, 2)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Have you been feeling down or out of sorts lately, or not wanting to get out of bed', 1, 1, 25, 25, 3, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Geriatric Depression Score:', 1, 1, 25, 25, 4, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Do you have difficulty sleeping? If yes, please describe:', 1, 1, 25, 25, 5, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('If patient lives alone ask the following:', 1, 1, 25, 25, 6, 20)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Has a friend or family member made you feel afraid?', 1, 1, 25, 25, 7, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Has a friend or family member hurt you physically?', 1, 1, 25, 25, 8, 12)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('REFERRALS or ACTIONS REQUIRED', 1, 1, 25, 25, 9, 4)
+
+
+/****************** Still to insert into database *********************/
+/***************** SECTION FRAILTY SCREEN (26) ***********/
+insert tblSection (SectionName, SectionType) values ('Frailty Screen', 9)
+insert tblSectionType (SectionType) values ('A 4 column with question, question details, scale and score')
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Frailty Screen', 1, 1, 26, 26, 1, 1)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('^^Scale (Yes/No)^Score (1 point for Yes)', 1, 1, 26, 267, 2, 2)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType], [QuestionDetails]) 
+values ('Fatigue', 1, 1, 26, 26, 3, 5, 'Do you feel tired when you sit still?')
+
+/***************** SECTION MOBILITY / ACTIVITY (27) ***********/
+insert tblSection (SectionName, SectionType) values ('Mobility / Activity', 2)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Mobility / Activity', 1, 1, 27, 27, 1, 1)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('^Comments', 1, 1, 27, 27, 2, 2)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Do you use a walking aid, such as a walking stick, frame, wheelchair or motorised scooter?', 1, 1, 27, 27, 3, 5)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('What do you do for exercise?', 1, 1, 27, 27, 4, 5)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Can you carry objects (e.g.: meals easily and safely from the kitchen to your dining area)?', 1, 1, 27, 27, 5, 5)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Do you have any trouble doing things around the house garden or neighbourhood?', 1, 1, 27, 27, 6, 5)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('o you have difficulty gripping utensils or handrails?', 1, 1, 27, 27, 7, 5)
+
+
+
 select * from [dbo].[tblSection]
 select * from tblSectionType
 
 --insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
 --values ('Comments', 1, 1, 1, 1, 5, 4)
 
---update tblSection set SectionType = 7 where ID = 18
+--update tblSection set SectionType = 3 where ID = 24
 
---update tblQuestions set QUestion = 'Do you drink Alcohol? How many drinks per Day: <Datapoint> Week: <Datapoint> Social Drinker: <Datapoint>' where ID = 74
+--update tblQuestions set QUestion = 'Total score (out of 6). To get a total score, add the number of items answered ''no'', ''don''t know'' or ''N/A''',
+--QuestionHTML = 'Total score (out of 6)<br>To get a total score, add the number of items answered ''no'', ''don''t know'' or ''N/A''', IsHTML = 1
+--where ID = 179
+
 --update tblQuestions set QuestionType = 4 where ID = 78
---update tblQuestions set QuestionType = 6 where ID = 151
---update tblQuestions set QUestion = 'Legal Issues' where ID = 23
+--update tblQuestions set QuestionType = 12 where ID in (183,184,185,186,187,188)
+--update tblQuestions set QUestion = 'Patient Consent' where ID = 1
 --update tblQuestions set QUestionInSectionSortOrder = 4 where ID = 151
 --update tblQuestions set QuestionDetails = '0= severe decrease in food intake\n1= moderate in food intake\n2= no decrease in food intake' where ID = 120
 --update tblQuestions set QuestionInSectionSortOrder = QuestionInSectionSortOrder + 1 where ID in (118, 119, 120)
 --update tblQuestions set ISHTML = 1, QuestionHTML = 'Perform GPCOG Screening Test <a href="http://gpcog.com.au/" target="_blank">http://gpcog.com.au/</a> template <a href="https://www.alz.org/documents_custom/gpcog(english).pdf" target="_blank">https://www.alz.org/documents_custom/gpcog(english).pdf</a>' where ID = 149
+--update tblQuestions set QuestionHTML = '6. What was the name and address I asked you to remember<ul><li>John</li><li>Brown</li><li>42</li><li>West St</li><li>Kensington</li></ul>' where Id = 161

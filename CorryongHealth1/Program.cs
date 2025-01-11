@@ -264,6 +264,26 @@ app.MapPost("api/saveform", (BackendClass.QuestionSaveObject[] jsonin) =>
     //    return Results.Ok();
 });
 
+app.MapGet("api/getformdpf", () =>
+{
+
+    //string sUser = WindowsIdentity.GetCurrent().Name;
+    string? sUser = GetWindowsUser();
+    string sUser2 = (sUser == null) ? string.Empty : sUser;
+    BackendClass.clsPDF pdf = new BackendClass.clsPDF();
+
+    BackendClass.BedObject? jsonObj1 = new BackendClass.BedObject();
+
+
+    jsonObj1.sLoggedInUser = sUser2;
+
+    string jsonString = JsonSerializer.Serialize(jsonObj1);
+
+    pdf.CreatePDFPage();
+
+    return jsonString;
+});
+
 string? GetWindowsUser()
 {
     string? sUser = "";

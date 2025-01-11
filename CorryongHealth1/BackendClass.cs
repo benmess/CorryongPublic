@@ -851,7 +851,19 @@
                                 // by using custom 'Element' method, we can reuse visual configuration
                                 for (i = 0; i < 5; i++)
                                 {
-                                    table.Cell().Row((i * 4) + 1).Column(3).Element(Block).Text("A" + i);
+
+                                    table.Cell().Row((i * 4) + 1).Column(column =>
+                                    {
+                                        foreach (var ii in Enumerable.Range(1, 8))
+                                        {
+                                            column.Item().Row(row =>
+                                            {
+                                                row.Spacing(5);
+                                                row.AutoItem().Text($"{ii}."); // text or image
+                                                row.RelativeItem().Text("A" + ii);
+                                            });
+                                        }
+                                    });
                                     table.Cell().Row((i * 4) + 2).Column(2).Element(Block).Text("B" + i);
                                     table.Cell().Row((i * 4) + 3).Column(3).Element(Block).Text("C" + i);
                                     table.Cell().Row((i * 4) + 4).Column(1).ColumnSpan(2).Element(Block).Text("D" + i);
@@ -869,6 +881,7 @@
                                         .AlignCenter()
                                         .AlignMiddle();
                                 }
+
                             });
                         /*                .Column(x =>
                                         {
