@@ -1096,3 +1096,116 @@ ALTER TABLE dbo.tblQuestions ADD CONSTRAINT
 
 GO
 COMMIT
+
+/*************************************************************/
+/*   Completed BBM 12/02/2025								 */
+/*************************************************************/
+
+
+USE [Corryong]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_GetPatientDetails]    Script Date: 12/01/2025 8:38:25 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+CREATE proc [dbo].[SP_GetPatientDetails] 
+
+	@pvchPatientId nvarchar(20)
+as
+
+begin
+
+	SET NOCOUNT ON
+
+	select *
+	from tblAllPatients
+	where Id = @pvchPatientId
+END
+
+Go
+
+
+USE [Corryong]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_GetPatientSearch]    Script Date: 12/01/2025 10:02:04 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+ALTER proc [dbo].[SP_GetPatientSearch] 
+
+	@pvchPatientId nvarchar(20),
+	@pvchSurname nvarchar(50),
+	@pvchFirstName nvarchar(50),
+	@pvchAddress nvarchar(50),
+	@pvchCity nvarchar(50),
+	@pvchPostcode nvarchar(50),
+	@pvchMedicare nvarchar(50),
+	@pvchPhone nvarchar(50)
+as
+
+begin
+
+	SET NOCOUNT ON
+
+	select *
+	from tblAllPatients
+	where cast(Id as nvarchar(20)) like '%' + @pvchPatientId + '%'
+	and Surname like '%' + @pvchSurname + '%'
+	and FirstName like '%' + @pvchFirstName + '%'
+	and Address like '%' + @pvchAddress + '%'
+	and City like '%' + @pvchCity + '%'
+	and Postcode like '%' + @pvchPostcode + '%'
+	and Medicare like '%' + @pvchMedicare + '%'
+	and (Home_Phone like '%' + @pvchPhone + '%' or Mobile_Phone like '%' + @pvchPhone + '%')
+END
+
+GO
+
+USE [Corryong]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_GetPatientSearch]    Script Date: 12/01/2025 10:02:04 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+ALTER proc [dbo].[SP_GetPatientSearch] 
+
+	@pvchPatientId nvarchar(20),
+	@pvchSurname nvarchar(50),
+	@pvchFirstName nvarchar(50),
+	@pvchAddress nvarchar(50),
+	@pvchCity nvarchar(50),
+	@pvchPostcode nvarchar(50),
+	@pvchMedicare nvarchar(50),
+	@pvchPhone nvarchar(50)
+as
+
+begin
+
+	SET NOCOUNT ON
+
+	select *
+	from tblAllPatients
+	where cast(Id as nvarchar(20)) like '%' + @pvchPatientId + '%'
+	and Surname like '%' + @pvchSurname + '%'
+	and FirstName like '%' + @pvchFirstName + '%'
+	and Address like '%' + @pvchAddress + '%'
+	and City like '%' + @pvchCity + '%'
+	and Postcode like '%' + @pvchPostcode + '%'
+	and Medicare like '%' + @pvchMedicare + '%'
+	and (Home_Phone like '%' + @pvchPhone + '%' or Mobile_Phone like '%' + @pvchPhone + '%')
+	order by Surname, Firstname, DOB_AGE
+END
+
+GO

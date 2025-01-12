@@ -134,7 +134,9 @@ app.MapGet("api/getbeds", () =>
     return jsonString;
 });
 
-app.MapGet("api/getpatientsearch/{patientid}/{surname}", (string patientid, string surname) =>
+
+app.MapGet("api/getpatientsearch/{patientid}/{surname}/{firstname}/{address}/{city}/{postcode}/{medicare}/{phone}", 
+    (string patientid, string surname, string firstname, string address, string city, string postcode, string medicare, string phone) =>
 {
 
     //string sUser = WindowsIdentity.GetCurrent().Name;
@@ -149,9 +151,27 @@ app.MapGet("api/getpatientsearch/{patientid}/{surname}", (string patientid, stri
     if (surname.Equals("^"))
         surname = "";
 
+    if (firstname.Equals("^"))
+        firstname = "";
+
+    if (address.Equals("^"))
+        address = "";
+
+    if (city.Equals("^"))
+        city = "";
+
+    if (postcode.Equals("^"))
+        postcode = "";
+
+    if (medicare.Equals("^"))
+        medicare = "";
+
+    if (phone.Equals("^"))
+        phone = "";
+
     BackendClass.DB db = new BackendClass.DB();
     BackendClass.clsForm dbForm = new BackendClass.clsForm(gsConnectionString);
-    jsonObj1 = dbForm.GetPatientSearch(patientid, surname);
+    jsonObj1 = dbForm.GetPatientSearch(patientid, surname, firstname, address, city, postcode, medicare, phone);
 
     string jsonString = JsonSerializer.Serialize(jsonObj1);
 

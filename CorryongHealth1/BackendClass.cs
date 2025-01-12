@@ -49,6 +49,8 @@
             public string sCity { get; set; } = "";
             public int iPostcode { get; set; } = 0;
             public long lMedicare { get; set; } = 0;
+            public string sHomePhone { get; set; } = "";
+            public string sMobile { get; set; } = "";
             public string sError { get; set; } = "";
         }
 
@@ -582,7 +584,7 @@
                 }
             }
 
-            public PatientObject[]? GetPatientSearch(string sPatientId, string sSurname)
+            public PatientObject[]? GetPatientSearch(string sPatientId, string sSurname, string sFirstName, string sAddress, string sCity, string sPostcode, string sMedicare, string sPhone)
             {
                 DB DB = new DB();
                 DataSet ds = new DataSet();
@@ -595,6 +597,12 @@
                     DB.SetStoredProcName("SP_GetPatientSearch");
                     DB.SetParam("@pvchPatientId", sPatientId);
                     DB.SetParam("@pvchSurname", sSurname);
+                    DB.SetParam("@pvchFirstName", sFirstName);
+                    DB.SetParam("@pvchAddress", sAddress);
+                    DB.SetParam("@pvchCity", sCity);
+                    DB.SetParam("@pvchPostcode", sPostcode);
+                    DB.SetParam("@pvchMedicare", sMedicare);
+                    DB.SetParam("@pvchPhone", sPhone);
                     iRecords = DB.RunStoredProcDataSet();
                     PatientObject[] objPatient = new PatientObject[iRecords];
                     if ((iRecords > 0))
@@ -612,6 +620,8 @@
                                 objPatient[i].sCity = DB.GetDataSetValueString(ds, "City", i);
                                 objPatient[i].iPostcode = DB.GetDataSetValueInt(ds, "Postcode", i);
                                 objPatient[i].lMedicare = DB.GetDataSetValueLong(ds, "Medicare", i);
+                                objPatient[i].sHomePhone = DB.GetDataSetValueString(ds, "Home_Phone", i);
+                                objPatient[i].sMobile = DB.GetDataSetValueString(ds, "Mobile_Phone", i);
                             }
                         }
                         return objPatient;

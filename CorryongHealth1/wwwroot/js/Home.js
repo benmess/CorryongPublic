@@ -11,6 +11,8 @@ ctlWidths2[3] = 300;
 ctlWidths2[4] = 150;
 ctlWidths2[5] = 100;
 ctlWidths2[6] = 120;
+ctlWidths2[7] = 120;
+ctlWidths2[8] = 120;
 
 function BuildSearchBlock()
 {
@@ -163,7 +165,31 @@ function PerformSearch()
     if (sSurname == '')
         sSurname = '^';
 
-    fetch("api/getpatientsearch/" + sPatientId + "/" + sSurname)
+    var sFirsName = GetObjectValue('txtPatientFirstName');
+    if (sFirsName == '')
+        sFirsName = '^';
+
+    var sAddress = GetObjectValue('txtPatientAddress');
+    if (sAddress == '')
+        sAddress = '^';
+
+    var sCity = GetObjectValue('txtPatientCity');
+    if (sCity == '')
+        sCity = '^';
+
+    var sPostcode = GetObjectValue('txtPatientPostcode');
+    if (sPostcode == '')
+        sPostcode = '^';
+
+    var sMedicare = GetObjectValue('txtPatientMedicare');
+    if (sMedicare == '')
+        sMedicare = '^';
+
+    var sPhone = GetObjectValue('txtPatientPhone');
+    if (sPhone == '')
+        sPhone = '^';
+
+    fetch("api/getpatientsearch/" + sPatientId + "/" + sSurname + "/" + sFirsName + "/" + sAddress + "/" + sCity + "/" + sPostcode + "/" + sMedicare + "/" + sPhone)
         .then(response => response.json())
         .then(result => { PopulatePatientSearchResults(result); });
 
@@ -219,6 +245,18 @@ function PopulatePatientSearchResults(searchResults)
     var cell = document.createElement("td");
     cell.className = 'grdfont grdfont12 grdfontBold grdRowTextAligLeft';
     var label = CreateFormLabelField("lblMedicareHdr", "Medicare");
+    cell.appendChild(label);
+    rRow.appendChild(cell);
+
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 grdfontBold grdRowTextAligLeft';
+    var label = CreateFormLabelField("lblHomePhoneHdr", "Home Phone");
+    cell.appendChild(label);
+    rRow.appendChild(cell);
+
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 grdfontBold grdRowTextAligLeft';
+    var label = CreateFormLabelField("lblMobileHdr", "Mobile");
     cell.appendChild(label);
     rRow.appendChild(cell);
 
@@ -281,6 +319,18 @@ function PopulatePatientSearchResults(searchResults)
         var cell = document.createElement("td");
         cell.className = 'grdfont grdfont12 grdRowTextAligLeft';
         var label = CreateFormLabelField("lblMedicareResult_" + i, searchResults[i].lMedicare);
+        cell.appendChild(label);
+        rRow.appendChild(cell);
+
+        var cell = document.createElement("td");
+        cell.className = 'grdfont grdfont12 grdRowTextAligLeft';
+        var label = CreateFormLabelField("lblHomePhoneResult_" + i, searchResults[i].sHomePhone);
+        cell.appendChild(label);
+        rRow.appendChild(cell);
+
+        var cell = document.createElement("td");
+        cell.className = 'grdfont grdfont12 grdRowTextAligLeft';
+        var label = CreateFormLabelField("lblMobileResult_" + i, searchResults[i].sMobile);
         cell.appendChild(label);
         rRow.appendChild(cell);
 
