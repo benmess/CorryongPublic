@@ -698,8 +698,6 @@ values ('Has a friend or family member hurt you physically?', 1, 1, 25, 25, 8, 1
 insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
 values ('REFERRALS or ACTIONS REQUIRED', 1, 1, 25, 25, 9, 4)
 
-
-/****************** Still to insert into database *********************/
 /***************** SECTION FRAILTY SCREEN (26) ***********/
 insert tblSection (SectionName, SectionType) values ('Frailty Screen', 9)
 insert tblSectionType (SectionType) values ('A 4 column with question, question details, scale and score')
@@ -708,10 +706,34 @@ insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSo
 values ('Frailty Screen', 1, 1, 26, 26, 1, 1)
 
 insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
-values ('^^Scale (Yes/No)^Score (1 point for Yes)', 1, 1, 26, 267, 2, 2)
+values ('^^Scale (Yes/No)^Score (1 point for Yes)', 1, 1, 26, 26, 2, 2)
 
 insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType], [QuestionDetails]) 
-values ('Fatigue', 1, 1, 26, 26, 3, 5, 'Do you feel tired when you sit still?')
+values ('Fatigue', 1, 1, 26, 26, 3, 26, 'Do you feel tired when you sit still?')
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType], [QuestionDetails]) 
+values ('Resistance', 1, 1, 26, 26, 4, 26, 'Do you have difficulty walking up a flight of stairs?')
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType], [QuestionDetails]) 
+values ('Ambulation', 1, 1, 26, 26, 5, 26, 'Do you have difficulty walking around the block?')
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType], [QuestionDetails]) 
+values ('Illness', 1, 1, 26, 26, 6, 26, 'Do you have 5 or more illnesses?')
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType], [QuestionDetails]) 
+values ('Loss of Weight', 1, 1, 26, 26, 7, 26, '5% or more in last 6 months')
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType], [QuestionDetails]) 
+values ('Total Score', 1, 1, 26, 26, 8, 26, '1 point for each "YES"')
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Score of 2: at risk of frailty', 1, 1, 26, 26, 9, 20)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('Score of 3+- FRAIL- urgently needs referral to reduce further functional decline	(geriatrician/community aged care/ exercise physiology/other allied health)', 1, 1, 26, 26, 10, 20)
+
+insert tblQuestions ([Question], [Active], [FormTypeId], [SectionId], [SectionSortOrder], [QuestionInSectionSortOrder], [QuestionType]) 
+values ('REFERRALS or ACTIONS REQUIRED', 1, 1, 26, 26, 11, 4)
 
 /***************** SECTION MOBILITY / ACTIVITY (27) ***********/
 insert tblSection (SectionName, SectionType) values ('Mobility / Activity', 2)

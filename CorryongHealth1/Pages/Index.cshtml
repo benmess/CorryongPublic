@@ -68,7 +68,18 @@
         {
             setCookie('LoggedInUser', result.sLoggedInUser);
             SetObjectValue('lblLoggedInUser', 'Logged in user: ' + result.sLoggedInUser);
-            BuildSearchBlock();
+            //BuildSearchBlock();
+            OpenForm(); //Remove this after basic testing
+        }
+
+        function OpenForm()
+        {
+            setCookie('PatientId', 7);
+
+            //Redirect to the selected page
+            var sURL = window.location.href;
+            sURL += 'FourM';
+            window.location = sURL;
         }
 
 
