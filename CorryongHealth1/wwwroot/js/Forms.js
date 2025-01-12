@@ -1496,11 +1496,11 @@ function BuildYesNoDKNARadioBlock(sTableName, bIsNumbered, sRadioName, iValue, i
     return table1;
 }
 
-function SaveFormInfo()
+function SaveFormInfoAlert()
 {
     alert('Under construction');
 }
-function SaveFormInfoNew()
+function SaveFormInfo()
 {
     var i = 0, jj = 0;
     var objOut = [];
@@ -1567,6 +1567,8 @@ function SaveFormInfoNew()
     //objOut[1] = object2;
     //objOut[2] = testinfo;
 
+    openModal();
+
     fetch('api/saveform', {
         method: 'post',
         headers: {
@@ -1601,6 +1603,7 @@ function ProcessSave(result)
     }
 
     SetFormEditStatus(0);
+    closeModal();
 }
 
 
@@ -1656,12 +1659,12 @@ function BreakDatapointQuestionIntoArrayLong(sQuestion)
     }
 }
 
-function GetFormPdf()
+function GetFormPdfAlert()
 {
     alert("under construction");
 }
 
-function GetFormPdfNew()
+function GetFormPdf()
 {
 
     fetch("api/getformdpf")
@@ -1672,4 +1675,8 @@ function GetFormPdfNew()
 function OpenPdf(result)
 {
     alert(result);
+    //We need to simply do a window.open with a URL to the pdf.
+    //The pdf should be called something like FourM_PatientName_RecordId.pdf and
+    //we should send that name back in the result. Dump it into a pdf folder on the 
+    //server and send the path and name to here and then simply do window.open(result.filename)
 }

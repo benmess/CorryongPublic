@@ -6585,3 +6585,39 @@ function BuildTable(sTableName, ctrlWidths, bIsNumbered)
     return arrRtn;
 
 }
+
+function ShowSpinner()
+{
+    var obj = document.getElementById("divSpinner");
+
+    if (obj != null)
+    {
+        obj.style.left = "500px";
+        obj.style.top = "100px";
+        obj.style.display = "block";
+    }
+}
+
+/*************************************************/
+/*		STUFF FOR SPINNER						 */
+/*************************************************/
+function openModal()
+{
+    document.getElementById('modal').style.display = 'block';
+    document.getElementById('fade').style.display = 'block';
+
+    var st = $(window).scrollTop();
+    document.getElementById('fade').style.position = 'absolute';
+    SetObjectTop(document.getElementById('fade'), st);
+
+    var modalHeight = window.innerHeight;
+    document.getElementById('modal').style.position = 'absolute';
+    SetObjectTop(document.getElementById('modal'), st + modalHeight / 2);
+}
+
+function closeModal()
+{
+    document.getElementById('modal').style.display = 'none';
+    document.getElementById('fade').style.display = 'none';
+}
+
