@@ -1772,6 +1772,10 @@ optgroup {
     height: 100%;
 }
 
+.div100percentWide {
+    width: 100%;
+}
+
 .hdrcellpad {
     border-spacing: 5px;
 }

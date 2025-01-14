@@ -1209,3 +1209,31 @@ begin
 END
 
 GO
+
+
+USE [Corryong]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_GetPatient]    Script Date: 14/01/2025 10:35:10 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+CREATE proc [dbo].[SP_GetPatient] 
+
+	@piPatientId nvarchar(20)
+as
+
+begin
+
+	SET NOCOUNT ON
+
+	select *
+	from tblAllPatients
+	where Id =  @piPatientId
+END
+
+
+GO

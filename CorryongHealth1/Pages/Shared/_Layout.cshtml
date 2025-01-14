@@ -11,7 +11,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="divMargins">
+            <div class="divMargins div100percentWide">
                 <table>
                     <tr>
                         <td style="width:120px">
@@ -27,21 +27,24 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index" id="pgIndex">Patient Search</a>
-                        </li>
-@*                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Bed" id="pgBed">Handover Tool</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/PersonPage" id="pgPerson">Patient Details</a>
-                        </li>
- *@                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/FourM" id="pg4M">4M Form</a>
-                        </li>
-                    </ul>
-                </div>
+                                 <ul class="navbar-nav flex-grow-1">
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/Index" id="pgIndex">Patient Search</a>
+                                    </li>
+                                    @*                         <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Bed" id="pgBed">Handover Tool</a>
+                                    </li>
+                                    <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/PersonPage" id="pgPerson">Patient Details</a>
+                                    </li>
+                                    *@
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/FourM" id="pg4M">4M Form</a>
+                                    </li>
+                                </ul>
+
+                                <img id="CH_Logo" src="images/CH_Logo.png" style="float: right" />
+                 </div>
             </div>
         </nav>
     </header>
@@ -64,6 +67,35 @@
     <script>
 
         var gsMyName;
+
+        document.addEventListener('DOMContentLoaded', () => { addMenuListener(); });
+        //$(document).ready(function () {
+        //    addButtonListeners();
+        //});
+
+        function SetMenuSelected(sender)
+        {
+            sender.className += ' DuplicateNode';
+        }
+
+        function addMenuListener()
+        {
+            document.querySelectorAll('.nav-link').forEach(link =>
+            {
+                if (link.getAttribute('href').toLowerCase() === location.pathname.toLowerCase())
+                {
+                    link.classList.add('grdfontBold');
+                    link.classList.add('gradClr2');
+//                    link.classList.add('fontWhite');
+                }
+                else
+                {
+                    link.classList.remove('grdfontBold');
+                    link.classList.remove('gradClr2');
+//                    link.classList.remove('fontWhite');
+                }
+            });
+        }
     </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

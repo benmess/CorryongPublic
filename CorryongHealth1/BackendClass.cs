@@ -51,6 +51,8 @@
             public long lMedicare { get; set; } = 0;
             public string sHomePhone { get; set; } = "";
             public string sMobile { get; set; } = "";
+            public string sSex { get; set; } = "";
+            public string sDOB { get; set; } = "";
             public string sError { get; set; } = "";
         }
 
@@ -642,6 +644,52 @@
                 }
             }
 
+            public PatientObject? GetPatient(int iPatientId)
+            {
+                DB DB = new DB();
+                DataSet ds = new DataSet();
+                int iRecords;
+                PatientObject objPatient = new PatientObject();
+
+                try
+                {
+                    DB.SetConnectionString(gsConnectionString);
+                    DB.OpenSQLConnection();
+                    DB.SetStoredProcName("SP_GetPatient");
+                    DB.SetParam("@piPatientId", iPatientId);
+                    iRecords = DB.RunStoredProcDataSet();
+                    if ((iRecords > 0))
+                    {
+                        ds = DB.GetDataSet();
+                        if ((ds.Tables.Count > 0))
+                        {
+                            objPatient.iPatientId = DB.GetDataSetValueInt(ds, "Id", 0);
+                            objPatient.sSurname = DB.GetDataSetValueString(ds, "Surname", 0);
+                            objPatient.sFirstName = DB.GetDataSetValueString(ds, "FirstName", 0);
+                            objPatient.sAddress = DB.GetDataSetValueString(ds, "Address", 0);
+                            objPatient.sCity = DB.GetDataSetValueString(ds, "City", 0);
+                            objPatient.iPostcode = DB.GetDataSetValueInt(ds, "Postcode", 0);
+                            objPatient.lMedicare = DB.GetDataSetValueLong(ds, "Medicare", 0);
+                            objPatient.sHomePhone = DB.GetDataSetValueString(ds, "Home_Phone", 0);
+                            objPatient.sMobile = DB.GetDataSetValueString(ds, "Mobile_Phone", 0);
+                            objPatient.sSex = DB.GetDataSetValueString(ds, "Sex", 0);
+                            objPatient.sDOB = DB.GetDataSetValueString(ds, "DOB_AGE", 0);
+                        }
+                        return objPatient;
+                    }
+                    else
+                        return objPatient;
+                }
+                catch (Exception ex)
+                {
+                    objPatient.sError = ex.Message;
+                    return objPatient;
+                }
+                finally
+                {
+                    DB.CloseSQLConnection();
+                }
+            }
 
             public QuestionObject[]? GetPatientForm(int iPatientId, int iFormId)
             {

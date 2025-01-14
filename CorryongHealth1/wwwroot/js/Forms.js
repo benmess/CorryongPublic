@@ -39,6 +39,33 @@ ctlWidths9[2] = 200;
 ctlWidths9[3] = 200;
 
 
+function GetPatientData()
+{
+    var sID = getCookie('PatientId');
+    SetObjectValue('lblPatient', sID);
+
+    fetch("api/getpatient/" + sID)
+        .then(response => response.json())
+        .then(result => { PopulatePatientDetails(result); });
+
+}
+
+function PopulatePatientDetails(result)
+{
+    GetFormData();
+}
+
+function GetFormData()
+{
+    var sID = getCookie('PatientId');
+    SetObjectValue('lblPatient', sID);
+
+    fetch("api/getform/" + sID + "/1")
+        .then(response => response.json())
+        .then(result => { PopulatePage(result); });
+
+}
+
 function PopulatePage(rsltPassed)
 {
     //            alert("Question length = " + rsltPassed.length);
