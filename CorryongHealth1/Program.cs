@@ -291,9 +291,9 @@ app.MapPost("api/saveform", (BackendClass.QuestionSaveObject[] jsonin) =>
     {
         BackendClass.QuestionSaveObject question = jsonin[i];
 
-        if(i==0)
+        if (i == 0)
         {
-            if(question.ReportId < 0)
+            if (question.ReportId < 0)
             {
                 iReportId = dbTest.SetFormReport(question.FormId, question.PatientId, question.FormDate);
                 bNewForm = true;
@@ -321,6 +321,24 @@ app.MapPost("api/saveform", (BackendClass.QuestionSaveObject[] jsonin) =>
 
     //    return Results.Ok();
 });
+
+app.MapPost("api/saveformnextofkin", (BackendClass.NextOfKinObject jsonin) =>
+{
+    string? sUser = GetWindowsUser();
+    BackendClass.DB db = new BackendClass.DB();
+    BackendClass.clsForm dbTest = new BackendClass.clsForm(gsConnectionString);
+
+    BackendClass.NextOfKinObject nextofkin = jsonin;
+    BackendClass.NextOfKinSaveObject noksave = new BackendClass.NextOfKinSaveObject();
+    noksave = dbTest.SetNextOfKin(nextofkin.iPatientId, nextofkin.iFormId, nextofkin.iReportId, nextofkin.sName, nextofkin.sAddress, nextofkin.sPhone);
+
+    string jsonString = JsonSerializer.Serialize(noksave);
+
+    return jsonString;
+
+    //    return Results.Ok();
+});
+
 
 app.MapGet("api/getformdpf", () =>
 {

@@ -61,9 +61,17 @@
             public int iPatientId { get; set; } = 0;
             public int iFormId { get; set; } = 0;
             public int iReportId { get; set; } = 0;
-            public string sNwme { get; set; } = "";
+            public string sName { get; set; } = "";
             public string sAddress { get; set; } = "";
             public string sPhone { get; set; } = "";
+            public string sError { get; set; } = "";
+        }
+
+        public class NextOfKinSaveObject
+        {
+            public int iPatientId { get; set; } = 0;
+            public int iFormId { get; set; } = 0;
+            public int iReportId { get; set; } = 0;
             public string sError { get; set; } = "";
         }
 
@@ -120,6 +128,13 @@
             public int iQuestionId { get; set; } = -1;
             public bool bReturn { get; set; } = false;
             public string sError { get; set; } = "";
+        }
+
+        public class FormSaveObject
+        {
+            public NextOfKinObject? nextofkin;
+            public QuestionSaveObject[]? questionsaveobject;
+
         }
 
         /*        private readonly IConfiguration _configuration;
@@ -726,7 +741,7 @@
                             objNextOfKin.iPatientId = DB.GetDataSetValueInt(ds, "PatientId", 0);
                             objNextOfKin.iFormId = DB.GetDataSetValueInt(ds, "PatientId", 0);
                             objNextOfKin.iReportId = DB.GetDataSetValueInt(ds, "PatientId", 0);
-                            objNextOfKin.sNwme = DB.GetDataSetValueString(ds, "Name", 0);
+                            objNextOfKin.sName = DB.GetDataSetValueString(ds, "Name", 0);
                             objNextOfKin.sAddress = DB.GetDataSetValueString(ds, "Address", 0);
                             objNextOfKin.sPhone = DB.GetDataSetValueString(ds, "Phone", 0);
                         }
@@ -737,7 +752,7 @@
                         objNextOfKin.iPatientId = iPatientId;
                         objNextOfKin.iFormId = iFormId;
                         objNextOfKin.iReportId = iReportId;
-                        objNextOfKin.sNwme = "";
+                        objNextOfKin.sName = "";
                         objNextOfKin.sAddress = "";
                         objNextOfKin.sPhone = "";
                         return objNextOfKin;
@@ -754,6 +769,57 @@
                 }
             }
 
+            public NextOfKinSaveObject? SetNextOfKin(int iPatientId, int iFormId, int iReportId, string sName, string sAddress, string sPhone)
+            {
+                DB DB = new DB();
+                DataSet ds = new DataSet();
+                int iRecords;
+                NextOfKinSaveObject objNextOfKin = new NextOfKinSaveObject();
+
+                try
+                {
+                    DB.SetConnectionString(gsConnectionString);
+                    DB.OpenSQLConnection();
+                    DB.SetStoredProcName("SP_SetPatientNextOfKin");
+                    DB.SetParam("@piFormId", iFormId);
+                    DB.SetParam("@piPatientId", iPatientId);
+                    DB.SetParam("@piReportId", iReportId);
+                    DB.SetParam("@pvchName", sName);
+                    DB.SetParam("@pvchAddress", sAddress);
+                    DB.SetParam("@pvchPhone", sPhone);
+                    iRecords = DB.RunStoredProcDataSet();
+                    if ((iRecords > 0))
+                    {
+                        ds = DB.GetDataSet();
+                        if ((ds.Tables.Count > 0))
+                        {
+                            objNextOfKin.iPatientId = iPatientId;
+                            objNextOfKin.iFormId = iFormId;
+                            objNextOfKin.iReportId = DB.GetDataSetValueInt(ds, "ReportId", 0);
+                        }
+                        return objNextOfKin;
+                    }
+                    else
+                    {
+                        objNextOfKin.iPatientId = iPatientId;
+                        objNextOfKin.iFormId = iFormId;
+                        objNextOfKin.iReportId = iReportId;
+                        return objNextOfKin;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    objNextOfKin.iPatientId = iPatientId;
+                    objNextOfKin.iFormId = iFormId;
+                    objNextOfKin.iReportId = iReportId;
+                    objNextOfKin.sError = ex.Message;
+                    return objNextOfKin;
+                }
+                finally
+                {
+                    DB.CloseSQLConnection();
+                }
+            }
 
             public QuestionObject[]? GetPatientForm(int iPatientId, int iFormId)
             {

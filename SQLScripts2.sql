@@ -1230,6 +1230,7 @@ CREATE TABLE [dbo].[tblNextOfKin](
 	[Name] [nvarchar](250) NULL,
 	[Address] [nvarchar](250) NULL,
 	[Phone] [nvarchar](250) NULL,
+	[LatestIteration] int NULL,
  CONSTRAINT [PK_tblNextOfKin] PRIMARY KEY CLUSTERED 
 (
 	[ID] ASC
@@ -1303,6 +1304,161 @@ begin
 	select *
 	from tblNextOfKin
 	where ReportId =  @iReportId
+
+END
+
+GO
+
+USE [Corryong]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_SetPatientNextOfKin]    Script Date: 15/01/2025 3:01:55 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+CREATE proc [dbo].[SP_SetPatientNextOfKin] 
+
+	@piFormId int,
+	@piPatientId int,
+	@piReportId int,
+	@pvchName nvarchar(250),
+	@pvchAddress nvarchar(250),
+	@pvchPhone nvarchar(250)
+as
+
+begin
+
+	SET NOCOUNT ON
+
+	declare @iExists int
+	set @iExists = -1
+
+	select @iExists = count(*) from tblReport where Id = @piReportId or (FormId = @piFormId and PatientId = @piPatientId and FormDate = Convert(date, getdate()))  
+
+	update tblNextOfKin set LatestIteration = 0 where PatientId = @piPatientId and FormId = @piFormId
+
+	if(@iExists <= 0)
+	begin
+		insert tblNextOfKin (PatientId, FormId, ReportId, [Name], [Address], Phone, LatestIteration)
+				values (@piPatientId, @piFormId, @piReportId, @pvchName, @pvchAddress, @pvchPhone, 1)
+	end
+	else
+	begin 
+		update tblNextOfKin set
+		[Name] = @pvchName, 
+		[Address] = @pvchAddress, 
+		Phone = @pvchPhone, 
+		LatestIteration = 1
+		where ReportId = @piReportId
+		and PatientId = @piPatientId
+		and FormId = @piFormId
+	end
+
+	select @piReportId as ReportId
+
+END
+
+GO
+
+USE [Corryong]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_SetPatientNextOfKin]    Script Date: 15/01/2025 3:01:55 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+ALTER proc [dbo].[SP_SetPatientNextOfKin] 
+
+	@piFormId int,
+	@piPatientId int,
+	@piReportId int,
+	@pvchName nvarchar(250),
+	@pvchAddress nvarchar(250),
+	@pvchPhone nvarchar(250)
+as
+
+begin
+
+	SET NOCOUNT ON
+
+	declare @iExists int
+	set @iExists = -1
+
+	select @iExists = count(*) from tblReport where Id = @piReportId or (FormId = @piFormId and PatientId = @piPatientId and FormDate = Convert(date, getdate()))  
+
+	update tblNextOfKin set LatestIteration = 0 where PatientId = @piPatientId and FormId = @piFormId
+
+	if(@iExists <= 0)
+	begin
+		insert tblReport (FormId, PatientId, FormDate) values (@piFormId,@piPatientId, Convert(date, getdate()))
+		SELECT @piReportId = SCOPE_IDENTITY()
+
+		insert tblNextOfKin (PatientId, FormId, ReportId, [Name], [Address], Phone, LatestIteration)
+				values (@piPatientId, @piFormId, @piReportId, @pvchName, @pvchAddress, @pvchPhone, 1)
+	end
+	else
+	begin 
+		update tblNextOfKin set
+		[Name] = @pvchName, 
+		[Address] = @pvchAddress, 
+		Phone = @pvchPhone, 
+		LatestIteration = 1
+		where ReportId = @piReportId
+		and PatientId = @piPatientId
+		and FormId = @piFormId
+	end
+
+	select @piReportId as ReportId
+
+END
+
+
+GO
+
+USE [Corryong]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_GetPatientNextOfKin]    Script Date: 15/01/2025 8:16:18 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+ALTER proc [dbo].[SP_GetPatientNextOfKin] 
+
+	@piReportId nvarchar(20),
+	@piFormId int,
+	@piPatientId int
+as
+
+begin
+
+	SET NOCOUNT ON
+
+	declare @iReportId int
+
+	set @iReportId = -1
+
+	if(@piReportId <0)
+	begin
+		select *
+		from tblNextOfKin
+		where LatestIteration = 1
+	end
+	else
+	begin
+		select *
+		from tblNextOfKin
+		where ReportId =  @iReportId
+	end
+
 
 END
 

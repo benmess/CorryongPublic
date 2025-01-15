@@ -275,7 +275,7 @@ function PopulateNextOfKinDetails(result)
 
     cell = document.createElement("td");
     cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorderTopBottom grdVerticalAlignCenter rowPadding';
-    var txtbox = CreateFormTextAreaField("NOKName", result.sNwme, 0, ctlWidths0_1[1] / 10, 2, 1, 1);
+    var txtbox = CreateFormTextAreaField("NOKName", result.sName, 0, ctlWidths0_1[1] / 10, 2, 1, 1);
     txtbox.onchange = function () { SetFormEditStatus(-1); };
     cell.appendChild(txtbox);
     rRow.appendChild(cell);
@@ -1786,8 +1786,48 @@ function SaveFormInfoAlert()
 {
     alert('Under construction');
 }
-function SaveFormInfo()
+
+function SaveFormNextOfKinInfo()
 {
+    var objNextOfKin = new Object;;
+    objNextOfKin.iPatientId = GetObjectValue('hfPatientId')
+    objNextOfKin.iFormId = GetObjectValue('hfFormId');
+    objNextOfKin.iReportId = GetObjectValue('hfReportId');
+    objNextOfKin.sName = GetObjectValue('NOKName');
+    objNextOfKin.sAddress = GetObjectValue('NOKAddress');
+    objNextOfKin.sPhone = GetObjectValue('NOKPhone');
+    objNextOfKin.sError = '^';
+
+    openModal();
+
+    fetch('api/saveformnextofkin', {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            "Content-type": "application/json",
+        },
+        body: JSON.stringify(objNextOfKin)
+    })
+        .then(response => response.json())
+        .then(result => { SaveFormInfo(result); });
+
+//        .then(res => res.json())
+//        .then(res => console.log(res));
+    //.then(function (data) { alert(JSON.stringify(data)) });
+
+//    alert('Saving the info');
+
+}
+
+function SaveFormInfo(result)
+{
+    if (result.sError != '')
+        alert(result.sError);
+    else
+    {
+        SetObjectValue('hfReportId', result.iReportId);
+    }
+
     var i = 0, jj = 0;
     var objOut = [];
     var sDate = GetDateStamp();
@@ -1839,7 +1879,7 @@ function SaveFormInfo()
 
             object2.PatientResultScale = dScale;
 
-            object2.PatientNotes = GetObjectValue('QuestionNotes_'+i);
+            object2.PatientNotes = GetObjectValue('QuestionNotes_' + i);
             object2.PatientDataPoint1 = GetObjectValue('QuestionDatPoint1_' + i);
             object2.PatientDataPoint2 = GetObjectValue('QuestionDatPoint2_' + i);
             object2.PatientDataPoint3 = GetObjectValue('QuestionDatPoint3_' + i);
@@ -1850,8 +1890,6 @@ function SaveFormInfo()
         }
     }
 
-    //objOut[1] = object2;
-    //objOut[2] = testinfo;
 
     openModal();
 
@@ -1866,11 +1904,11 @@ function SaveFormInfo()
         .then(response => response.json())
         .then(result => { ProcessSave(result); });
 
-//        .then(res => res.json())
-//        .then(res => console.log(res));
+    //        .then(res => res.json())
+    //        .then(res => console.log(res));
     //.then(function (data) { alert(JSON.stringify(data)) });
 
-//    alert('Saving the info');
+    //    alert('Saving the info');
 
 }
 
