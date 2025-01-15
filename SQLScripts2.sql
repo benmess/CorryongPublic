@@ -1104,33 +1104,6 @@ COMMIT
 
 USE [Corryong]
 GO
-/****** Object:  StoredProcedure [dbo].[SP_GetPatientDetails]    Script Date: 12/01/2025 8:38:25 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-
-
-CREATE proc [dbo].[SP_GetPatientDetails] 
-
-	@pvchPatientId nvarchar(20)
-as
-
-begin
-
-	SET NOCOUNT ON
-
-	select *
-	from tblAllPatients
-	where Id = @pvchPatientId
-END
-
-Go
-
-
-USE [Corryong]
-GO
 /****** Object:  StoredProcedure [dbo].[SP_GetPatientSearch]    Script Date: 12/01/2025 10:02:04 PM ******/
 SET ANSI_NULLS ON
 GO
@@ -1237,3 +1210,101 @@ END
 
 
 GO
+
+
+USE [Corryong]
+GO
+
+/****** Object:  Table [dbo].[tblNextOfKin]    Script Date: 15/01/2025 8:09:13 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[tblNextOfKin](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[PatientId] [int] NULL,
+	[FormId] [int] NULL,
+	[ReportId] [int] NULL,
+	[Name] [nvarchar](250) NULL,
+	[Address] [nvarchar](250) NULL,
+	[Phone] [nvarchar](250) NULL,
+ CONSTRAINT [PK_tblNextOfKin] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+USE [Corryong]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_GetPatientNextOfKin]    Script Date: 15/01/2025 8:14:51 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+CREATE proc [dbo].[SP_GetPatientNextOfKin] 
+
+	@piReportId nvarchar(20)
+as
+
+begin
+
+	SET NOCOUNT ON
+
+	select *
+	from tblNextOfKin
+	where ReportId =  @piReportId
+END
+
+
+GO
+
+
+USE [Corryong]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_GetPatientNextOfKin]    Script Date: 15/01/2025 8:28:33 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+ALTER proc [dbo].[SP_GetPatientNextOfKin] 
+
+	@piReportId nvarchar(20),
+	@piFormId int,
+	@piPatientId int
+as
+
+begin
+
+	SET NOCOUNT ON
+
+	declare @iReportId int
+
+	set @iReportId = -1
+
+	if(@piReportId <0)
+	begin
+		select @iReportId = ID from tblReport where PatientId = @piPatientId and FormId = @piFormId and FormDate = cast(GetDate() as date)
+	end
+	else
+	begin
+		set @iReportId = @piReportId
+	end
+
+	select *
+	from tblNextOfKin
+	where ReportId =  @iReportId
+
+END
+
+GO
+

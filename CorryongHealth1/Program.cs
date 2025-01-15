@@ -179,23 +179,42 @@ app.MapGet("api/getpatientsearch/{patientid}/{surname}/{firstname}/{address}/{ci
 });
 
 app.MapGet("api/getpatient/{patientid:int}", (int patientid) =>
-    {
+{
 
-        //string sUser = WindowsIdentity.GetCurrent().Name;
-        string? sUser = GetWindowsUser();
-        string sUser2 = (sUser == null) ? string.Empty : sUser;
+    //string sUser = WindowsIdentity.GetCurrent().Name;
+    string? sUser = GetWindowsUser();
+    string sUser2 = (sUser == null) ? string.Empty : sUser;
 
-        BackendClass.PatientObject? jsonObj1 = null;
+    BackendClass.PatientObject? jsonObj1 = null;
 
 
-        BackendClass.DB db = new BackendClass.DB();
-        BackendClass.clsForm dbForm = new BackendClass.clsForm(gsConnectionString);
-        jsonObj1 = dbForm.GetPatient(patientid);
+    BackendClass.DB db = new BackendClass.DB();
+    BackendClass.clsForm dbForm = new BackendClass.clsForm(gsConnectionString);
+    jsonObj1 = dbForm.GetPatient(patientid);
 
-        string jsonString = JsonSerializer.Serialize(jsonObj1);
+    string jsonString = JsonSerializer.Serialize(jsonObj1);
 
-        return jsonString;
-    });
+    return jsonString;
+});
+
+app.MapGet("api/getnextofkin/{patientid:int}/{formid:int}/{reportid:int}", (int patientid, int formid, int reportid) =>
+{
+
+    //string sUser = WindowsIdentity.GetCurrent().Name;
+    string? sUser = GetWindowsUser();
+    string sUser2 = (sUser == null) ? string.Empty : sUser;
+
+    BackendClass.NextOfKinObject? jsonObj1 = null;
+
+
+    BackendClass.DB db = new BackendClass.DB();
+    BackendClass.clsForm dbForm = new BackendClass.clsForm(gsConnectionString);
+    jsonObj1 = dbForm.GetNextOfKin(patientid, formid, reportid);
+
+    string jsonString = JsonSerializer.Serialize(jsonObj1);
+
+    return jsonString;
+});
 
 app.MapGet("api/getform/{patientid:int}/{formid:int}", (int patientid, int formid) =>
 {

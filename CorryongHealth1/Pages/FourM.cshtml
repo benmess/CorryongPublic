@@ -7,27 +7,27 @@
                                      <table class="FxdTable">
                                         <tr>
                                             <td style="width:120px">
-                                                <label id="lblPatientLabel" class="grdfontBold grdfont12">Patient: </label>
                                                 <input type="hidden" id="hfPatientId" value="">
                                                 <input type="hidden" id="hfFormId" value="">
-                                                <input type="hidden" id="hfReportId" value="">
+                                                <input type="hidden" id="hfReportId" value="-1">
                                                 <input type="hidden" id="hfEditStatus" value="0">
                                             </td>
                                             <td style="width:560px">
-                                                <label id="lblPatient" class="grdfont12">Patient Id</label>
                                             </td>
                                             <td style="width:160px" class="grdfont grdfont10 grdRowTextAligCenter">
-                                                <input type="button" id="btnSave" onclick="SaveFormInfo();" value="Save" class="grdfont grdfont10 grdRowTextAligCenter" />
+                                                <input type="button" id="btnSave" onclick="SaveFormInfo();" value="Save" class="grdfont grdfont14 grdRowTextAligCenter" />
                                             </td>
                                             <td style="width:160px" class="grdfont grdfont10 grdRowTextAligCenter">
-                                                <input type="button" id="btnPdf" onclick="GetFormPdf();" value="Create PDF" class="grdfont grdfont10 grdRowTextAligCenter" />
+                                                <input type="button" id="btnPdf" onclick="GetFormPdf();" value="Create PDF" class="grdfont grdfont14 grdRowTextAligCenter" />
                                             </td>
                                         </tr>
                                     </table>
                                     <div id="divMainContainer">
                                         <div id="divMainContainerHdr">
                                         </div>
-                                        <div id="divMainContainerBody" style="overflow:auto ; height: 600px">
+                                        <br />
+            <br />
+            <div id="divMainContainerBody" style="overflow:auto ; height: 600px">
                                         </div>
                                     </div>
                             </div>

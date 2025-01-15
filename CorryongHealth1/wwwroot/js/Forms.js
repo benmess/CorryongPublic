@@ -1,5 +1,22 @@
 ﻿var giFormRows = -1;
 
+var ctlWidths0 = [];
+ctlWidths0[0] = 250;
+ctlWidths0[1] = 100;
+ctlWidths0[2] = 150;
+ctlWidths0[3] = 100;
+ctlWidths0[4] = 150;
+ctlWidths0[5] = 100;
+ctlWidths0[6] = 150;
+
+var ctlWidths0_1 = [];
+ctlWidths0_1[0] = 80;
+ctlWidths0_1[1] = 220;
+ctlWidths0_1[2] = 80;
+ctlWidths0_1[3] = 350;
+ctlWidths0_1[4] = 60;
+ctlWidths0_1[5] = 210;
+
 var ctlWidths1 = [];
 ctlWidths1[0] = 700;
 ctlWidths1[1] = 300;
@@ -42,7 +59,10 @@ ctlWidths9[3] = 200;
 function GetPatientData()
 {
     var sID = getCookie('PatientId');
-    SetObjectValue('lblPatient', sID);
+    var sFormId = getCookie('FormId');
+//    SetObjectValue('lblPatient', sID);
+    SetObjectValue('hfPatientId', sID);
+    SetObjectValue('hfFormId', sFormId);
 
     fetch("api/getpatient/" + sID)
         .then(response => response.json())
@@ -50,17 +70,256 @@ function GetPatientData()
 
 }
 
+
 function PopulatePatientDetails(result)
 {
+    var div = document.getElementById('divMainContainerHdr');
+    var arrTbl = BuildTable("tablePatientDetailsSection", ctlWidths0);
+    var tbl = arrTbl[0];
+    var tblBody = arrTbl[1];
+    div.appendChild(tbl);
+
+    /*********** SECTION HEADER **********/
+    var rRow = document.createElement("tr");
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont18 grdfontBold grdRowTextAligLeft grdVerticalAlignTop';
+    var label = CreateFormLabelField("Section0Hrd", "Patient Details");
+    cell.appendChild(label);
+    cell.colSpan = ctlWidths0.length;
+    rRow.appendChild(cell);
+    tblBody.appendChild(rRow)
+
+    /*********** NAME, DOB, GENDER **********/
+    var ctlWidthsLocal = [];
+    ctlWidthsLocal[0] = 120;
+    ctlWidthsLocal[1] = 380;
+    ctlWidthsLocal[2] = 120;
+    ctlWidthsLocal[3] = 380;
+    var rRow = document.createElement("tr");
+    var cell = document.createElement("td");
+    cell.className = 'blackBorder';
+    cell.colSpan = ctlWidths0.length;
+    //Now build a table to take the labels
+    var arrTblLocal = BuildTable("tableInnerPatientSection0_1", ctlWidthsLocal, true);
+    var tblLocal = arrTblLocal[0];
+    var tblBodyLocal = arrTblLocal[1];
+
+    var rRow2 = document.createElement("tr");
+    var cell2 = document.createElement("td");
+    cell2.className = 'grdfont grdfont12 grdRowTextAligLeft grdVerticalAlignTop';
+    var label = CreateFormLabelField("PatientSectionNameHdr", "Name");
+    cell2.appendChild(label);
+    rRow2.appendChild(cell2);
+
+    var cell2 = document.createElement("td");
+    cell2.className = 'grdfont grdfont12 grdRowTextAligLeft grdVerticalAlignTop';
+    var label = CreateFormLabelField("PatientSectionName", result.sFirstName + " " + result.sSurname);
+    cell2.appendChild(label);
+    rRow2.appendChild(cell2);
+
+    var cell2 = document.createElement("td");
+    cell2.className = 'grdfont grdfont12 grdRowTextAligLeft grdVerticalAlignTop';
+    var label = CreateFormLabelField("PatientSectionDOBHdr", "DOB");
+    cell2.appendChild(label);
+    rRow2.appendChild(cell2);
+
+    var cell2 = document.createElement("td");
+    cell2.className = 'grdfont grdfont12 grdRowTextAligLeft grdVerticalAlignTop';
+    var label = CreateFormLabelField("PatientSectionDOB", result.sDOB);
+    cell2.appendChild(label);
+    rRow2.appendChild(cell2);
+    tblBodyLocal.appendChild(rRow2);
+
+    var rRow2 = document.createElement("tr");
+    var cell2 = document.createElement("td");
+    cell2.className = 'grdfont grdfont12 grdRowTextAligLeft grdVerticalAlignTop';
+    var label = CreateFormLabelField("PatientSectionGenderHdr", "Gender");
+    cell2.appendChild(label);
+    rRow2.appendChild(cell2);
+
+    var cell2 = document.createElement("td");
+    cell2.className = 'grdfont grdfont12 grdRowTextAligLeft grdVerticalAlignTop';
+    var label = CreateFormLabelField("PatientSectionGender", result.sSex);
+    cell2.appendChild(label);
+    rRow2.appendChild(cell2);
+
+    tblBodyLocal.appendChild(rRow2);
+
+    cell.appendChild(tblLocal);
+    rRow.appendChild(cell);
+
+    tblBody.appendChild(rRow)
+
+    /*********** ADDRESS **********/
+    var rRow = document.createElement("tr");
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 blackBorderLeftBottom grdRowTextAligLeft grdVerticalAlignTop';
+    var label = CreateFormLabelField("PatientSectionAddressHdr", "Address");
+    cell.appendChild(label);
+    rRow.appendChild(cell);
+
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 blackBorderRightBottom grdRowTextAligLeft grdVerticalAlignTop';
+    var label = CreateFormLabelField("PatientSectionAddress", result.sAddress);
+    cell.appendChild(label);
+    cell.colSpan = ctlWidths0.length - 1;
+    rRow.appendChild(cell);
+    tblBody.appendChild(rRow)
+
+    /*********** TELEPHONE **********/
+    var rRow = document.createElement("tr");
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 blackBorderLeftBottom grdRowTextAligLeft grdVerticalAlignTop';
+    var label = CreateFormLabelField("PatientSectionPhoneHdr", "Telephone");
+    cell.appendChild(label);
+    rRow.appendChild(cell);
+
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 blackBorderBottom grdRowTextAligLeft grdVerticalAlignTop';
+    var label = CreateFormLabelField("PatientSectionHomePhoneHdr", "(home)");
+    cell.appendChild(label);
+    rRow.appendChild(cell);
+
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 blackBorderBottom grdRowTextAligLeft grdVerticalAlignTop';
+    var label = CreateFormLabelField("PatientSectionHomePhone", result.sHomePhone);
+    cell.appendChild(label);
+    rRow.appendChild(cell);
+
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 blackBorderBottom grdRowTextAligLeft grdVerticalAlignTop';
+    var label = CreateFormLabelField("PatientSectionHomePhoneHdr", "(work)");
+    cell.appendChild(label);
+    rRow.appendChild(cell);
+
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 blackBorderBottom grdRowTextAligLeft grdVerticalAlignTop';
+    var label = CreateFormLabelField("PatientSectionWorkPhone", "");
+    cell.appendChild(label);
+    rRow.appendChild(cell);
+
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 blackBorderBottom grdRowTextAligLeft grdVerticalAlignTop';
+    var label = CreateFormLabelField("PatientSectionMobilePhoneHdr", "(mobile)");
+    cell.appendChild(label);
+    rRow.appendChild(cell);
+
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 blackBorderRightBottom grdRowTextAligLeft grdVerticalAlignTop';
+    var label = CreateFormLabelField("PatientSectionMobilePhone", result.sMobile);
+    cell.appendChild(label);
+    rRow.appendChild(cell);
+    tblBody.appendChild(rRow)
+
+    /*********** INTERPRETER **********/
+    var rRow = document.createElement("tr");
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 blackBorderLeftBottom grdRowTextAligLeft grdVerticalAlignTop';
+    var label = CreateFormLabelField("PatientSectionInterpreterHdr", "Interpreter");
+    cell.appendChild(label);
+    rRow.appendChild(cell);
+
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 blackBorderRightBottom grdRowTextAligLeft grdVerticalAlignTop';
+    var label = CreateFormLabelField("PatientSectionInterpreter", "N");
+    cell.appendChild(label);
+    cell.colSpan = ctlWidths0.length - 1;
+    rRow.appendChild(cell);
+    tblBody.appendChild(rRow)
+
+
+    /*********** GET NEXT OF KIN INFO **********/
+    GetNextOfKinData();
+}
+
+function GetNextOfKinData()
+{
+    var sID = GetObjectValue('hfPatientId');
+    var sFormId = GetObjectValue('hfFormId');
+    var sReportId = GetObjectValue('hfReportId');
+
+    fetch("api/getnextofkin/" + sID + "/" + sFormId + "/" + sReportId)
+        .then(response => response.json())
+        .then(result => { PopulateNextOfKinDetails(result); });
+
+}
+
+function PopulateNextOfKinDetails(result)
+{
+    SetObjectValue('hfReportId', result.iReportId);
+
+    var div = document.getElementById('divMainContainerBody');
+    var arrTbl = BuildTable("tableNextOfKinSection", ctlWidths0_1);
+    var tbl = arrTbl[0];
+    var tblBody = arrTbl[1];
+    div.appendChild(tbl);
+
+    /*********** SECTION HEADER **********/
+    var rRow = document.createElement("tr");
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont18 grdfontBold grdRowTextAligLeft grdVerticalAlignTop';
+    var label = CreateFormLabelField("Section1Hrd", "Next Of Kin Details");
+    cell.appendChild(label);
+    cell.colSpan = ctlWidths0.length;
+    rRow.appendChild(cell);
+    tblBody.appendChild(rRow)
+
+
+    /*********** NAME **********/
+    var rRow = document.createElement("tr");
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 blackBorderLeftTopBottom grdRowTextAligLeft grdVerticalAlignTop';
+    var label = CreateFormLabelField("NOKNameHdr", "Name");
+    cell.appendChild(label);
+    rRow.appendChild(cell);
+
+    cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorderTopBottom grdVerticalAlignCenter rowPadding';
+    var txtbox = CreateFormTextAreaField("NOKName", result.sNwme, 0, ctlWidths0_1[1] / 10, 2, 1, 1);
+    txtbox.onchange = function () { SetFormEditStatus(-1); };
+    cell.appendChild(txtbox);
+    rRow.appendChild(cell);
+
+    /*********** ADDRESS **********/
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 blackBorderTopBottom grdRowTextAligLeft grdVerticalAlignTop';
+    var label = CreateFormLabelField("NOKAddressHdr", "Address");
+    cell.appendChild(label);
+    rRow.appendChild(cell);
+
+    cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorderTopBottom grdVerticalAlignCenter rowPadding';
+    var txtbox = CreateFormTextAreaField("NOKAddress", result.sAddress, 0, ctlWidths0_1[3] / 10, 2, 1, 1);
+    txtbox.onchange = function () { SetFormEditStatus(-1); };
+    cell.appendChild(txtbox);
+    rRow.appendChild(cell);
+
+    /*********** PHONE **********/
+    var cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 blackBorderTopBottom grdRowTextAligLeft grdVerticalAlignTop';
+    var label = CreateFormLabelField("NOKPPhoneHdr", "Phone");
+    cell.appendChild(label);
+    rRow.appendChild(cell);
+
+    cell = document.createElement("td");
+    cell.className = 'grdfont grdfont12 grdRowTextAligLeft blackBorderRightTopBottom grdVerticalAlignCenter rowPadding';
+    var txtbox = CreateFormTextAreaField("NOKPhone", result.sPhone, 0, ctlWidths0_1[5] / 10, 2, 1, 1);
+    txtbox.onchange = function () { SetFormEditStatus(-1); };
+    cell.appendChild(txtbox);
+    rRow.appendChild(cell);
+
+    tblBody.appendChild(rRow);
+
+    /*********** GET FORM INFO **********/
     GetFormData();
 }
 
 function GetFormData()
 {
-    var sID = getCookie('PatientId');
-    SetObjectValue('lblPatient', sID);
+    var sID = GetObjectValue('hfPatientId');
+    var sFormId = GetObjectValue('hfFormId');
 
-    fetch("api/getform/" + sID + "/1")
+    fetch("api/getform/" + sID + "/" + sFormId)
         .then(response => response.json())
         .then(result => { PopulatePage(result); });
 
@@ -70,7 +329,7 @@ function PopulatePage(rsltPassed)
 {
     //            alert("Question length = " + rsltPassed.length);
     var sPatient = rsltPassed[0].LastName + ', ' + rsltPassed[0].FirstName;
-    SetObjectValue('lblPatient', sPatient);
+//    SetObjectValue('lblPatient', sPatient);
     SetObjectValue('hfPatientId', rsltPassed[0].PatientId);
     SetObjectValue('hfFormId', rsltPassed[0].FormId);
     SetObjectValue('hfReportId', rsltPassed[0].ReportId);
@@ -1639,9 +1898,9 @@ function SetFormEditStatus(iStatus)
 {
     SetObjectValue('hfEditStatus', iStatus);
     if (iStatus == 0)
-        document.getElementById('btnSave').className = '';
+        document.getElementById('btnSave').classList.remove('grdRowChangedColor');
     else
-        document.getElementById('btnSave').className = 'grdRowChangedColor';
+        document.getElementById('btnSave').classList.add('grdRowChangedColor');
 }
 
 function BreakDatapointQuestionIntoArray(sQuestion)

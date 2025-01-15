@@ -360,10 +360,11 @@ function OpenForm(sender)
     var iRow = Get_RowNo_From_ControlName(sender.id);
     var iPatientId = GetObjectValue('lblPatientIdResult_' + iRow);
     setCookie('PatientId', iPatientId);
+    setCookie('FormId', 1); //At the moment set the form Id to be 4M. Make this dynamic when we have nmore than 1 form
 
     //Redirect to the selected page
     var sURL = window.location.href;
-    sURL += 'FourM';
+    sURL += 'FourM'; //At the moment set the form URL to 4M. Make this dynamic when we have nmore than 1 form
     window.location = sURL;
 }
 

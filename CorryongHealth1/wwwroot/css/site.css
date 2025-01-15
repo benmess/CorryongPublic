@@ -661,6 +661,63 @@ a {
     border-color: Black;
 }
 
+.blackBorderLeftBottom {
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color: Black;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: Black;
+}
+
+.blackBorderRightBottom {
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-right-color: Black;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: Black;
+}
+
+.blackBorderBottom {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: Black;
+}
+
+.blackBorderLeftTopBottom {
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color: Black;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: Black;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: Black;
+}
+
+.blackBorderRightTopBottom {
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-right-color: Black;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: Black;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: Black;
+}
+
+.blackBorderTopBottom {
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: Black;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: Black;
+}
+
 .phbtnRetrieve {
     border-style: Outset;
 }
