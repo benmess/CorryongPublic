@@ -1990,10 +1990,29 @@ function GetFormPdfAlert()
 
 function GetFormPdf()
 {
+    var iReportId = GetObjectValue('hfReportId');
+    var iEditStatus = GetObjectValue('hfEditStatus');
+    var sID = GetObjectValue('hfPatientId');
+    var sFormId = GetObjectValue('hfFormId');
 
-    fetch("api/getformdpf")
-        .then(response => response.json())
-        .then(result => { OpenPdf(result); });
+
+    if (iReportId < 0)
+    {
+        alert('The form must be saved before you can create a pdf. If this is a new form for a new date and nothing has chnaged you still need to save the form for the details to be registered for today');
+    }
+    else
+    {
+        if (iEditStatus < 0)
+        {
+            alert('The form must be saved before you can create a pdf.');
+        }
+        else
+        {
+            fetch("api/getformdpf/" + sID + "/" + sFormId + "/" + iReportId)
+                .then(response => response.json())
+                    .then(result => { OpenPdf(result); });
+        }
+    }
 }
 
 function OpenPdf(result)

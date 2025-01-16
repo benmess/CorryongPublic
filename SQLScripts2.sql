@@ -1464,3 +1464,93 @@ END
 
 GO
 
+USE [Corryong]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_GetPatientReportResults]    Script Date: 16/01/2025 5:30:40 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+CREATE proc [dbo].[SP_GetPatientReportResults] 
+
+	@piReportId int
+as
+
+begin
+
+	SET NOCOUNT ON
+
+	--declare @piReportId int
+
+	--set @piReportId= 9
+
+	declare @tblOutput table (ReportId int, PatientId int, 
+							  FormId int, SectionId int, SectionSortOrder int, SectionTypeId int, 
+							  QuestionId int, Question nvarchar(1000), QuestionHTML nvarchar(1000), IsHTML int, QuestionDetails nvarchar(1000), QuestionInSectionSortOrder int,QuestionType int,
+							  PatientResultScore float,  PatientResultScale float, PatientNotes nvarchar(4000), 
+							  Datapoint1 nvarchar(1000), Datapoint2 nvarchar(1000), Datapoint3 nvarchar(1000), Datapoint4 nvarchar(1000), Datapoint5 nvarchar(1000))
+	insert @tblOutput 
+	select @piReportId, -1, Q.FormTypeId, Q.SectionId, Q.SectionSortOrder, S.SectionType,
+		   Q.ID, Q.Question, isnull(Q.QuestionHTML,''), isnull(Q.IsHTML,0), isnull(Q.QuestionDetails,'') as QuestionDetails,Q.QuestionInSectionSortOrder, Q.QuestionType,
+		   -1, -1, '', '', '', '', '', ''
+	from tblSection S, tblQuestions Q
+	where Q.FormTypeId = (select distinct FormId from tblPatientResults where ReportId = @piReportId)
+	and S.ID = Q.SectionId
+
+
+	update O set PatientResultScore = R.Score, PatientResultScale = R.Scale,PatientNotes = R.Notes, Datapoint1 = R.DataPoint1, Datapoint2 = R.DataPoint2, 
+	Datapoint3 = R.DataPoint3, Datapoint4 =  R.DataPoint4, Datapoint5 = R.DataPoint5
+	from @tblOutput O, tblPatientResults R
+	where O.ReportId = R.ReportId
+
+	select * from @tblOutput
+	order by FormId, SectionId, QuestionInSectionSortOrder
+
+END
+GO
+
+USE [Corryong]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_GetPatientNextOfKin]    Script Date: 16/01/2025 8:15:53 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+ALTER proc [dbo].[SP_GetPatientNextOfKin] 
+
+	@piReportId nvarchar(20),
+	@piFormId int,
+	@piPatientId int
+as
+
+begin
+
+	SET NOCOUNT ON
+
+	declare @iReportId int
+
+	set @iReportId = -1
+
+	if(@piReportId <0)
+	begin
+		select *
+		from tblNextOfKin
+		where LatestIteration = 1
+	end
+	else
+	begin
+		select *
+		from tblNextOfKin
+		where ReportId =  @piReportId
+	end
+
+
+END
+
+GO

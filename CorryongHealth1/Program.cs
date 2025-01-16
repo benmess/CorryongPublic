@@ -340,7 +340,7 @@ app.MapPost("api/saveformnextofkin", (BackendClass.NextOfKinObject jsonin) =>
 });
 
 
-app.MapGet("api/getformdpf", () =>
+app.MapGet("api/getformdpf/{patientid:int}/{formid:int}/{reportid:int}", (int patientid, int formid, int reportid) =>
 {
 
     //string sUser = WindowsIdentity.GetCurrent().Name;
@@ -355,7 +355,7 @@ app.MapGet("api/getformdpf", () =>
 
     string jsonString = JsonSerializer.Serialize(jsonObj1);
 
-    pdf.CreatePDFPage();
+    pdf.CreatePDFPage(reportid, patientid, gsConnectionString);
 
     return jsonString;
 });

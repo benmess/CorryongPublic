@@ -884,6 +884,68 @@
                 }
             }
 
+            public QuestionObject[]? GetPatientReportResults(int iReportId)
+            {
+                DB DB = new DB();
+                DataSet ds = new DataSet();
+                int iRecords;
+
+                try
+                {
+                    DB.SetConnectionString(gsConnectionString);
+                    DB.OpenSQLConnection();
+                    DB.SetStoredProcName("SP_GetPatientReportResults");
+                    DB.SetParam("@piReportId", iReportId);
+                    iRecords = DB.RunStoredProcDataSet();
+                    QuestionObject[] objQuestion = new QuestionObject[iRecords];
+                    if ((iRecords > 0))
+                    {
+                        ds = DB.GetDataSet();
+                        if ((ds.Tables.Count > 0))
+                        {
+                            for (int i = 0; i < iRecords; i++)
+                            {
+                                objQuestion[i] = new QuestionObject();
+                                objQuestion[i].ReportId = DB.GetDataSetValueInt(ds, "ReportId", i);
+                                objQuestion[i].FormId = DB.GetDataSetValueInt(ds, "FormId", i);
+                                objQuestion[i].PatientId = DB.GetDataSetValueInt(ds, "PatientId", i);
+                                objQuestion[i].FirstName = DB.GetDataSetValueString(ds, "FirstName", i);
+                                objQuestion[i].MiddleName = DB.GetDataSetValueString(ds, "MiddleName", i);
+                                objQuestion[i].LastName = DB.GetDataSetValueString(ds, "LastName", i);
+                                objQuestion[i].CorryongId = DB.GetDataSetValueInt(ds, "CorryongId", i);
+                                objQuestion[i].QuestionId = DB.GetDataSetValueInt(ds, "QuestionId", i);
+                                objQuestion[i].Question = DB.GetDataSetValueString(ds, "Question", i);
+                                objQuestion[i].QuestionHTML = DB.GetDataSetValueString(ds, "QuestionHTML", i);
+                                objQuestion[i].IsHTML = DB.GetDataSetValueInt(ds, "IsHTML", i);
+                                objQuestion[i].QuestionDetails = DB.GetDataSetValueString(ds, "QuestionDetails", i);
+                                objQuestion[i].QuestionType = DB.GetDataSetValueInt(ds, "QuestionType", i);
+                                objQuestion[i].SectionId = DB.GetDataSetValueInt(ds, "SectionId", i);
+                                objQuestion[i].SectionType = DB.GetDataSetValueInt(ds, "SectionTypeId", i);
+                                objQuestion[i].PatientNotes = DB.GetDataSetValueString(ds, "PatientNotes", i);
+                                objQuestion[i].PatientResultScore = DB.GetDataSetValueFloat(ds, "PatientResultScore", i);
+                                objQuestion[i].PatientResultScale = DB.GetDataSetValueFloat(ds, "PatientResultScale", i);
+                                objQuestion[i].Datapoint1 = DB.GetDataSetValueString(ds, "Datapoint1", i);
+                                objQuestion[i].Datapoint2 = DB.GetDataSetValueString(ds, "Datapoint2", i);
+                                objQuestion[i].Datapoint3 = DB.GetDataSetValueString(ds, "Datapoint3", i);
+                                objQuestion[i].Datapoint4 = DB.GetDataSetValueString(ds, "Datapoint4", i);
+                                objQuestion[i].Datapoint5 = DB.GetDataSetValueString(ds, "Datapoint5", i);
+                            }
+                        }
+                        return objQuestion;
+                    }
+                    else
+                        return null;
+                }
+                catch
+                {
+                    return null;
+                }
+                finally
+                {
+                    DB.CloseSQLConnection();
+                }
+            }
+
             public int SetFormReport(int iFormId, int iPateintId, String sFormDate)
             {
                 DB DB = new DB();
@@ -1005,11 +1067,19 @@
 
         public class clsPDF
         {
-            public void CreatePDFPage()
+            public void CreatePDFPage(int iReportId, int iPatientId, string sConnection)
             {
                 QuestPDF.Settings.License = LicenseType.Community;
                 uint i;
-                BackendClass.clsPDF bepdf = new BackendClass.clsPDF();
+                clsForm form = new clsForm(sConnection);
+                QuestionObject[]? questionObj = null;
+                PatientObject? patient = new PatientObject();
+                NextOfKinObject? nok = new NextOfKinObject();
+
+                patient = form.GetPatient(iPatientId);
+                questionObj = form.GetPatientReportResults(iReportId);
+                nok = form.GetNextOfKin(-1, -1, iReportId);
+
 
                 Document.Create(container =>
                 {
