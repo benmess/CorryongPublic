@@ -10,6 +10,7 @@
     using QuestPDF.Infrastructure;
     using QuestPDF.Elements.Table;
     using System.Globalization;
+    using System.Data.Common;
 
     public class BackendClass
     {
@@ -53,6 +54,15 @@
             public string sMobile { get; set; } = "";
             public string sSex { get; set; } = "";
             public string sDOB { get; set; } = "";
+            public string sError { get; set; } = "";
+        }
+
+        public class FormObject
+        {
+            public int iFormId { get; set; } = 0;
+            public string sFormName { get; set; } = "";
+            public int iActive { get; set; } = 0;
+            public long lMedicare { get; set; } = 0;
             public string sError { get; set; } = "";
         }
 
@@ -717,6 +727,44 @@
                 }
             }
 
+            public string GetReportFilename(int iReportId)
+            {
+                DB DB = new DB();
+                DataSet ds = new DataSet();
+                int iRecords;
+                string sRtn = "";
+
+                try
+                {
+                    DB.SetConnectionString(gsConnectionString);
+                    DB.OpenSQLConnection();
+                    DB.SetStoredProcName("SP_GetReportFilename");
+                    DB.SetParam("@piReportId", iReportId);
+                    iRecords = DB.RunStoredProcDataSet();
+                    if ((iRecords > 0))
+                    {
+                        ds = DB.GetDataSet();
+                        if ((ds.Tables.Count > 0))
+                        {
+                            sRtn = DB.GetDataSetValueString(ds, "ReportFileName", 0);
+                        }
+                        return sRtn;
+                    }
+                    else
+                        return sRtn;
+                }
+                catch (Exception ex)
+                {
+                    sRtn = ex.Message;
+                    return sRtn;
+                }
+                finally
+                {
+                    DB.CloseSQLConnection();
+                }
+            }
+
+
             public NextOfKinObject? GetNextOfKin(int iPatientId, int iFormId, int iReportId)
             {
                 DB DB = new DB();
@@ -1067,7 +1115,7 @@
 
         public class clsPDF
         {
-            public void CreatePDFPage(int iReportId, int iPatientId, string sConnection)
+            public string CreatePDFPage(int iReportId, int iPatientId, string sConnection)
             {
                 QuestPDF.Settings.License = LicenseType.Community;
                 uint i;
@@ -1075,91 +1123,103 @@
                 QuestionObject[]? questionObj = null;
                 PatientObject? patient = new PatientObject();
                 NextOfKinObject? nok = new NextOfKinObject();
+                string sFileName = "", sFileNameRtn = "";
 
                 patient = form.GetPatient(iPatientId);
                 questionObj = form.GetPatientReportResults(iReportId);
                 nok = form.GetNextOfKin(-1, -1, iReportId);
+                sFileName = "wwwroot\\temp\\" + form.GetReportFilename(iReportId);
+                sFileNameRtn = "temp\\" + form.GetReportFilename(iReportId); //Because the wwwroot folder is where the browser isrunning so we don't need it to open the file in the browser
 
-
-                Document.Create(container =>
+                try
                 {
-                    container.Page(page =>
+
+                    Document.Create(container =>
                     {
-                        page.Size(PageSizes.A4);
-                        page.Margin(2, Unit.Centimetre);
-                        page.PageColor(Colors.White);
-                        page.DefaultTextStyle(x => x.FontSize(20));
+                        container.Page(page =>
+                        {
+                            page.Size(PageSizes.A4);
+                            page.Margin(2, Unit.Centimetre);
+                            page.PageColor(Colors.White);
+                            page.DefaultTextStyle(x => x.FontSize(20));
 
-                        page.Header()
-                            .Text("Hello PDF!")
-                            .SemiBold().FontSize(36).FontColor(Colors.Blue.Medium);
+                            page.Header()
+                                .Text("4M Form")
+                                .SemiBold().FontSize(36).FontColor(Colors.Blue.Medium);
 
-                        page.Content()
-                            .PaddingVertical(1, Unit.Centimetre)
-                            .Table(table =>
-                            {
-                                table.ColumnsDefinition(col =>
+                            page.Content()
+                                .PaddingVertical(1, Unit.Centimetre)
+                                .Table(table =>
                                 {
-                                    col.RelativeColumn();
-                                    col.RelativeColumn();
-                                    col.RelativeColumn();
-                                });
-
-
-                                // by using custom 'Element' method, we can reuse visual configuration
-                                for (i = 0; i < 5; i++)
-                                {
-
-                                    table.Cell().Row((i * 4) + 1).Column(column =>
+                                    table.ColumnsDefinition(col =>
                                     {
-                                        foreach (var ii in Enumerable.Range(1, 8))
-                                        {
-                                            column.Item().Row(row =>
-                                            {
-                                                row.Spacing(5);
-                                                row.AutoItem().Text($"{ii}."); // text or image
-                                                row.RelativeItem().Text("A" + ii);
-                                            });
-                                        }
+                                        col.RelativeColumn();
+                                        col.RelativeColumn();
+                                        col.RelativeColumn();
                                     });
-                                    table.Cell().Row((i * 4) + 2).Column(2).Element(Block).Text("B" + i);
-                                    table.Cell().Row((i * 4) + 3).Column(3).Element(Block).Text("C" + i);
-                                    table.Cell().Row((i * 4) + 4).Column(1).ColumnSpan(2).Element(Block).Text("D" + i);
-                                }
 
-                                // for simplicity, you can also use extension method described in the "Extending DSL" section
-                                static IContainer Block(IContainer container)
-                                {
-                                    return container
-                                        .Border(1)
-                                        .Background(Colors.Grey.Lighten3)
-                                        .ShowOnce()
-                                        .MinWidth(50)
-                                        .MinHeight(50)
-                                        .AlignCenter()
-                                        .AlignMiddle();
-                                }
 
-                            });
-                        /*                .Column(x =>
+                                    // by using custom 'Element' method, we can reuse visual configuration
+                                    for (i = 0; i < 5; i++)
+                                    {
+
+                                        table.Cell().Row((i * 4) + 1).Column(column =>
                                         {
-                                            x.Spacing(20);
+                                            foreach (var ii in Enumerable.Range(1, 8))
+                                            {
+                                                column.Item().Row(row =>
+                                                {
+                                                    row.Spacing(5);
+                                                    row.AutoItem().Text($"{ii}."); // text or image
+                                                    row.RelativeItem().Text("A" + ii);
+                                                });
+                                            }
+                                        });
+                                        table.Cell().Row((i * 4) + 2).Column(2).Element(Block).Text("B" + i);
+                                        table.Cell().Row((i * 4) + 3).Column(3).Element(Block).Text("C" + i);
+                                        table.Cell().Row((i * 4) + 4).Column(1).ColumnSpan(2).Element(Block).Text("D" + i);
+                                    }
 
-                                            x.Item().Text("This is the patient info");
-                                            x.Item().Image(Placeholders.Image(200, 100));
-                                        }
-                        );*/
+                                    // for simplicity, you can also use extension method described in the "Extending DSL" section
+                                    static IContainer Block(IContainer container)
+                                    {
+                                        return container
+                                            .Border(1)
+                                            .Background(Colors.Grey.Lighten3)
+                                            .ShowOnce()
+                                            .MinWidth(50)
+                                            .MinHeight(50)
+                                            .AlignCenter()
+                                            .AlignMiddle();
+                                    }
 
-                        page.Footer()
-                            .AlignCenter()
-                            .Text(x =>
-                            {
-                                x.Span("Page ");
-                                x.CurrentPageNumber();
-                            });
-                    });
-                })
-            .GeneratePdf("hello.pdf");
+                                });
+                            /*                .Column(x =>
+                                            {
+                                                x.Spacing(20);
+
+                                                x.Item().Text("This is the patient info");
+                                                x.Item().Image(Placeholders.Image(200, 100));
+                                            }
+                            );*/
+
+                            page.Footer()
+                                .AlignCenter()
+                                .Text(x =>
+                                {
+                                    x.Span("Page ");
+                                    x.CurrentPageNumber();
+                                });
+                        });
+                    })
+                    .GeneratePdf(sFileName);
+                }
+                catch (Exception ex)
+                {
+                    sFileNameRtn = "Failure due to " + ex.Message;
+                }
+
+                return sFileNameRtn;
             }
 
             public QuestPDF.Elements.Table.ITableCellContainer GetCell(String sContents, uint iRow, ITableCellContainer cell)
@@ -1181,6 +1241,7 @@
                     .AlignCenter()
                     .AlignMiddle();
             }
+
         }
 
         public class DateClass

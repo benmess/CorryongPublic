@@ -1098,7 +1098,7 @@ GO
 COMMIT
 
 /*************************************************************/
-/*   Completed BBM 12/02/2025								 */
+/*   Completed BBM 12/01/2025								 */
 /*************************************************************/
 
 
@@ -1552,5 +1552,39 @@ begin
 
 
 END
+
+GO
+
+
+USE [Corryong]
+GO
+/****** Object:  StoredProcedure [dbo].[SP_GetReportFilename]    Script Date: 20/01/2025 9:18:22 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+CREATE proc [dbo].[SP_GetReportFilename] 
+
+	@piReportId nvarchar(20)
+as
+
+begin
+
+	SET NOCOUNT ON
+
+	select 'Report_' + replace(F.FormName, ' ', '_') + '_' +  
+		replace(replace(P.FirstName, ' ', '_'), '''', '') + '_' + 
+		replace(replace(P.Surname , ' ', '_'), '''', '') + '_' +  
+		convert(nvarchar(10), R.FormDate, 112) + '.pdf' as ReportFileName
+	from tblReport R, tblFormType F, tblAllPatients P
+	where R.Id = @piReportId
+	and R.FormId = F.ID
+	and R.PatientId = P.Id
+
+END
+
 
 GO

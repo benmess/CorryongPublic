@@ -2017,7 +2017,10 @@ function GetFormPdf()
 
 function OpenPdf(result)
 {
-    alert(result);
+    if (startsWith(result) == "Failure")
+        alert(result);
+    else
+        window.open(result);
     //We need to simply do a window.open with a URL to the pdf.
     //The pdf should be called something like FourM_PatientName_RecordId.pdf and
     //we should send that name back in the result. Dump it into a pdf folder on the 

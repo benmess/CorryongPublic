@@ -329,7 +329,7 @@ app.MapPost("api/saveformnextofkin", (BackendClass.NextOfKinObject jsonin) =>
     BackendClass.clsForm dbTest = new BackendClass.clsForm(gsConnectionString);
 
     BackendClass.NextOfKinObject nextofkin = jsonin;
-    BackendClass.NextOfKinSaveObject noksave = new BackendClass.NextOfKinSaveObject();
+    BackendClass.NextOfKinSaveObject? noksave = new BackendClass.NextOfKinSaveObject();
     noksave = dbTest.SetNextOfKin(nextofkin.iPatientId, nextofkin.iFormId, nextofkin.iReportId, nextofkin.sName, nextofkin.sAddress, nextofkin.sPhone);
 
     string jsonString = JsonSerializer.Serialize(noksave);
@@ -343,19 +343,11 @@ app.MapPost("api/saveformnextofkin", (BackendClass.NextOfKinObject jsonin) =>
 app.MapGet("api/getformdpf/{patientid:int}/{formid:int}/{reportid:int}", (int patientid, int formid, int reportid) =>
 {
 
-    //string sUser = WindowsIdentity.GetCurrent().Name;
-    string? sUser = GetWindowsUser();
-    string sUser2 = (sUser == null) ? string.Empty : sUser;
     BackendClass.clsPDF pdf = new BackendClass.clsPDF();
 
-    BackendClass.BedObject? jsonObj1 = new BackendClass.BedObject();
+    string  sFilename =  pdf.CreatePDFPage(reportid, patientid, gsConnectionString);
 
-
-    jsonObj1.sLoggedInUser = sUser2;
-
-    string jsonString = JsonSerializer.Serialize(jsonObj1);
-
-    pdf.CreatePDFPage(reportid, patientid, gsConnectionString);
+    string jsonString = JsonSerializer.Serialize(sFilename);
 
     return jsonString;
 });
